@@ -61,7 +61,7 @@ body {
   stroke-linecap: round;  /* tapered ends */
   stroke-dasharray: 1000; /* overestimate length */
   stroke-dashoffset: 1000;
-  animation: drawTendril 5s forwards;
+  animation: drawTendril 7s forwards;
 }
 
 /* Staggered animation delays for organic effect */
