@@ -1,4 +1,6 @@
-/* Global font and lowercase */
+/* ===============================
+   Global font and lowercase
+   =============================== */
 body, h1, h2, h3, h4, h5, h6, p, a, section {
   font-family: 'Roboto Mono', monospace;
   text-transform: lowercase; /* forces all text lowercase */
@@ -6,7 +8,9 @@ body, h1, h2, h3, h4, h5, h6, p, a, section {
   padding: 0;
 }
 
-/* Full page setup */
+/* ===============================
+   Full page setup
+   =============================== */
 body {
   height: 100vh;
   background-color: #fff;
@@ -14,32 +18,37 @@ body {
   overflow: hidden; /* prevent scrollbars from background animation */
 }
 
-/* Abstract animated background */
+/* ===============================
+   SVG background behind content
+   =============================== */
 .landing-bg {
   position: fixed;
   top: 0;
   left: 0;
-  width: 200%;
-  height: 200%;
+  width: 100%;
+  height: 100%;
   z-index: 1;
-  pointer-events: none; /* clicks pass through */
-  background-image:
-    radial-gradient(circle, #ccc 2px, transparent 2px),
-    radial-gradient(circle, #ccc 3px, transparent 3px),
-    radial-gradient(circle, #ccc 1.5px, transparent 1.5px),
-    radial-gradient(circle, #ccc 2.5px, transparent 2.5px);
-  background-size: 50px 50px, 70px 70px, 60px 60px, 40px 40px;
-  background-position: 0 0, 30px 50px, 20px 10px, 15px 30px;
-  animation: moveBackground 60s linear infinite;
-  opacity: 0.25;
+  pointer-events: none; /* allows clicks through background */
+  
+  /* Replace 'squiggles.svg' with the filename of your SVG in the repo */
+  background: url('squiggles.svg') no-repeat center center;
+  background-size: cover; /* scales to fill screen */
+  opacity: 0.25; /* subtle */
+  
+  /* Simple floating animation */
+  animation: floatBackground 40s linear infinite;
 }
 
-@keyframes moveBackground {
-  0% { background-position: 0 0, 30px 50px, 20px 10px, 15px 30px; }
-  100% { background-position: 100px 100px, 130px 150px, 120px 110px, 115px 130px; }
+/* Floating/slow movement */
+@keyframes floatBackground {
+  0%   { transform: translate(0, 0) rotate(0deg); }
+  50%  { transform: translate(20px, 20px) rotate(1deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
 }
 
-/* Landing container */
+/* ===============================
+   Landing container
+   =============================== */
 .landing-container {
   position: relative;
   z-index: 2;
@@ -51,14 +60,18 @@ body {
   text-align: center;
 }
 
-/* Name */
+/* ===============================
+   Name styling
+   =============================== */
 .landing-name {
   font-size: 3.5rem;
   margin-bottom: 2rem;
   color: #222;
 }
 
-/* Navigation links */
+/* ===============================
+   Navigation links
+   =============================== */
 .landing-nav a {
   text-decoration: none;
   margin: 0 1.5rem;
