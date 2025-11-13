@@ -1,38 +1,45 @@
-/* Reset and full-page setup */
-body {
+/* Global font and lowercase */
+body, h1, h2, h3, h4, h5, h6, p, a, section {
   font-family: 'Roboto Mono', monospace;
-  text-transform: lowercase; /* force lowercase everywhere */
+  text-transform: lowercase; /* forces all text lowercase */
   margin: 0;
   padding: 0;
+}
+
+/* Full page setup */
+body {
   height: 100vh;
   background-color: #fff;
   position: relative;
-  overflow: hidden; /* prevents scrollbars from background animation */
+  overflow: hidden; /* prevent scrollbars from background animation */
 }
 
-/* Grey squiggle background */
+/* Abstract animated background */
 .landing-bg {
   position: fixed;
   top: 0;
   left: 0;
-  width: 200%;   
-  height: 200%;  
-  background: repeating-linear-gradient(
-    45deg,
-    #ccc 0 4px,
-    transparent 4px 12px
-  );
-  opacity: 0.25;  
+  width: 200%;
+  height: 200%;
   z-index: 1;
-  animation: moveBackground 40s linear infinite;
+  pointer-events: none; /* clicks pass through */
+  background-image:
+    radial-gradient(circle, #ccc 2px, transparent 2px),
+    radial-gradient(circle, #ccc 3px, transparent 3px),
+    radial-gradient(circle, #ccc 1.5px, transparent 1.5px),
+    radial-gradient(circle, #ccc 2.5px, transparent 2.5px);
+  background-size: 50px 50px, 70px 70px, 60px 60px, 40px 40px;
+  background-position: 0 0, 30px 50px, 20px 10px, 15px 30px;
+  animation: moveBackground 60s linear infinite;
+  opacity: 0.25;
 }
 
 @keyframes moveBackground {
-  0% { transform: translate(0, 0); }
-  100% { transform: translate(-500px, -500px); }
+  0% { background-position: 0 0, 30px 50px, 20px 10px, 15px 30px; }
+  100% { background-position: 100px 100px, 130px 150px, 120px 110px, 115px 130px; }
 }
 
-/* Landing page container - centers everything */
+/* Landing container */
 .landing-container {
   position: relative;
   z-index: 2;
@@ -44,14 +51,14 @@ body {
   text-align: center;
 }
 
-/* Name styling */
+/* Name */
 .landing-name {
-  font-size: 3.5rem; /* slightly larger */
+  font-size: 3.5rem;
   margin-bottom: 2rem;
   color: #222;
 }
 
-/* Menu styling */
+/* Navigation links */
 .landing-nav a {
   text-decoration: none;
   margin: 0 1.5rem;
