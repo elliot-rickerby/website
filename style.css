@@ -46,25 +46,37 @@ body {
   color: #555;
 }
 
-/* ===============================
-   Tendril background
-   =============================== */
+/* Tendril background */
 .tendril-bg {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 0; /* behind content */
+  z-index: 0;
   pointer-events: none;
 }
 
-/* Animate the tendrils growing from edges */
 .tendril-bg path {
-  stroke-dasharray: 1000; /* large enough to cover path length */
+  stroke-linecap: round;  /* tapered ends */
+  stroke-dasharray: 1000; /* overestimate length */
   stroke-dashoffset: 1000;
-  animation: drawTendril 6s forwards;
+  animation: drawTendril 5s forwards;
 }
+
+/* Staggered animation delays for organic effect */
+.t1 { animation-delay: 0s; }
+.t2 { animation-delay: 0.3s; }
+.t3 { animation-delay: 0.6s; }
+.t4 { animation-delay: 0.1s; }
+.t5 { animation-delay: 0.4s; }
+.t6 { animation-delay: 0.7s; }
+.t7 { animation-delay: 0.2s; }
+.t8 { animation-delay: 0.5s; }
+.t9 { animation-delay: 0.8s; }
+.t10 { animation-delay: 0.15s; }
+.t11 { animation-delay: 0.45s; }
+.t12 { animation-delay: 0.75s; }
 
 @keyframes drawTendril {
   to { stroke-dashoffset: 0; }
