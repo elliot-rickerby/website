@@ -28,18 +28,13 @@ body {
   width: 100%;
   height: 100%;
   z-index: 1;
-  pointer-events: none; /* allows clicks through background */
-  
-  /* Replace 'squiggles.svg' with the filename of your SVG in the repo */
+  pointer-events: none;
   background: url('squiggles.svg') no-repeat center center;
-  background-size: cover; /* scales to fill screen */
-  opacity: 0.25; /* subtle */
-  
-  /* Simple floating animation */
+  background-size: cover;
+  opacity: 0.25;
   animation: floatBackground 40s linear infinite;
 }
 
-/* Floating/slow movement */
 @keyframes floatBackground {
   0%   { transform: translate(0, 0) rotate(0deg); }
   50%  { transform: translate(20px, 20px) rotate(1deg); }
