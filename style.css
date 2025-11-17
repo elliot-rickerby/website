@@ -17,15 +17,17 @@ body {
   position: relative;
   overflow: hidden;
 }
-
-/* -------------------------------
-   Landing container
---------------------------------*/
+/* Landing container (flex layout) */
 .landing-container {
   position: relative;
   z-index: 1; /* above tendrils */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;  /* instead of center */
+  align-items: center;
   height: 100vh;
   text-align: center;
+  padding-top: 20vh; /* push title slightly down, simulates previous spacing */
 }
 
 /* -------------------------------
