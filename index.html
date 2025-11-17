@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home - Elliot Rickerby</title>
+  <title>Elliot Rickerby</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Tendril background -->
+  <!-- Tendril Background -->
   <svg class="tendril-bg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" preserveAspectRatio="none">
     <!-- 12 tendrils -->
     <path class="tendril t1" d="M0,100 C150,80 200,200 400,300" stroke="#eee" stroke-width="2" fill="transparent"/>
@@ -29,9 +29,9 @@
     <path class="tendril t12" d="M700,600 C650,400 500,350 400,300" stroke="#eee" stroke-width="2" fill="transparent"/>
   </svg>
 
-  <!-- Landing container -->
+  <!-- Landing Container -->
   <div class="landing-container">
-    <h1 class="landing-name">
+    <h1 class="landing-name" id="landingName">
       <span class="hover-bulge">e</span>
       <span class="hover-bulge">l</span>
       <span class="hover-bulge">l</span>
@@ -49,14 +49,14 @@
       <span class="hover-bulge">y</span>
     </h1>
 
-    <nav class="landing-nav">
-      <a href="#" id="aboutLink">About</a>
+    <nav class="landing-nav" id="landingNav">
+      <a href="#" id="aboutBtn">About</a>
       <a href="portfolio.html">Portfolio</a>
       <a href="contact.html">Contact</a>
     </nav>
   </div>
 
-  <!-- About section (outside landing container) -->
+  <!-- About Section -->
   <div class="about-section" id="aboutSection">
     <p>
       Welcome! I'm Elliot Rickerby, a freelance researcher and consultant in fashion and cultural insights.
@@ -64,25 +64,24 @@
     </p>
   </div>
 
-  <!-- JavaScript -->
+  <!-- JavaScript for sliding + fade -->
   <script>
-    const aboutLink = document.getElementById('aboutLink');
+    const aboutBtn = document.getElementById('aboutBtn');
+    const landingName = document.getElementById('landingName');
+    const landingNav = document.getElementById('landingNav');
     const aboutSection = document.getElementById('aboutSection');
-    const landingName = document.querySelector('.landing-name');
-    const landingNav = document.querySelector('.landing-nav');
 
-    aboutLink.addEventListener('click', (e) => {
+    aboutBtn.addEventListener('click', (e) => {
       e.preventDefault();
 
-      // Slide header and footer
+      // Slide name to top
       landingName.classList.add('fixed');
+
+      // Slide nav to bottom
       landingNav.classList.add('fixed');
 
-      // Fade in about section after header/footer start sliding
-      setTimeout(() => {
-        aboutSection.style.opacity = 1;
-        aboutSection.style.pointerEvents = 'auto';
-      }, 400); // match transition timing with CSS
+      // Fade in About section
+      aboutSection.classList.add('active');
     });
   </script>
 </body>
