@@ -1,4 +1,6 @@
-/* Global font and lowercase */
+/* -------------------------------
+   Global font and lowercase
+--------------------------------*/
 body, h1, h2, h3, h4, h5, h6, p, a, section {
   font-family: 'Roboto Mono', monospace;
   text-transform: lowercase;
@@ -6,7 +8,9 @@ body, h1, h2, h3, h4, h5, h6, p, a, section {
   padding: 0;
 }
 
-/* Full page setup */
+/* -------------------------------
+   Full page setup
+--------------------------------*/
 body {
   height: 100vh;
   background-color: #fff;
@@ -14,7 +18,9 @@ body {
   overflow: hidden;
 }
 
-/* Landing container */
+/* -------------------------------
+   Landing container (flex layout)
+--------------------------------*/
 .landing-container {
   position: relative;
   z-index: 1; /* above tendrils */
@@ -26,23 +32,20 @@ body {
   text-align: center;
 }
 
-/* Name styling */
+/* -------------------------------
+   Name styling
+--------------------------------*/
 .landing-name {
-  font-size: 0rem;
-  margin-bottom: 2rem;
+  font-size: 3.5rem;
   color: #222;
   text-align: center;
-
-  /* Smooth vertical sliding */
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  transition: top 0.8s ease;
+  margin-bottom: 2rem;
+  transition: top 0.8s ease, transform 0.8s ease;
 }
 
+/* Per-letter hover bulge */
 .hover-bulge {
   display: inline-block;
-  font-size: 3.5rem;
   transition: transform 0.3s ease;
   cursor: default;
 }
@@ -54,14 +57,15 @@ body {
 /* Dedicated space between first and last name */
 .hover-space {
   display: inline-block;
-  width: 1.2rem; /* adjust for spacing you want */
+  width: 1.2rem;
 }
 
-/* Navigation links */
+/* -------------------------------
+   Navigation links
+--------------------------------*/
 .landing-nav {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  display: flex;
+  gap: 1.5rem;
   transition: bottom 0.8s ease;
 }
 
@@ -71,7 +75,6 @@ body {
   animation-delay: 2.3s; /* matches tendril animation */
   position: relative;     /* for underline pseudo-element */
   text-decoration: none;
-  margin: 0 1.5rem;
   font-weight: 700;
   color: #222;
   font-size: 1.2rem;
@@ -98,16 +101,47 @@ body {
   width: 100%;
 }
 
-/* Fixed positions for header/footer when About is shown */
+/* -------------------------------
+   Fixed positions for About view
+--------------------------------*/
 .landing-name.fixed {
-  top: 2rem;
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .landing-nav.fixed {
-  bottom: 2rem;
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-/* Tendril background */
+/* -------------------------------
+   About section
+--------------------------------*/
+.about-section {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s ease;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  max-width: 500px;
+}
+
+/* About section visible */
+.about-section.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* -------------------------------
+   Tendril background
+--------------------------------*/
 .tendril-bg {
   position: fixed;
   top: 0;
@@ -140,11 +174,13 @@ body {
 .t11 { animation-delay: 0.45s; }
 .t12 { animation-delay: 0.75s; }
 
+/* -------------------------------
+   Keyframes
+--------------------------------*/
 @keyframes drawTendril {
   to { stroke-dashoffset: 0; }
 }
 
-/* Fade in the nav buttons */
 @keyframes landingNavFade {
   from {
     opacity: 0;
@@ -154,14 +190,4 @@ body {
     opacity: 1;
     transform: translateY(0px);
   }
-}
-
-/* About section */
-.about-section {
-  opacity: 0;
-  pointer-events: none;
-  text-align: center;
-  max-width: 600px;
-  margin: 0 auto;
-  transition: opacity 0.8s ease;
 }
