@@ -112,7 +112,7 @@ body {
    Fixed positions for About view
 --------------------------------*/
 .landing-name.fixed {
-  top: 20px; /* final header position */
+  top: 40px; /* final header position */
   transform: translateX(-50%); /* keep horizontal centering */
 }
 
