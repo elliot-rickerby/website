@@ -35,7 +35,7 @@ body {
 --------------------------------*/
 .landing-name {
   position: absolute;
-  top: 50%;  /* initial vertical center */
+  top: 45%;  /* initial vertical center */
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 0; /* letters handled individually */
@@ -66,7 +66,7 @@ body {
 --------------------------------*/
 .landing-nav {
   position: absolute;
-  bottom: 20%; /* initial vertical position */
+  bottom: 45%; /* initial vertical position */
   left: 50%;
   transform: translateX(-50%);
   display: flex;
