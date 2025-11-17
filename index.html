@@ -14,7 +14,6 @@
 <body>
   <!-- Tendril Background -->
   <svg class="tendril-bg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" preserveAspectRatio="none">
-    <!-- 12 tendrils -->
     <path class="tendril t1" d="M0,100 C150,80 200,200 400,300" stroke="#eee" stroke-width="2" fill="transparent"/>
     <path class="tendril t2" d="M0,300 C120,250 180,400 400,300" stroke="#eee" stroke-width="2" fill="transparent"/>
     <path class="tendril t3" d="M0,500 C160,450 240,550 400,300" stroke="#eee" stroke-width="2" fill="transparent"/>
@@ -64,7 +63,7 @@
     </p>
   </div>
 
-  <!-- JavaScript for sliding + fade -->
+  <!-- JavaScript -->
   <script>
     const aboutBtn = document.getElementById('aboutBtn');
     const landingName = document.getElementById('landingName');
@@ -74,13 +73,8 @@
     aboutBtn.addEventListener('click', (e) => {
       e.preventDefault();
 
-      // Slide name to top
       landingName.classList.add('fixed');
-
-      // Slide nav to bottom
       landingNav.classList.add('fixed');
-
-      // Fade in About section
       aboutSection.classList.add('active');
     });
   </script>
