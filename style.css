@@ -26,12 +26,10 @@ body {
   z-index: 1; /* above tendrils */
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;  /* flex-start for stacking, absolute children handle vertical centering */
+  justify-content: flex-start; /* stack elements; absolute children handle vertical positioning */
   align-items: center;
   height: 100vh;
   text-align: center;
-  top: -30px; 
-
 }
 
 /* -------------------------------
@@ -39,7 +37,7 @@ body {
 --------------------------------*/
 .landing-name {
   position: absolute;
-  top: 50%; /* vertically center on page load */
+  top: 50%; /* initial vertical center */
   left: 50%; /* horizontally center */
   transform: translate(-50%, -50%);
   font-size: 0; /* letters handled individually */
@@ -70,12 +68,12 @@ body {
 --------------------------------*/
 .landing-nav {
   position: absolute;
-  top: calc(50% + 4.5rem); /* move below name on load; 3.5rem font + 1rem spacing */
-  left: 50%; /* horizontally center */
+  top: calc(50% + 4.5rem); /* below the title on page load */
+  left: 50%;
   transform: translateX(-50%);
   display: flex;
   gap: 2.5rem; /* spacing between buttons */
-  transition: top 1s ease, bottom 1s ease; /* smooth slide when going to fixed bottom */
+  transition: top 1s ease; /* smooth vertical slide */
   z-index: 2;
 }
 
@@ -83,7 +81,7 @@ body {
   opacity: 0;
   animation: landingNavFade 1s ease forwards;
   animation-delay: 2.3s; /* matches tendril animation */
-  position: relative;     
+  position: relative;
   text-decoration: none;
   font-weight: 700;
   color: #222;
@@ -98,10 +96,10 @@ body {
   content: '';
   position: absolute;
   left: 0;
-  bottom: -2px;        
+  bottom: -2px;
   width: 0%;
-  height: 2px;          
-  background-color: #222; 
+  height: 2px;
+  background-color: #222;
   transition: width 0.3s ease;
 }
 
@@ -118,8 +116,7 @@ body {
 }
 
 .landing-nav.fixed {
-  bottom: 20px; /* final footer position */
-  top: auto; /* override top to avoid conflicts */
+  top: calc(100% - 40px); /* smooth drop to bottom */
 }
 
 /* -------------------------------
