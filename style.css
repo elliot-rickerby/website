@@ -71,7 +71,7 @@ body {
   transform: translateX(-50%);
   display: flex;
   gap: 2.5rem; /* spacing between buttons */
-  transition: bottom 1s ease; /* smooth vertical slide */
+  transition: top 1s ease; /* smooth vertical slide */
   z-index: 2;
 }
 
@@ -114,7 +114,7 @@ body {
 }
 
 .landing-nav.fixed {
-  top: calc(100% - 40px);
+  top: calc(100%-40px);
 }
 
 /* -------------------------------
