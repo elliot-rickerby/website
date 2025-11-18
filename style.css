@@ -114,7 +114,7 @@ body {
 }
 
 .landing-nav.fixed {
-  top: calc(100%-40px);
+  top: calc(100% - 40px);
 }
 
 /* -------------------------------
