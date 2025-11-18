@@ -76,13 +76,15 @@ body {
 }
 
 .landing-nav a {
-  opacity: 0;
+  display: inline-block;
+   opacity: 0;
   animation: landingNavFade 1s ease 2.3s forwards;
   position: relative;     
   text-decoration: none;
   font-weight: 700;
   color: #222;
   font-size: 1.2rem;
+   position: relative;
 }
 
 .landing-nav a:hover {
