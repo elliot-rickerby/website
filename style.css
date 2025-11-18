@@ -119,6 +119,9 @@ body {
 .landing-nav a:hover::after {
   width: 100%;
 }
+.landing-nav a.active::after {
+   width: 100%;
+}
 
 /* -------------------------------
    Fixed positions for About view
