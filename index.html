@@ -186,49 +186,50 @@ function buildPath(points) {
   return `M${points.start.join(",")} C${points.control1.join(",")} ${points.control2.join(",")} ${points.end.join(",")}`;
 }
 
-// Timeline for staggered growth
+// Staggered growth timeline
 const tl = gsap.timeline();
 
 tendrils.forEach((path, i) => {
   const length = path.getTotalLength();
 
-  // Set initial stroke-dash properties
   path.style.strokeDasharray = length;
   path.style.strokeDashoffset = length;
 
-  // Animate growth
+  // Animate growth faster (1–2s)
   tl.to(path, {
     strokeDashoffset: 0,
-    duration: 3 + Math.random() * 2, // slightly different durations
-    ease: "power1.inOut",
-    onComplete: () => {
-      // Start subtle wriggle after growth
-      const points = parsePath(path);
-      if (!points) return;
+    duration: 1 + Math.random(), // 1–2s
+    ease: "power1.inOut"
+  }, i * 0.2); // stagger start times slightly
+});
 
-      gsap.to(points.control1, {
-        x: `+=${Math.random() * 20 - 10}`,
-        y: `+=${Math.random() * 20 - 10}`,
-        duration: 1.5 + Math.random() * 2,
-        yoyo: true,
-        repeat: -1,
-        ease: "sine.inOut",
-        onUpdate: () => path.setAttribute("d", buildPath(points))
-      });
+// After growth finishes, start wriggle for each tendril
+tl.eventCallback("onComplete", () => {
+  tendrils.forEach(path => {
+    const points = parsePath(path);
+    if (!points) return;
 
-      gsap.to(points.control2, {
-        x: `+=${Math.random() * 20 - 10}`,
-        y: `+=${Math.random() * 20 - 10}`,
-        duration: 1.5 + Math.random() * 2,
-        yoyo: true,
-        repeat: -1,
-        ease: "sine.inOut",
-        onUpdate: () => path.setAttribute("d", buildPath(points))
-      });
-    }
-  }, i * 0.3); // stagger start times by 0.3s
+    gsap.to(points.control1, {
+      x: `+=${Math.random() * 20 - 10}`,
+      y: `+=${Math.random() * 20 - 10}`,
+      duration: 1.2 + Math.random() * 1.5,
+      yoyo: true,
+      repeat: -1,
+      ease: "sine.inOut",
+      onUpdate: () => path.setAttribute("d", buildPath(points))
+    });
+
+    gsap.to(points.control2, {
+      x: `+=${Math.random() * 20 - 10}`,
+      y: `+=${Math.random() * 20 - 10}`,
+      duration: 1.2 + Math.random() * 1.5,
+      yoyo: true,
+      repeat: -1,
+      ease: "sine.inOut",
+      onUpdate: () => path.setAttribute("d", buildPath(points))
+    });
+  });
 });
 </script>
-
 </body>
 </html>
