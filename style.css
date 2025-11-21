@@ -235,6 +235,9 @@ body {
     opacity: 1;
     pointer-events: auto;
 }
+#social-icons a{
+    pointer-events: auto;
+}
 
 .icon-btn .icon {
     width: 26px;
