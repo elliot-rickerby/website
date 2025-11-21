@@ -168,64 +168,61 @@
  <script>
 const tendrils = document.querySelectorAll(".tendril");
 
-// Function to parse a path's `d` attribute into points
+// Helper: robust path parser
 function parsePath(path) {
-  const d = path.getAttribute("d");
-  const match = d.match(/M([\d.,]+) C([\d.,]+) ([\d.,]+) ([\d.,]+)/);
+  const d = path.getAttribute("d").trim();
+  // Matches Mx,y Cx1,y1 x2,y2 xe,ye
+  const match = d.match(/M([\d.]+),([\d.]+)\s+C([\d.]+),([\d.]+)\s+([\d.]+),([\d.]+)\s+([\d.]+),([\d.]+)/);
   if (!match) return null;
   return {
-    start: match[1].split(",").map(Number),
-    control1: match[2].split(",").map(Number),
-    control2: match[3].split(",").map(Number),
-    end: match[4].split(",").map(Number),
+    start: [parseFloat(match[1]), parseFloat(match[2])],
+    control1: [parseFloat(match[3]), parseFloat(match[4])],
+    control2: [parseFloat(match[5]), parseFloat(match[6])],
+    end: [parseFloat(match[7]), parseFloat(match[8])]
   };
 }
 
-// Function to rebuild path `d` from points
+// Helper: rebuild path string from points
 function buildPath(points) {
   return `M${points.start.join(",")} C${points.control1.join(",")} ${points.control2.join(",")} ${points.end.join(",")}`;
 }
 
-// Wait until CSS draw animation is finished
-setTimeout(() => {
-  const amplitude = 60; // how dramatic the wriggle is
+// Phase 2: wriggle animation
+function wriggleTendril(path) {
+  const points = parsePath(path);
+  if (!points) return;
+
+  const amplitude = 60;   // how far the tendrils bend
   const minDuration = 1.5;
   const maxDuration = 3.5;
 
-  tendrils.forEach(path => {
-    const points = parsePath(path);
-    if (!points) return;
-
-    // Animate control1
-    gsap.to(points.control1, {
-      x: `+=${Math.random() * amplitude - amplitude/2}`,
-      y: `+=${Math.random() * amplitude - amplitude/2}`,
-      duration: minDuration + Math.random() * (maxDuration - minDuration),
-      yoyo: true,
-      repeat: -1,
-      ease: "sine.inOut",
-      onUpdate: () => {
-        path.setAttribute("d", buildPath(points));
-      }
-    });
-
-    // Animate control2
-    gsap.to(points.control2, {
-      x: `+=${Math.random() * amplitude - amplitude/2}`,
-      y: `+=${Math.random() * amplitude - amplitude/2}`,
-      duration: minDuration + Math.random() * (maxDuration - minDuration),
-      yoyo: true,
-      repeat: -1,
-      ease: "sine.inOut",
-      onUpdate: () => {
-        path.setAttribute("d", buildPath(points));
-      }
-    });
+  gsap.to(points.control1, {
+    x: `+=${Math.random() * amplitude - amplitude/2}`,
+    y: `+=${Math.random() * amplitude - amplitude/2}`,
+    duration: minDuration + Math.random() * (maxDuration - minDuration),
+    yoyo: true,
+    repeat: -1,
+    ease: "sine.inOut",
+    onUpdate: () => path.setAttribute("d", buildPath(points))
   });
-}, 7000); // 7000ms matches your CSS draw duration
+
+  gsap.to(points.control2, {
+    x: `+=${Math.random() * amplitude - amplitude/2}`,
+    y: `+=${Math.random() * amplitude - amplitude/2}`,
+    duration: minDuration + Math.random() * (maxDuration - minDuration),
+    yoyo: true,
+    repeat: -1,
+    ease: "sine.inOut",
+    onUpdate: () => path.setAttribute("d", buildPath(points))
+  });
+}
+
+// Wait for CSS draw animation to finish
+const drawDuration = 7000; // match your CSS drawTendril duration
+setTimeout(() => {
+  tendrils.forEach(path => wriggleTendril(path));
+}, drawDuration);
 </script>
-
-
 
 </body>
 </html>
