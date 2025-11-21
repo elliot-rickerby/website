@@ -169,7 +169,6 @@
 <script>
 const tendrils = document.querySelectorAll(".tendril");
 
-// Parse a path's `d` into points
 function parsePath(path) {
   const d = path.getAttribute("d");
   const match = d.match(/M([\d.,]+) C([\d.,]+) ([\d.,]+) ([\d.,]+)/);
@@ -182,12 +181,11 @@ function parsePath(path) {
   };
 }
 
-// Build path from points
 function buildPath(points) {
   return `M${points.start.join(",")} C${points.control1.join(",")} ${points.control2.join(",")} ${points.end.join(",")}`;
 }
 
-// Wriggle animation function
+// Wriggle function
 function wriggleTendril(points, path) {
   const speed1 = 0.8 + Math.random() * 0.6;
   const speed2 = 0.8 + Math.random() * 0.6;
@@ -195,40 +193,44 @@ function wriggleTendril(points, path) {
   const offset2 = Math.random() * Math.PI * 2;
 
   gsap.ticker.add(() => {
-    const t = performance.now() / 1000;
-    points.control1[0] += Math.sin(t * speed1 + offset1) * 0.5;
-    points.control1[1] += Math.cos(t * speed1 + offset1) * 0.5;
-    points.control2[0] += Math.sin(t * speed2 + offset2) * 0.5;
-    points.control2[1] += Math.cos(t * speed2 + offset2) * 0.5;
+    points.control1[0] += Math.sin(performance.now()/1000 * speed1 + offset1) * 0.3;
+    points.control1[1] += Math.cos(performance.now()/1000 * speed1 + offset1) * 0.3;
+    points.control2[0] += Math.sin(performance.now()/1000 * speed2 + offset2) * 0.3;
+    points.control2[1] += Math.cos(performance.now()/1000 * speed2 + offset2) * 0.3;
     path.setAttribute("d", buildPath(points));
   });
 }
 
-// Animate tendrils
 tendrils.forEach(path => {
   const points = parsePath(path);
   if (!points) return;
 
-  // Store original control points for wriggle reference
+  // Store original positions for wriggle
   const baseControl1 = [...points.control1];
   const baseControl2 = [...points.control2];
+  const baseStart = [...points.start];
+  const baseEnd = [...points.end];
 
-  // Animate control points from start to center
-  const duration = 2 + Math.random() * 2; // slightly varied duration
-  gsap.to(points.control1, {
-    x: points.control1[0], // already set
-    y: points.control1[1],
-    duration: duration,
-    onUpdate: () => path.setAttribute("d", buildPath(points)),
-  });
+  // Set initial positions at edges (offscreen for growth)
+  const initialStart = [points.start[0] < 400 ? 0 : 800, points.start[1]];
+  const initialEnd = [400, 300]; // center
 
-  gsap.to(points.control2, {
-    x: points.control2[0],
-    y: points.control2[1],
-    duration: duration,
-    onUpdate: () => path.setAttribute("d", buildPath(points)),
+  points.start = [...initialStart];
+  points.end = [...initialStart]; // start collapsed at edge
+
+  path.setAttribute("d", buildPath(points));
+
+  // Animate growth
+  gsap.to(points, {
+    start: baseStart,
+    end: baseEnd,
+    duration: 2 + Math.random() * 2,
+    ease: "power1.out",
+    onUpdate: () => {
+      path.setAttribute("d", buildPath(points));
+    },
     onComplete: () => {
-      // Start wriggling immediately after growth
+      // Restore original control points for wriggle
       points.control1 = baseControl1;
       points.control2 = baseControl2;
       wriggleTendril(points, path);
@@ -236,9 +238,6 @@ tendrils.forEach(path => {
   });
 });
 </script>
-
-</script>
-
 
 </body>
 </html>
