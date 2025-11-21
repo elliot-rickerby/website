@@ -231,7 +231,7 @@ body {
     transition: opacity 0.6s ease;
 }
 
-#social-icons.visible {
+#social-icons.active {
     opacity: 1;
     pointer-events: auto;
 }
