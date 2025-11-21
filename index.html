@@ -164,30 +164,36 @@
     collapseBtn.classList.remove('active'); // hide collapse button
   });
   </script>
-  <script>
   <!-- Tendril Floating GSAP -->
+  <script>  
   const tendrils = document.querySelectorAll('.tendril');
- 
-  gsap.set(tendrils, { strokeDasharray: 1000, strokeDashoffset: 1000 }); // reset
+
+  // Draw tendrils first
+  gsap.set(tendrils, { strokeDasharray: 1000, strokeDashoffset: 1000 });
   gsap.to(tendrils, {
     strokeDashoffset: 0,
     duration: 7,
     stagger: 0.1,
     ease: "power1.out",
-    onComplete: startFloating  
+    onComplete: wriggleTendrils
   });
-  // Function for subtle floating/twisting
-  function startFloating() {
-    gsap.to(tendrils, {
-      rotation: 2,               // very subtle twist (±2deg)
-      transformOrigin: "50% 50%",// pivot at center
-      yoyo: true,                // back-and-forth motion
-      repeat: -1,                // loop forever
-      duration: 3,               // slow oscillation
-      ease: "sine.inOut",
-      stagger: 0.1               // stagger start times for organic feel
+
+  function wriggleTendrils() {
+    tendrils.forEach((path, i) => {
+      // Move the path around the screen center
+      gsap.to(path, {
+        x: () => Math.random() * 4 - 2,  // ±2px horizontal
+        y: () => Math.random() * 4 - 2,  // ±2px vertical
+        rotation: () => Math.random() * 4 - 2, // ±2deg rotation
+        transformOrigin: "400px 300px", // SVG center (adjust if your viewBox changes)
+        yoyo: true,
+        repeat: -1,
+        duration: 2 + Math.random(), // small variation in speed
+        ease: "sine.inOut",
+        stagger: i * 0.05
+      });
     });
   }
-  </script>
+</script>
 </body>
 </html>
