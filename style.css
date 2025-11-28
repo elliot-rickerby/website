@@ -371,3 +371,21 @@ body {
   }
   .landing-nav a { opacity: 1; }
 }
+/* -------------------------------
+  New Contact form button styling
+--------------------------------*/
+#contact-form button {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: lowercase;
+  cursor: pointer;
+
+  padding: 0.8rem;
+  width: 375px;
+  box-sizing: border-box;
+
+  background: #fff;
+  border: 1px solid var(--text-color);
+  color: var(--text-color);
+}
