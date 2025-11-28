@@ -276,6 +276,23 @@ tendrils.forEach((path, i) => {
   });
 });
 </script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const collapse = document.getElementById('collapseBtn');
+  const socials  = document.getElementById('social-icons');
+
+  if (collapse && collapse.parentElement !== document.body) {
+    document.body.appendChild(collapse);
+  }
+  if (socials && socials.parentElement !== document.body) {
+    document.body.appendChild(socials);
+  }
+
+  // ensure very high stacking
+  collapse && (collapse.style.zIndex = 9999);
+  socials && (socials.style.zIndex = 9999);
+});
+</script>
 
 
 </body>
