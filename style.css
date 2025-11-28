@@ -200,6 +200,15 @@ body {
   min-height: 140px;
   resize: vertical;
 }
+   
+#contact-form input[type="submit"] {
+  font-family: inherit; /* inherit from body/section */
+  font-size: 1rem;
+  font-weight: 700;      /* optional: match nav/buttons if desired */
+  text-transform: lowercase; /* optional, matches other text */
+  cursor: pointer;
+  
+}
 .contact-section > * {
   opacity: 0;
   transform: translateY(8px);
