@@ -211,6 +211,7 @@ body {
   padding: 0.8rem;
   width: 30%;
   box-sizing: border-box;
+  display: flex; 
 }
    
 .contact-section > * {
