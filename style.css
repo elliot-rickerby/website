@@ -143,63 +143,52 @@ body {
 }
 
 /* -------------------------------
-   About section
+   About & Contact sections
 --------------------------------*/
-.about-section {
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.8s ease;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: none;
-  text-align: center;
-  max-width: 750px;
-  z-index: 1;
-}
-
-.about-section.active {
-  opacity: 1;
-  pointer-events: auto;
-}
-/* -------------------------------
-   Contact section 
---------------------------------*/
+.about-section,
 .contact-section {
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.8s ease;
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: none;
+  transform: translate(-50%, -50%); /* center both sections */
   text-align: center;
   max-width: 750px;
+  width: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s ease;
+  z-index: 1;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;      /* space between intro text and form */
-  z-index: 1;
+  gap: 1.5rem; /* space between intro text and form/content */
 }
 
+.about-section.active,
 .contact-section.active {
   opacity: 1;
   pointer-events: auto;
 }
 
+/* Contact form wrapper inside contact section */
 #contact-form-wrapper {
-  position: static;         /* changed from absolute to flow with section */
+  position: static;   /* flow naturally inside section */
+  width: 100%;
   opacity: 0;
-  transform: none;          /* removed previous translate */
   pointer-events: none;
-  width: 100%;              /* full width to match about section */
+  transition: opacity 0.6s ease;
+}
+
+.contact-section.active #contact-form-wrapper {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 #contact-form {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  width: 100%;             /* full width of parent */
-  max-width: 100%;         /* override old 400px max */
+  width: 100%;
+  max-width: 100%;
 }
 
 #contact-form input,
