@@ -46,6 +46,9 @@ body {
   text-align: center;
   top: -35px;
 }
+.landing-container {
+  transform: none !important;
+}
 
 /* -------------------------------
    Name styling
@@ -180,8 +183,11 @@ body {
   pointer-events: auto;
 }
 #contact-form-wrapper {
-  opacity: 0;
-  transform: translateY(20px);
+   position: absolute;
+   top: 60%;
+   left: 50%;  
+   opacity: 0;
+  transform: translate(-50%, -50%);
   pointer-events: none;
 }
 
@@ -191,6 +197,17 @@ body {
   gap: 1rem;
   max-width: 400px;
 }
+#contact-form textarea {
+  min-height: 140px;
+  resize: vertical; /* optional: allow manual resizing */
+  padding: 0.8rem;
+  font-size: 1rem;
+}
+#contact-form input {
+  padding: 0.8rem;
+  font-size: 1rem;
+}
+
 /*--------------------------------
    Collapse Button
 --------------------------------*/
