@@ -126,7 +126,8 @@
     const contactBtn = document.getElementById('contactBtn');
     const contactSection = document.getElementById('contactSection');
     const socialIcons = document.getElementById('social-icons');
-
+    const formWrapper = document.getElementById("contact-form-wrapper");
+    
     aboutBtn.addEventListener('click', (e) => {
       e.preventDefault();
       landingName.classList.add('fixed');
@@ -151,14 +152,27 @@
       
       contactSection.classList.add('active');
       collapseBtn.classList.add('active');
-      
       contactBtn.classList.add('active');
 
       aboutSection.classList.remove('active');
       aboutBtn.classList.remove('active');
 
       socialIcons.classList.add('active');
-    });
+
+         // Fade in contact form
+  gsap.fromTo(formWrapper,
+    { opacity: 0, y: 20 },
+    {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      ease: "power2.out",
+      pointerEvents: "auto",
+      onStart: () => {
+        formWrapper.style.pointerEvents = "auto";
+      }
+    }
+      });
     
    // Collapse abt section
     collapseBtn.addEventListener('click', (e) => {
@@ -176,6 +190,9 @@
     socialIcons.classList.remove('active')
     
     collapseBtn.classList.remove('active'); // hide collapse button
+
+      // Reset form
+    gsap.set(formWrapper, { opacity: 0, y: 20, pointerEvents: "none" });
   });
   </script>
   
