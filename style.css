@@ -205,13 +205,13 @@ body {
 #contact-form button[type="submit"] {
   font-family: 'Roboto Mono', monospace; /* same as body/content */
   font-size: 1rem;
-  font-weight: 400;      /* optional: match nav/buttons */
-  text-transform: lowercase; /* matches other text */
+  font-weight: 400;      
+  text-transform: lowercase; 
   cursor: pointer;
   padding: 0.8rem;
   width: 30%;
   box-sizing: border-box;
-  display: flex; 
+  align-self: center; 
 }
    
 .contact-section > * {
