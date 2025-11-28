@@ -202,14 +202,17 @@ body {
   resize: vertical;
 }
    
-#contact-form input[type="submit"] {
-  font-family: 'Roboto Mono', monospace;
+#contact-form button[type="submit"] {
+  font-family: 'Roboto Mono', monospace; /* same as body/content */
   font-size: 1rem;
-  font-weight: 700;      /* optional: match nav/buttons if desired */
-  text-transform: lowercase; /* optional, matches other text */
+  font-weight: 700;      /* optional: match nav/buttons */
+  text-transform: lowercase; /* matches other text */
   cursor: pointer;
-  
+  padding: 0.8rem;
+  width: 100%;
+  box-sizing: border-box;
 }
+   
 .contact-section > * {
   opacity: 0;
   transform: translateY(8px);
