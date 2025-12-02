@@ -373,3 +373,12 @@ body {
   }
   .landing-nav a { opacity: 1; }
 }
+/* Dark mode */
+body.dark-mode {
+  background-color: #111;
+  color: #f1f1f1;
+}
+
+body.dark-mode a {
+  color: #eee; /* Links in dark mode */
+}
