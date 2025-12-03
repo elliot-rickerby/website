@@ -110,7 +110,7 @@ h1, h2, h3, h4, h5, h6, p, a, section, button, input, textarea {
   font-size: clamp(2.5rem, 5vw, 3.5rem);
   transition: transform 0.3s ease;
   cursor: default;
-  font-weight: 400;
+  font-weight: 700;
 }
 
 .hover-bulge:hover {
@@ -224,7 +224,7 @@ h1, h2, h3, h4, h5, h6, p, a, section, button, input, textarea {
 }
 
 .about-section__content {
-  text-align: left;
+  text-align: center;
   line-height: 1.6;
   max-width: 650px;
   margin: 0 auto;
@@ -275,7 +275,7 @@ h1, h2, h3, h4, h5, h6, p, a, section, button, input, textarea {
   display: flex;
   flex-direction: column;
   gap: var(--space-xs);
-  text-align: left;
+  text-align: center;
 }
 
 #contact-form input,
