@@ -182,8 +182,7 @@ body {
 /* About section photo */
 #about-photo {
   width: 150px;
-  height: 150px;         /* square for circular crop */
-  border-radius: 50%;
+  height: auto         /* square for circular crop */
   object-fit: cover;
   flex-shrink: 0;        /* prevent shrinking below set width */
   margin: 0;             /* spacing handled by gap */
