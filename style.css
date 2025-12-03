@@ -168,6 +168,15 @@ body {
   opacity: 1;
   pointer-events: auto;
 }
+/* -------------------------------
+   About Photo Styling
+--------------------------------*/
+#about-photo {
+  width: 180px;               /* Adjust this value to make it smaller */
+  height: 180px;              /* Make this match width for a perfect circle */
+  margin: 0 auto 1.5rem;      /* Centers it and adds space below */
+  display: block;             /* Ensures margin: auto works for centering */
+}
 
 /* Contact form wrapper inside contact section */
 #contact-form-wrapper {
