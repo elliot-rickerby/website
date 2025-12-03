@@ -192,7 +192,8 @@ body {
 
 /* Text block next to image */
 .text-block {
-  flex: 1;               /* take remaining horizontal space */
+  flex: 1;  
+  text-align: center; 
 }
 
 /* Responsive: stack on smaller screens */
