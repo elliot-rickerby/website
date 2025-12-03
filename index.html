@@ -293,11 +293,42 @@ document.addEventListener('DOMContentLoaded', () => {
   collapse && (collapse.style.zIndex = 9999);
   socials && (socials.style.zIndex = 9999);
 });
+  // Dark Mode Toggle
+const darkModeToggle = document.getElementById('darkModeSwitch');
+const body = document.body;
+
+// Check for saved theme preference or OS preference
+const savedTheme = localStorage.getItem('theme');
+const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+
+// Set initial theme
+if (savedTheme === 'dark' || (!savedTheme && prefersDarkScheme.matches)) {
+  body.classList.add('dark-mode');
+  darkModeToggle.checked = true;
+}
+
+// Toggle dark mode
+darkModeToggle.addEventListener('change', () => {
+  if (darkModeToggle.checked) {
+    body.classList.add('dark-mode');
+    localStorage.setItem('theme', 'dark');
+  } else {
+    body.classList.remove('dark-mode');
+    localStorage.setItem('theme', 'light');
+  }
+});
 
 </script>
 
 </script>
-
+<!-- Dark Mode Toggle -->
+<div id="dark-mode-toggle">
+  <input type="checkbox" id="darkModeSwitch" />
+  <label for="darkModeSwitch" class="toggle-slider">
+    <span class="toggle-icon">🌙</span>
+    <span class="toggle-icon">☀️</span>
+  </label>
+</div>
 
 </body>
 </html>
