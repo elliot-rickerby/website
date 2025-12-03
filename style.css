@@ -173,13 +173,16 @@ h1, h2, h3, h4, h5, h6, p, a, section, button, input, textarea {
 /* ============================================
    COMPONENTS: CONTENT SECTIONS
    ============================================ */
+/* ============================================
+   COMPONENTS: CONTENT SECTIONS
+   ============================================ */
 .content-section {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  display: flex; 
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -190,6 +193,7 @@ h1, h2, h3, h4, h5, h6, p, a, section, button, input, textarea {
   z-index: 5;
   padding: var(--space-xl);
   box-sizing: border-box;
+  text-align: center;
 }
 
 .content-section.active {
@@ -198,17 +202,15 @@ h1, h2, h3, h4, h5, h6, p, a, section, button, input, textarea {
   pointer-events: auto;
 }
 
-/* About Section Layout */
+/* About Section Layout - Line 192 */
 .about-section {
   display: flex;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto 1fr;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   gap: var(--space-2xl);
   width: 100%;
   max-width: var(--content-max-width);
-  padding: var(--space-xl);
-  text-align: center;
-   margin: 0 auto;
 }
 
 .about-section__media {
@@ -232,13 +234,11 @@ h1, h2, h3, h4, h5, h6, p, a, section, button, input, textarea {
   text-align: center;
   line-height: 1.6;
   max-width: 650px;
-  margin: 0 auto;
-  width: 100% 
+  width: 100%;
 }
 
 .about-section__content p {
   margin-bottom: var(--space-lg);
-  text-align: center 
 }
 
 .about-section__content a {
@@ -253,19 +253,20 @@ h1, h2, h3, h4, h5, h6, p, a, section, button, input, textarea {
   color: #555;
 }
 
-/* Contact Section Layout */
+/* Contact Section Layout - Line 226 */
 .contact-section {
   display: flex;
-  place-items: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   max-width: min(600px, 90vw);
-  padding: var(--space-xl);
-  margin: 0 auto; 
 }
 
 .contact-section__intro {
   text-align: center;
   margin-bottom: var(--space-xl);
+  width: 100%;
 }
 
 .contact-section__intro p {
@@ -277,7 +278,7 @@ h1, h2, h3, h4, h5, h6, p, a, section, button, input, textarea {
   flex-direction: column;
   gap: var(--space-lg);
   width: 100%;
-  align-items: center; 
+  align-items: center;
 }
 
 .form-group {
@@ -285,7 +286,12 @@ h1, h2, h3, h4, h5, h6, p, a, section, button, input, textarea {
   flex-direction: column;
   gap: var(--space-xs);
   text-align: center;
-   width: 100%;
+  width: 100%;
+}
+
+.form-group label {
+  text-align: center;
+  display: block;
 }
 
 #contact-form input,
@@ -298,20 +304,20 @@ h1, h2, h3, h4, h5, h6, p, a, section, button, input, textarea {
   font-family: var(--primary-font);
   border-radius: 2px;
   transition: border-color 0.3s ease;
-  text-align: center; 
+  text-align: center;
 }
 
 #contact-form input:focus,
 #contact-form textarea:focus {
   outline: none;
   border-color: var(--text-color);
-  text-align: left; 
+  text-align: left;
 }
 
 #contact-form textarea {
   min-height: 140px;
   resize: vertical;
-  text-align: left; 
+  text-align: left;
 }
 
 #contact-form button[type="submit"] {
@@ -332,7 +338,6 @@ h1, h2, h3, h4, h5, h6, p, a, section, button, input, textarea {
   background: var(--text-color);
   color: white;
 }
-
 /* ============================================
    COMPONENTS: UTILITY ELEMENTS
    ============================================ */
