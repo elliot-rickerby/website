@@ -179,7 +179,7 @@ h1, h2, h3, h4, h5, h6, p, a, section, button, input, textarea {
   left: 0;
   width: 100%;
   height: 100%;
-  display: grid;
+  display: flex;
   place-items: center;
   opacity: 0;
   visibility: hidden;
@@ -234,6 +234,7 @@ h1, h2, h3, h4, h5, h6, p, a, section, button, input, textarea {
 
 .about-section__content p {
   margin-bottom: var(--space-lg);
+  text-align: center 
 }
 
 .about-section__content a {
@@ -272,6 +273,7 @@ h1, h2, h3, h4, h5, h6, p, a, section, button, input, textarea {
   flex-direction: column;
   gap: var(--space-lg);
   width: 100%;
+  align-items: center; 
 }
 
 .form-group {
@@ -279,6 +281,7 @@ h1, h2, h3, h4, h5, h6, p, a, section, button, input, textarea {
   flex-direction: column;
   gap: var(--space-xs);
   text-align: center;
+   width: 100%;
 }
 
 #contact-form input,
@@ -291,17 +294,20 @@ h1, h2, h3, h4, h5, h6, p, a, section, button, input, textarea {
   font-family: var(--primary-font);
   border-radius: 2px;
   transition: border-color 0.3s ease;
+  text-align: center; 
 }
 
 #contact-form input:focus,
 #contact-form textarea:focus {
   outline: none;
   border-color: var(--text-color);
+  text-align: left; 
 }
 
 #contact-form textarea {
   min-height: 140px;
   resize: vertical;
+  text-align: left; 
 }
 
 #contact-form button[type="submit"] {
