@@ -180,6 +180,80 @@ body {
   pointer-events: auto;
 }
 
+/* ===== About photo layout & fade (add to style.css) ===== */
+
+/* ensure about section can layout horizontally on wide screens */
+.about-section {
+  display: flex;
+  flex-direction: column;      /* mobile default - image stacks above text */
+  align-items: center;
+  gap: 1.5rem;
+  position: relative;         /* safe anchor if needed */
+}
+
+/* photo base styling */
+#about-photo {
+  width: 220px;               /* adjust for size */
+  max-width: 40%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  flex: 0 0 220px;            /* fixed visual size on wide screens */
+  opacity: 0;                 /* hidden by default — matches section fade */
+  transform: translateY(8px); /* match same entrance offset as text */
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  pointer-events: none;       /* image won't intercept clicks */
+}
+
+/* make the about text and image animate the same way.
+   If you already have a selector like `.about-section > *` for .contact-section,
+   keep consistency — this ensures both items fade together. */
+.about-section > * {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* When the about-section is active (your JS sets this class),
+   both the photo and the text will fade/slide up into place. */
+.about-section.active > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Desktop / wider screens: place image left of text and vertically centre */
+@media (min-width: 840px) {
+  .about-section {
+    flex-direction: row;
+    align-items: center; /* vertical centering */
+    justify-content: center;
+    gap: 2.5rem;
+    text-align: left;    /* text left-aligned when beside image */
+    max-width: 900px;    /* optional constrain width */
+  }
+
+  /* keep the paragraphs in a column inside the right side; wrap them */
+  .about-section .text-block {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    flex: 1 1 auto;
+  }
+
+  /* make sure image stays slightly left relative to the text */
+  #about-photo {
+    margin-left: 0;
+    margin-right: 0.5rem;
+  }
+}
+
+/* Small tweak: ensure links in about keep original styling when left-aligned */
+@media (min-width: 840px) {
+  .about-section a {
+    text-align: left;
+  }
+}
+
 #contact-form {
   display: flex;
   flex-direction: column;
@@ -319,34 +393,7 @@ body {
   stroke-width: 1.5px;
   stroke-linecap: round;
    
-  /*stroke-dasharray: 1000;
-  stroke-dashoffset: 1000;
-  animation: drawTendril 7s forwards;
-*/
-
-/* Staggered animation delays (t1..t12) */
-/*.t1  { animation-delay: 0s;   }
-.t2  { animation-delay: 0.3s; }
-.t3  { animation-delay: 0.6s; }
-.t4  { animation-delay: 0.1s; }
-.t5  { animation-delay: 0.4s; }
-.t6  { animation-delay: 0.7s; }
-.t7  { animation-delay: 0.2s; }
-.t8  { animation-delay: 0.5s; }
-.t9  { animation-delay: 0.8s; }
-.t10 { animation-delay: 0.15s; }
-.t11 { animation-delay: 0.45s; }
-.t12 { animation-delay: 0.75s; }
-
-
-/* -------------------------------
-   Keyframes
---------------------------------*/
-/*@keyframes drawTendril {
-  to { stroke-dashoffset: 0; }*/
-} 
-
-@keyframes landingNavFade {
+ @keyframes landingNavFade {
   from {
     opacity: 0;
     transform: translateY(5px);
