@@ -173,10 +173,9 @@ body {
   display: flex;
   align-items: center;   /* vertically center image and text */
   justify-content: center;
-  gap: 4rem;             /* space between image and text */
-  flex-direction: row;   /* horizontal layout */
-  text-align: left;      /* align text left */
-  max-width: 900px;      /* optional: wider than stacked layout */
+  gap: 4rem;             /* space between image and text */  
+  max-width: 900px;  
+  position: relative;
 }
 
 /* About section photo */
@@ -185,15 +184,13 @@ body {
   height: auto         /* square for circular crop */
   object-fit: cover;
   flex-shrink: 0;        /* prevent shrinking below set width */
-  margin: 0;             /* spacing handled by gap */
   display: block;
   opacity: 0.85; 
 }
 
 /* Text block next to image */
 .text-block {
-  flex: 1;  
-  text-align: center; 
+text-align: center; 
 }
 
 /* Responsive: stack on smaller screens */
