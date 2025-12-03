@@ -175,10 +175,8 @@ body {
 
 /* About Photo Styling */
 #about-photo {
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
-  object-fit: cover;
+  width: 100px;
+  height: auto;
   margin: 0 auto 1.5rem;
   display: block;
 }
