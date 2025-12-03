@@ -179,13 +179,17 @@ h1, h2, h3, h4, h5, h6, p, a, section, button, input, textarea {
   left: 0;
   width: 100%;
   height: 100%;
-  display: flex;
-  place-items: center;
+  display: flex; 
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
   transition: opacity 0.5s ease, visibility 0.5s ease;
   z-index: 5;
+  padding: var(--space-xl);
+  box-sizing: border-box;
 }
 
 .content-section.active {
@@ -196,7 +200,7 @@ h1, h2, h3, h4, h5, h6, p, a, section, button, input, textarea {
 
 /* About Section Layout */
 .about-section {
-  display: grid;
+  display: flex;
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr;
   gap: var(--space-2xl);
@@ -251,7 +255,7 @@ h1, h2, h3, h4, h5, h6, p, a, section, button, input, textarea {
 
 /* Contact Section Layout */
 .contact-section {
-  display: grid;
+  display: flex;
   place-items: center;
   width: 100%;
   max-width: min(600px, 90vw);
