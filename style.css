@@ -141,10 +141,12 @@ body {
   top: calc(100% - 40px);
   bottom: auto;
 }
+
 /* -------------------------------
    About & Contact sections
 --------------------------------*/
-.about-section .contact-section {
+.about-section,
+.contact-section {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -161,10 +163,6 @@ body {
   gap: 1.5rem; /* space between intro text and form/content */
 }
 
-.about-section.active {
-  opacity: 1;
-  pointer-events: auto;
-}
 .about-section.active,
 .contact-section.active {
   opacity: 1;
@@ -204,7 +202,7 @@ body {
   min-height: 140px;
   resize: vertical;
 }
-   
+
 #contact-form button[type="submit"] {
   font-family: 'Roboto Mono', monospace; /* same as body/content */
   font-size: 1rem;
@@ -216,7 +214,7 @@ body {
   box-sizing: border-box;
   align-self: center; 
 }
-   
+
 .contact-section > * {
   opacity: 0;
   transform: translateY(8px);
@@ -320,9 +318,35 @@ body {
   stroke: var(--muted-stroke);
   stroke-width: 1.5px;
   stroke-linecap: round;
-}
-   
- @keyframes landingNavFade {
+
+  /*stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: drawTendril 7s forwards;
+*/
+
+/* Staggered animation delays (t1..t12) */
+/*.t1  { animation-delay: 0s;   }
+.t2  { animation-delay: 0.3s; }
+.t3  { animation-delay: 0.6s; }
+.t4  { animation-delay: 0.1s; }
+.t5  { animation-delay: 0.4s; }
+.t6  { animation-delay: 0.7s; }
+.t7  { animation-delay: 0.2s; }
+.t8  { animation-delay: 0.5s; }
+.t9  { animation-delay: 0.8s; }
+.t10 { animation-delay: 0.15s; }
+.t11 { animation-delay: 0.45s; }
+.t12 { animation-delay: 0.75s; }
+
+
+/* -------------------------------
+   Keyframes
+--------------------------------*/
+/*@keyframes drawTendril {
+  to { stroke-dashoffset: 0; }*/
+} 
+
+@keyframes landingNavFade {
   from {
     opacity: 0;
     transform: translateY(5px);
@@ -349,4 +373,3 @@ body {
   }
   .landing-nav a { opacity: 1; }
 }
-
