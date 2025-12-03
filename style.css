@@ -144,7 +144,7 @@ body {
 /* -------------------------------
    About & Contact sections
 --------------------------------*/
-.contact-section {
+.about section .contact-section {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -159,23 +159,6 @@ body {
   display: flex;
   flex-direction: column;
   gap: 1.5rem; /* space between intro text and form/content */
-}
-/* -----------------------
-   About Section
-------------------------*/
-.about-section {
-  position: relative;        /* normal flow, not absolute */
-  display: flex;
-  align-items: center;       /* vertical center of image + text */
-  justify-content: center;   /* text horizontally centered */
-  gap: 4rem;                 /* space between image and text */
-  max-width: 900px;
-  margin: 0 auto;            /* center horizontally */
-  flex-direction: row;       /* image left, text right */
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.8s ease;
-  z-index: 1;
 }
 
 .about-section.active {
