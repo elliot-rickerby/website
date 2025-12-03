@@ -1,9 +1,10 @@
 /* -------------------------------
    Global font, box-sizing & lowercase
 --------------------------------*/
-:root{
+:root {
   --text-color: #222;
   --muted-stroke: #eee;
+  --bg-color: #fff;
 }
 
 *,
@@ -20,6 +21,7 @@ body, h1, h2, h3, h4, h5, h6, p, a, section {
   padding: 0;
   color: var(--text-color);
 }
+
 p {
   margin-bottom: 1.3rem;
 }
@@ -28,39 +30,40 @@ p {
    Full page setup
 --------------------------------*/
 body {
-  min-height: 100vh;            /* prevents clipping on small viewports */
-  background-color: #fff;
+  min-height: 100vh;
+  background-color: var(--bg-color);
   position: relative;
-  overflow: hidden;             /* keep tendrils behind content */
+  overflow: hidden;
+  transition: background-color 0.3s ease;
 }
 
 /* Landing container (flex layout) */
 .landing-container {
   position: relative;
-  z-index: 1; /* above tendrils */
+  z-index: 1;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;  /* layout intentionally top-aligned */
+  justify-content: flex-start;
   align-items: center;
   min-height: 100vh;
   text-align: center;
   top: -35px;
 }
+
 .landing-container {
   transform: none !important;
 }
 
 /* -------------------------------
    Name styling
-   (font-size set to 0 so each letter can be sized individually)
 --------------------------------*/
 .landing-name {
   position: absolute;
-  top: 50%;                    /* initial vertical center */
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 0;                /* letters handled individually with .hover-bulge */
-  transition: top 1s ease, transform 1s ease; /* smooth vertical slide and transform */
+  font-size: 0;
+  transition: top 1s ease, transform 1s ease;
   z-index: 2;
 }
 
@@ -87,12 +90,12 @@ body {
 --------------------------------*/
 .landing-nav {
   position: absolute;
-  top: calc(50% + 4.5rem);     /* initial vertical position */
+  top: calc(50% + 4.5rem);
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 2.5rem;                 /* spacing between buttons */
-  transition: top 1s ease, bottom 1s ease; /* smooth vertical slide */
+  gap: 2.5rem;
+  transition: top 1s ease, bottom 1s ease;
   z-index: 2;
 }
 
@@ -125,6 +128,7 @@ body {
 .landing-nav a:hover::after {
   width: 100%;
 }
+
 .landing-nav a.active::after {
    width: 100%;
 }
@@ -133,8 +137,8 @@ body {
    Fixed positions for About view
 --------------------------------*/
 .landing-name.fixed {
-  top: 40px;                   /* final header position */
-  transform: translate(-50%, 0); /* keep horizontal centering, remove vertical offset */
+  top: 40px;
+  transform: translate(-50%, 0);
 }
 
 .landing-nav.fixed {
@@ -150,7 +154,7 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%); /* center both sections */
+  transform: translate(-50%, -50%);
   text-align: center;
   max-width: 750px;
   width: 100%;
@@ -160,7 +164,7 @@ body {
   z-index: 1;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem; /* space between intro text and form/content */
+  gap: 1.5rem;
 }
 
 .about-section.active,
@@ -168,19 +172,20 @@ body {
   opacity: 1;
   pointer-events: auto;
 }
-/* -------------------------------
-   About Photo Styling
---------------------------------*/
+
+/* About Photo Styling */
 #about-photo {
-  width: 100px;               
-  height: auto;              
-  margin: 0 auto 1.5rem;      
-  display: block;             
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto 1.5rem;
+  display: block;
 }
 
 /* Contact form wrapper inside contact section */
 #contact-form-wrapper {
-  position: static;   /* flow naturally inside section */
+  position: static;
   width: 100%;
 }
 
@@ -195,7 +200,7 @@ body {
   gap: 1rem;
   width: 100%;
   max-width: 100%;
-  text-align: left; 
+  text-align: left;
 }
 
 #contact-form input,
@@ -204,7 +209,7 @@ body {
   font-size: 1rem;
   width: 100%;
   box-sizing: border-box;
-   font-family: 'Roboto Mono', monospace;
+  font-family: 'Roboto Mono', monospace;
 }
 
 #contact-form textarea {
@@ -213,15 +218,15 @@ body {
 }
 
 #contact-form button[type="submit"] {
-  font-family: 'Roboto Mono', monospace; /* same as body/content */
+  font-family: 'Roboto Mono', monospace;
   font-size: 1rem;
-  font-weight: 400;      
-  text-transform: lowercase; 
+  font-weight: 400;
+  text-transform: lowercase;
   cursor: pointer;
   padding: 0.8rem;
   width: 30%;
   box-sizing: border-box;
-  align-self: center; 
+  align-self: center;
 }
 
 .contact-section > * {
@@ -234,6 +239,7 @@ body {
   opacity: 1;
   transform: translateY(0);
 }
+
 /*--------------------------------
    Collapse Button
 --------------------------------*/
@@ -271,7 +277,8 @@ body {
    opacity: 1;
    pointer-events: auto;
 }
- /*--------------------------------
+
+/*--------------------------------
    Socials
 --------------------------------*/
 #social-icons {
@@ -292,14 +299,15 @@ body {
     opacity: 1;
     pointer-events: auto;
 }
-#social-icons a{
+
+#social-icons a {
     pointer-events: auto;
 }
 
 .icon-btn .icon {
     width: 26px;
     height: 26px;
-    fill: #000;
+    fill: var(--text-color);
     opacity: 1;
     transition: opacity 0.25s ease, transform 0.25s ease;
 }
@@ -307,6 +315,104 @@ body {
 .icon-btn:hover .icon {
     opacity: 1;
     transform: scale(1.1);
+}
+
+/* -------------------------------
+   Dark Mode Toggle
+--------------------------------*/
+#dark-mode-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+}
+
+#darkModeSwitch {
+  display: none;
+}
+
+.toggle-slider {
+  display: flex;
+  align-items: center;
+  width: 60px;
+  height: 30px;
+  background-color: var(--text-color);
+  border-radius: 30px;
+  padding: 4px;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.toggle-slider::before {
+  content: '';
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: var(--bg-color);
+  left: 4px;
+  transition: transform 0.3s ease;
+}
+
+#darkModeSwitch:checked + .toggle-slider::before {
+  transform: translateX(30px);
+}
+
+.toggle-icon {
+  font-size: 14px;
+  width: 22px;
+  text-align: center;
+  z-index: 1;
+  transition: opacity 0.3s ease;
+}
+
+.toggle-icon:first-child {
+  opacity: 0;
+}
+
+.toggle-icon:last-child {
+  opacity: 1;
+}
+
+#darkModeSwitch:checked + .toggle-slider .toggle-icon:first-child {
+  opacity: 1;
+}
+
+#darkModeSwitch:checked + .toggle-slider .toggle-icon:last-child {
+  opacity: 0;
+}
+
+/* -------------------------------
+   Dark Mode Styles
+--------------------------------*/
+body.dark-mode {
+  --text-color: #fff;
+  --bg-color: #111;
+}
+
+/* Dark mode form styling */
+body.dark-mode #contact-form input,
+body.dark-mode #contact-form textarea {
+  background-color: #222;
+  color: #fff;
+  border: 1px solid #444;
+}
+
+body.dark-mode #contact-form input::placeholder,
+body.dark-mode #contact-form textarea::placeholder {
+  color: #aaa;
+}
+
+body.dark-mode #contact-form button[type="submit"] {
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #444;
+}
+
+body.dark-mode .landing-nav a:hover {
+  color: #bbb;
 }
 
 /* -------------------------------
@@ -327,8 +433,11 @@ body {
   stroke: var(--muted-stroke);
   stroke-width: 1.5px;
   stroke-linecap: round;
-} 
+}
 
+/* -------------------------------
+   Animations
+--------------------------------*/
 @keyframes landingNavFade {
   from {
     opacity: 0;
