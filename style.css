@@ -204,6 +204,7 @@ h1, h2, h3, h4, h5, h6, p, a, section, button, input, textarea {
   max-width: var(--content-max-width);
   padding: var(--space-xl);
   text-align: center;
+   margin: 0 auto;
 }
 
 .about-section__media {
@@ -228,6 +229,7 @@ h1, h2, h3, h4, h5, h6, p, a, section, button, input, textarea {
   line-height: 1.6;
   max-width: 650px;
   margin: 0 auto;
+  width: 100% 
 }
 
 .about-section__content p {
@@ -253,6 +255,7 @@ h1, h2, h3, h4, h5, h6, p, a, section, button, input, textarea {
   width: 100%;
   max-width: min(600px, 90vw);
   padding: var(--space-xl);
+  margin: 0 auto; 
 }
 
 .contact-section__intro {
