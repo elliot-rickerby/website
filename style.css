@@ -428,7 +428,7 @@ body.dark-mode .landing-nav a:hover {
 
 .tendril-bg path {
   fill: none;
-  stroke: var(--muted-stroke);
+  stroke: #666;
   stroke-width: 1.5px;
   stroke-linecap: round;
 }
