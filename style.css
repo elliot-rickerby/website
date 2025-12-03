@@ -388,6 +388,7 @@ body {
 body.dark-mode {
   --text-color: #fff;
   --bg-color: #111;
+  --muted-stroke: #666; 
 }
 
 /* Dark mode form styling */
@@ -428,7 +429,7 @@ body.dark-mode .landing-nav a:hover {
 
 .tendril-bg path {
   fill: none;
-  stroke: #666;
+  stroke: var(--muted-stroke);
   stroke-width: 1.5px;
   stroke-linecap: round;
 }
