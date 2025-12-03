@@ -168,6 +168,43 @@ body {
   opacity: 1;
   pointer-events: auto;
 }
+/* About section flex layout for image + text */
+.about-section {
+  display: flex;
+  align-items: center;   /* vertically center image and text */
+  justify-content: center;
+  gap: 2rem;             /* space between image and text */
+  flex-direction: row;   /* horizontal layout */
+  text-align: left;      /* align text left */
+  max-width: 900px;      /* optional: wider than stacked layout */
+}
+
+/* About section photo */
+#about-photo {
+  width: 150px;
+  height: 150px;         /* square for circular crop */
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;        /* prevent shrinking below set width */
+  margin: 0;             /* spacing handled by gap */
+  display: block;
+}
+
+/* Text block next to image */
+.text-block {
+  flex: 1;               /* take remaining horizontal space */
+}
+
+/* Responsive: stack on smaller screens */
+@media (max-width: 768px) {
+  .about-section {
+    flex-direction: column;
+    text-align: center;
+  }
+  #about-photo {
+    margin-bottom: 1.5rem;
+  }
+}
 
 /* Contact form wrapper inside contact section */
 #contact-form-wrapper {
