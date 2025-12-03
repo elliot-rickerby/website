@@ -156,7 +156,7 @@ h1, h2, h3, h4, h5, h6, p, a, section, button, input, textarea {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 100%;
+  width: 90%;
   max-width: 100vw;
   height: auto;
   z-index: 10;
@@ -180,6 +180,7 @@ h1, h2, h3, h4, h5, h6, p, a, section, button, input, textarea {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 .content-section.active {
@@ -196,13 +197,16 @@ h1, h2, h3, h4, h5, h6, p, a, section, button, input, textarea {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: var(--space-2xl);
+  width: 100%;
 }
 
 .about-section__media {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: var(--space-lg);
 }
 
@@ -219,10 +223,12 @@ h1, h2, h3, h4, h5, h6, p, a, section, button, input, textarea {
   text-align: center;
   line-height: 1.6;
   width: 100%;
+  max-width: var(--content-max-width);
 }
 
 .about-section__content p {
   margin-bottom: var(--space-lg);
+  text-align: center;
 }
 
 .about-section__content a {
@@ -241,10 +247,12 @@ h1, h2, h3, h4, h5, h6, p, a, section, button, input, textarea {
    CONTACT SECTION SPECIFIC STYLES
    ============================================ */
 .contact-section {
+  width: 100%;
   max-width: var(--form-max-width);
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: var(--space-xl);
 }
 
@@ -289,6 +297,7 @@ h1, h2, h3, h4, h5, h6, p, a, section, button, input, textarea {
   border-radius: 2px;
   transition: border-color 0.3s ease;
   text-align: center;
+  width: 100%;
 }
 
 #contact-form input:focus,
@@ -441,7 +450,7 @@ h1, h2, h3, h4, h5, h6, p, a, section, button, input, textarea {
    ============================================ */
 @media (max-width: 768px) {
   :root {
-    --content-max-width: 95%;
+    --content-max-width: 90%;
   }
   
   .landing-name.fixed {
@@ -491,6 +500,10 @@ h1, h2, h3, h4, h5, h6, p, a, section, button, input, textarea {
   .content-section {
     padding: var(--space-md);
   }
+  
+  .about-section__content p {
+    text-align: center;
+  }
 }
 
 /* ============================================
@@ -517,3 +530,8 @@ h1, h2, h3, h4, h5, h6, p, a, section, button, input, textarea {
     --muted-stroke: #ccc;
   }
 }
+
+/* Debug borders - REMOVE AFTER FIXED */
+.about-section { border: 1px solid red; }
+.contact-section { border: 1px solid blue; }
+.content-area { border: 1px dashed green; }
