@@ -185,6 +185,7 @@ body {
 #contact-form-wrapper {
   position: static;
   width: 100%;
+  pointer-events: none;
 }
 
 .contact-section.active #contact-form-wrapper {
