@@ -237,6 +237,41 @@ body {
   opacity: 1;
   transform: translateY(0);
 }
+/* -------------------------------
+   Portfolio Section
+--------------------------------*/
+.portfolio-section {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  max-width: 900px;
+  width: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s ease;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.portfolio-section.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.portfolio-content > * {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.portfolio-section.active > * {
+  opacity: 1;
+  transform: translateY(0);
+}
 
 /*--------------------------------
    Collapse Button
