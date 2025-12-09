@@ -186,13 +186,11 @@ body {
   position: static;
   width: 100%;
   pointer-events: none;
-   display: none;
 }
 
 .contact-section.active #contact-form-wrapper {
   opacity: 1;
   pointer-events: auto;
-   display: block;
 }
 
 #contact-form {
