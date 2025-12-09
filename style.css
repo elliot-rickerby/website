@@ -165,12 +165,14 @@ body {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  visibility: hidden;
 }
 
 .about-section.active,
 .contact-section.active {
   opacity: 1;
   pointer-events: auto;
+   visibility: visible;
 }
 
 /* About Photo Styling */
