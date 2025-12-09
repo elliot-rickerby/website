@@ -71,9 +71,7 @@
    
   <!-- Portfolio Section -->
 <div class="portfolio-section" id="portfolioSection">
-  <div class="portfolio-carousel">
-    <div class="carousel-container">
-      <!-- Project items -->
+<!-- Project items -->
       <div class="project-item active" data-project="1">
         <h3 class="project-title">uniqlo consumer insights</h3>
         <div class="project-details">
@@ -81,36 +79,6 @@
           <p><em>methods: mixed-methods, survey design, thematic analysis</em></p>
         </div>
       </div>
-      
-      <div class="project-item" data-project="2">
-        <h3 class="project-title">fashion industry mental health</h3>
-        <div class="project-details">
-          <p>master's thesis research exploring mental health pressures in fashion design education. longitudinal study with 120 participants across two academic years.</p>
-          <p><em>methods: longitudinal study, psychometric assessment, interview analysis</em></p>
-        </div>
-      </div>
-      
-      <div class="project-item" data-project="3">
-        <h3 class="project-title">sustainable consumption patterns</h3>
-        <div class="project-details">
-          <p>analysis of behavioral barriers to sustainable fashion consumption. research informed a startup's product development strategy.</p>
-          <p><em>methods: behavioral economics framework, focus groups, a/b testing</em></p>
-        </div>
-      </div>
-      
-      <div class="project-item" data-project="4">
-        <h3 class="project-title">independent designer branding</h3>
-        <div class="project-details">
-          <p>brand positioning research for emerging independent fashion labels. developed psychographic profiles for target audiences.</p>
-          <p><em>methods: competitor analysis, brand audit, consumer profiling</em></p>
-        </div>
-      </div>
-      
-      <!-- Navigation arrows -->
-      <button class="carousel-arrow arrow-up">↑</button>
-      <button class="carousel-arrow arrow-down">↓</button>
-    </div>
-  </div>
 </div>
   
 <!-- Contact Section -->
@@ -357,67 +325,6 @@ tendrils.forEach((path, i) => {
 });
 </script>
 
-  // Portfolio Carousel Functionality
-const projectItems = document.querySelectorAll('.project-item');
-const arrowUp = document.querySelector('.arrow-up');
-const arrowDown = document.querySelector('.arrow-down');
-let activeIndex = 0;
-
-// Function to update carousel
-function updateCarousel(newIndex) {
-  // Remove active class from all items
-  projectItems.forEach(item => item.classList.remove('active'));
-  
-  // Set new active index
-  activeIndex = newIndex;
-  
-  // Add active class to new item
-  projectItems[activeIndex].classList.add('active');
-  
-  // Update arrow states
-  arrowUp.style.opacity = activeIndex === 0 ? '0.3' : '1';
-  arrowDown.style.opacity = activeIndex === projectItems.length - 1 ? '0.3' : '1';
-  arrowUp.style.pointerEvents = activeIndex === 0 ? 'none' : 'auto';
-  arrowDown.style.pointerEvents = activeIndex === projectItems.length - 1 ? 'none' : 'auto';
-}
-
-// Click on project items
-projectItems.forEach((item, index) => {
-  item.addEventListener('click', () => {
-    updateCarousel(index);
-  });
-});
-
-// Arrow navigation
-arrowUp.addEventListener('click', (e) => {
-  e.stopPropagation();
-  if (activeIndex > 0) {
-    updateCarousel(activeIndex - 1);
-  }
-});
-
-arrowDown.addEventListener('click', (e) => {
-  e.stopPropagation();
-  if (activeIndex < projectItems.length - 1) {
-    updateCarousel(activeIndex + 1);
-  }
-});
-
-// Keyboard navigation
-document.addEventListener('keydown', (e) => {
-  if (portfolioSection.classList.contains('active')) {
-    if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
-      e.preventDefault();
-      if (activeIndex > 0) updateCarousel(activeIndex - 1);
-    } else if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
-      e.preventDefault();
-      if (activeIndex < projectItems.length - 1) updateCarousel(activeIndex + 1);
-    }
-  }
-});
-
-// Initialize carousel
-updateCarousel(0);
 <script>
 // DOM element management
 document.addEventListener('DOMContentLoaded', () => {
