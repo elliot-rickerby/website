@@ -136,7 +136,7 @@
   <!-- GSAP Library -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
 
-  <!-- JavaScript -->
+   <!-- JavaScript -->
   <script>
     const aboutBtn = document.getElementById('aboutBtn');
     const landingName = document.getElementById('landingName');
@@ -148,6 +148,7 @@
     const socialIcons = document.getElementById('social-icons');
     const formWrapper = document.getElementById("contact-form-wrapper");
     const portfolioBtn = document.getElementById('portfolioBtn');
+    const portfolioSection = document.getElementById('portfolioSection');
     
     aboutBtn.addEventListener('click', (e) => {
       e.preventDefault();
@@ -159,13 +160,15 @@
       collapseBtn.classList.add('active');
       aboutBtn.classList.add('active');
 
-      contactBtn.classList.remove('active')
-      contactSection.classList.remove('active')
+      contactBtn.classList.remove('active');
+      contactSection.classList.remove('active');
+      portfolioBtn.classList.remove('active');
+      portfolioSection.classList.remove('active');
 
       socialIcons.classList.remove('active');
     });
     
-      contactBtn.addEventListener('click', (e) => {
+    contactBtn.addEventListener('click', (e) => {
       e.preventDefault();
       
       landingName.classList.add('fixed');
@@ -177,45 +180,66 @@
 
       aboutSection.classList.remove('active');
       aboutBtn.classList.remove('active');
+      portfolioBtn.classList.remove('active');
+      portfolioSection.classList.remove('active');
 
       socialIcons.classList.add('active');
 
-         // Fade in contact form
-  gsap.fromTo(formWrapper,
-    { opacity: 0, y: 20 },
-    {
-      opacity: 1,
-      y: 0,
-      duration: 0.8,
-      ease: "power2.out",
-      pointerEvents: "auto",
-      onStart: () => {
-        formWrapper.style.pointerEvents = "auto";
-      }
-    }
- );
-      });
+      // Fade in contact form
+      gsap.fromTo(formWrapper,
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power2.out",
+          pointerEvents: "auto",
+          onStart: () => {
+            formWrapper.style.pointerEvents = "auto";
+          }
+        }
+      );
+    });
     
-   // Collapse abt section
-    collapseBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-  
-    landingName.classList.remove('fixed');
-    landingNav.classList.remove('fixed');
-    
-    aboutSection.classList.remove('active');
-    contactSection.classList.remove('active')
-    
-    aboutBtn.classList.remove('active');
-    contactBtn.classList.remove('active');  
+    portfolioBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      
+      landingName.classList.add('fixed');
+      landingNav.classList.add('fixed');
+      
+      portfolioSection.classList.add('active');
+      collapseBtn.classList.add('active');
+      portfolioBtn.classList.add('active');
 
-    socialIcons.classList.remove('active')
+      aboutSection.classList.remove('active');
+      aboutBtn.classList.remove('active');
+      contactSection.classList.remove('active');
+      contactBtn.classList.remove('active');
+
+      socialIcons.classList.remove('active');
+    });
     
-    collapseBtn.classList.remove('active'); // hide collapse button
+    // Collapse all sections
+    collapseBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+    
+      landingName.classList.remove('fixed');
+      landingNav.classList.remove('fixed');
+      
+      aboutSection.classList.remove('active');
+      contactSection.classList.remove('active');
+      portfolioSection.classList.remove('active');
+      
+      aboutBtn.classList.remove('active');
+      contactBtn.classList.remove('active');
+      portfolioBtn.classList.remove('active');
+
+      socialIcons.classList.remove('active');
+      collapseBtn.classList.remove('active');
 
       // Reset form
-    gsap.set(formWrapper, { opacity: 0, y: 20, pointerEvents: "none" });
-  });
+      gsap.set(formWrapper, { opacity: 0, y: 20, pointerEvents: "none" });
+    });
   </script>
   
 <!-- GSAP Tendril Animation -->
