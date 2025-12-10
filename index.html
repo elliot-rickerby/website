@@ -71,13 +71,39 @@ elliot is open to collaborations and freelance work and is best contacted via th
 
 <!-- Portfolio Section -->
 <div class="portfolio-section" id="portfolioSection">
-<!-- Project items -->
-<div class="project-item active" data-project="1">
-        <h3 class="project-title" style="text-transform: uppercase;" >#001 uniqlo consumer insights</h3>
-        <h3 class="project-title" style="text-transform: uppercase;" >#001 UNIQLO & TORAY INDUSTRIES</h3>
-<div class="project-details">      
-</div>
-</div>
+  <div class="portfolio-carousel">
+    <!-- Stationary brackets -->
+    <div class="bracket-frame">
+      <div class="bracket-left">[</div>
+      <div class="carousel-viewport">
+        <div class="carousel-track">
+          <!-- Project items -->
+          <div class="project-item active">
+            <h3 class="project-title">#001 UNIQLO & TORAY INDUSTRIES</h3>
+          </div>
+          <div class="project-item">
+            <h3 class="project-title">#002 INDEPENDENT DESIGNER</h3>
+          </div>
+          <div class="project-item">
+            <h3 class="project-title">#003 MASTERS THESIS</h3>
+          </div>
+          <div class="project-item">
+            <h3 class="project-title">#004 1GRANARY</h3>
+          </div>
+          <div class="project-item">
+            <h3 class="project-title">#005 FILLER PROJECT FOR NOW</h3>
+          </div>
+        </div>
+      </div>
+      <div class="bracket-right">]</div>
+    </div>
+    
+    <!-- Navigation arrows -->
+    <div class="carousel-nav">
+      <button class="carousel-arrow arrow-up">↑</button>
+      <button class="carousel-arrow arrow-down">↓</button>
+    </div>
+  </div>
 </div>
 
 <!-- Contact Section -->
@@ -245,6 +271,72 @@ collapseBtn.classList.remove('active');
 // Reset form
 gsap.set(formWrapper, { opacity: 0, y: 20, pointerEvents: "none" });
 });
+// Portfolio Carousel Functionality
+const carouselTrack = document.querySelector('.carousel-track');
+const projectItems = document.querySelectorAll('.project-item');
+const arrowUp = document.querySelector('.arrow-up');
+const arrowDown = document.querySelector('.arrow-down');
+let currentIndex = 0;
+const totalProjects = projectItems.length;
+const itemHeight = 80; // Should match CSS height
+
+// Function to update carousel
+function updateCarousel(newIndex) {
+  // Remove active class from all items
+  projectItems.forEach(item => item.classList.remove('active'));
+  
+  // Update current index
+  currentIndex = newIndex;
+  
+  // Add active class to new item
+  projectItems[currentIndex].classList.add('active');
+  
+  // Move the track vertically
+  const trackPosition = -currentIndex * itemHeight;
+  carouselTrack.style.transform = `translateY(${trackPosition}px)`;
+  
+  // Update arrow states
+  arrowUp.disabled = currentIndex === 0;
+  arrowDown.disabled = currentIndex === totalProjects - 1;
+  arrowUp.style.opacity = currentIndex === 0 ? '0.2' : '0.7';
+  arrowDown.style.opacity = currentIndex === totalProjects - 1 ? '0.2' : '0.7';
+}
+
+// Arrow navigation
+arrowUp.addEventListener('click', (e) => {
+  e.stopPropagation();
+  if (currentIndex > 0) {
+    updateCarousel(currentIndex - 1);
+  }
+});
+
+arrowDown.addEventListener('click', (e) => {
+  e.stopPropagation();
+  if (currentIndex < totalProjects - 1) {
+    updateCarousel(currentIndex + 1);
+  }
+});
+
+// Keyboard navigation
+document.addEventListener('keydown', (e) => {
+  // Only respond if portfolio section is active
+  if (portfolioSection.classList.contains('active')) {
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (currentIndex > 0) {
+        updateCarousel(currentIndex - 1);
+      }
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (currentIndex < totalProjects - 1) {
+        updateCarousel(currentIndex + 1);
+      }
+    }
+  }
+});
+
+// Initialize carousel
+updateCarousel(0);
 </script>
 
 <!-- GSAP Tendril Animation -->
