@@ -278,7 +278,7 @@ body {
 }
 .project-title {
   text-transform: uppercase;
-  font-size: 1.4rem;
+  font-size: 2rem;
   font-weight: 700;
   margin: 0;
   transition: color 0.3s ease;
