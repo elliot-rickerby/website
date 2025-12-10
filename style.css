@@ -335,6 +335,20 @@ body {
 .title-track.active-3 { transform: translateY(-160px); }
 .title-track.active-4 { transform: translateY(-240px); }
 .title-track.active-5 { transform: translateY(-320px); }
+}
+
+/* Style the number portion */
+.title-number {
+  opacity: 0.5;
+  font-weight: 400; /* Optional: make it lighter weight too */
+  margin-right: 10px;
+  transition: opacity 0.3s ease;
+}
+
+/* Keep the text at full opacity */
+.title-text {
+  opacity: 1;
+}
 
 /* Arrows */
 .carousel-arrow {
