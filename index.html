@@ -72,37 +72,20 @@ elliot is open to collaborations and freelance work and is best contacted via th
 <!-- Portfolio Section -->
 <div class="portfolio-section" id="portfolioSection">
   <div class="portfolio-carousel">
-    <!-- Stationary brackets -->
+    <!-- Up Arrow -->
+    <button class="carousel-arrow arrow-up">↑</button>
+    
+    <!-- Bracket Frame with Single Title -->
     <div class="bracket-frame">
-      <div class="bracket-left">[</div>
-      <div class="carousel-viewport">
-        <div class="carousel-track">
-          <!-- Project items -->
-          <div class="project-item active">
-            <h3 class="project-title">#001 UNIQLO & TORAY INDUSTRIES</h3>
-          </div>
-          <div class="project-item">
-            <h3 class="project-title">#002 INDEPENDENT DESIGNER</h3>
-          </div>
-          <div class="project-item">
-            <h3 class="project-title">#003 MASTERS THESIS</h3>
-          </div>
-          <div class="project-item">
-            <h3 class="project-title">#004 1GRANARY</h3>
-          </div>
-          <div class="project-item">
-            <h3 class="project-title">#005 FILLER PROJECT FOR NOW</h3>
-          </div>
-        </div>
+      <span class="bracket-left">[</span>
+      <div class="title-container">
+        <h3 class="project-title">#001 UNIQLO & TORAY INDUSTRIES</h3>
       </div>
-      <div class="bracket-right">]</div>
+      <span class="bracket-right">]</span>
     </div>
     
-    <!-- Navigation arrows -->
-    <div class="carousel-nav">
-      <button class="carousel-arrow arrow-up">↑</button>
-      <button class="carousel-arrow arrow-down">↓</button>
-    </div>
+    <!-- Down Arrow -->
+    <button class="carousel-arrow arrow-down">↓</button>
   </div>
 </div>
 
@@ -271,35 +254,50 @@ collapseBtn.classList.remove('active');
 // Reset form
 gsap.set(formWrapper, { opacity: 0, y: 20, pointerEvents: "none" });
 });
-// Portfolio Carousel Functionality
-const carouselTrack = document.querySelector('.carousel-track');
-const projectItems = document.querySelectorAll('.project-item');
+// Portfolio Carousel - Simple Version
+const projectTitle = document.querySelector('.project-title');
 const arrowUp = document.querySelector('.arrow-up');
 const arrowDown = document.querySelector('.arrow-down');
+
+// Project titles array
+const projects = [
+  "#001 UNIQLO & TORAY INDUSTRIES",
+  "#002 INDEPENDENT DESIGNER", 
+  "#003 MASTERS THESIS",
+  "#004 1GRANARY",
+  "#005 FILLER PROJECT FOR NOW"
+];
+
 let currentIndex = 0;
-const totalProjects = projectItems.length;
-const itemHeight = 80; // Should match CSS height
 
 // Function to update carousel
 function updateCarousel(newIndex) {
-  // Remove active class from all items
-  projectItems.forEach(item => item.classList.remove('active'));
-  
-  // Update current index
+  // Update index
   currentIndex = newIndex;
   
-  // Add active class to new item
-  projectItems[currentIndex].classList.add('active');
+  // Animate out
+  projectTitle.style.opacity = '0';
+  projectTitle.style.transform = 'translateY(20px)';
   
-  // Move the track vertically
-  const trackPosition = -currentIndex * itemHeight;
-  carouselTrack.style.transform = `translateY(${trackPosition}px)`;
+  // Wait for fade out, then update text and fade in
+  setTimeout(() => {
+    projectTitle.textContent = projects[currentIndex];
+    
+    // Reset position for animation
+    projectTitle.style.transform = 'translateY(-20px)';
+    
+    // Animate in
+    setTimeout(() => {
+      projectTitle.style.opacity = '1';
+      projectTitle.style.transform = 'translateY(0)';
+    }, 10);
+  }, 250);
   
   // Update arrow states
   arrowUp.disabled = currentIndex === 0;
-  arrowDown.disabled = currentIndex === totalProjects - 1;
+  arrowDown.disabled = currentIndex === projects.length - 1;
   arrowUp.style.opacity = currentIndex === 0 ? '0.2' : '0.7';
-  arrowDown.style.opacity = currentIndex === totalProjects - 1 ? '0.2' : '0.7';
+  arrowDown.style.opacity = currentIndex === projects.length - 1 ? '0.2' : '0.7';
 }
 
 // Arrow navigation
@@ -312,7 +310,7 @@ arrowUp.addEventListener('click', (e) => {
 
 arrowDown.addEventListener('click', (e) => {
   e.stopPropagation();
-  if (currentIndex < totalProjects - 1) {
+  if (currentIndex < projects.length - 1) {
     updateCarousel(currentIndex + 1);
   }
 });
@@ -328,14 +326,14 @@ document.addEventListener('keydown', (e) => {
       }
     } else if (e.key === 'ArrowDown') {
       e.preventDefault();
-      if (currentIndex < totalProjects - 1) {
+      if (currentIndex < projects.length - 1) {
         updateCarousel(currentIndex + 1);
       }
     }
   }
 });
 
-// Initialize carousel
+// Initialize
 updateCarousel(0);
 </script>
 
