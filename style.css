@@ -314,7 +314,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  text-transform: uppercase;
   font-size: 2rem;
   font-weight: 700;
   margin: 0;
@@ -339,8 +338,8 @@ body {
 
 /* Style the number portion */
 .title-number {
-  opacity: 0.5;
-  font-weight: 400; /* Optional: make it lighter weight too */
+  opacity: 0.5 !important;
+  font-weight: 400;
   margin-right: 10px;
   transition: opacity 0.3s ease;
 }
@@ -348,6 +347,7 @@ body {
 /* Keep the text at full opacity */
 .title-text {
   opacity: 1;
+  text-transform: uppercase !important; 
 }
 
 /* Arrows */
