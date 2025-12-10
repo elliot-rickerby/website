@@ -282,7 +282,6 @@ body {
   font-weight: 700;
   margin: 0;
   transition: color 0.3s ease;
-   padding: 0.20px;
 }
 /* Brackets*/
 .project-title::before {
