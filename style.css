@@ -241,7 +241,7 @@ body {
   transform: translateY(0);
 }
 /* -------------------------------
-   Portfolio Carousel - Simple One-at-a-time
+   Portfolio Carousel - SIMPLE VERSION
 --------------------------------*/
 .portfolio-section {
   position: absolute;
@@ -249,8 +249,8 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  max-width: 750px;
   width: 100%;
+  max-width: 800px;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.8s ease;
@@ -269,16 +269,15 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  gap: 20px;
 }
 
-/* Stationary bracket frame - CENTERED */
+/* Bracket Frame */
 .bracket-frame {
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  margin: 0;
+  gap: 15px;
 }
 
 .bracket-left,
@@ -287,75 +286,44 @@ body {
   font-weight: 400;
   line-height: 1;
   color: var(--text-color);
-  flex-shrink: 0;
 }
 
-.bracket-left {
-  margin-right: 15px;
-}
-
-.bracket-right {
-  margin-left: 15px;
-}
-
-/* Viewport that shows ONE title at a time */
-.carousel-viewport {
-  width: 600px;
-  height: 80px;
-  overflow: hidden;
-  position: relative;
-}
-
-/* Carousel track that holds all titles */
-.carousel-track {
-  position: relative;
-  height: 100%;
-  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Individual project titles - stacked vertically */
-.project-title {
-  position: absolute;
-  width: 100%;
+/* Title Container - ensures proper sizing */
+.title-container {
+  min-width: 500px;
   height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Project Title */
+.project-title {
   text-transform: uppercase;
   font-size: 2rem;
   font-weight: 700;
   margin: 0;
   padding: 0;
   white-space: nowrap;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  transition: transform 0.5s ease, opacity 0.5s ease;
 }
 
-.project-title.active {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Position each title in the track */
-.project-title:nth-child(1) { top: 0; }
-.project-title:nth-child(2) { top: 80px; }
-.project-title:nth-child(3) { top: 160px; }
-.project-title:nth-child(4) { top: 240px; }
-.project-title:nth-child(5) { top: 320px; }
-
-/* Navigation arrows - ONE ABOVE, ONE BELOW */
+/* Arrows - ONE ABOVE, ONE BELOW */
 .carousel-arrow {
   background: none;
   border: none;
-  font-size: 2rem;
+  font-size: 2.5rem;
   color: var(--text-color);
   cursor: pointer;
-  padding: 10px 20px;
+  padding: 10px;
   transition: all 0.3s ease;
   font-family: 'Roboto Mono', monospace;
   opacity: 0.7;
-  margin: 0;
   line-height: 1;
 }
 
@@ -371,19 +339,15 @@ body {
 }
 
 .arrow-up {
-  margin-bottom: 20px; /* Space between up arrow and brackets */
+  order: 1;
+}
+
+.bracket-frame {
+  order: 2;
 }
 
 .arrow-down {
-  margin-top: 20px; /* Space between brackets and down arrow */
-}
-
-/* Center everything */
-.portfolio-carousel {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  order: 3;
 }
 
 /*--------------------------------
