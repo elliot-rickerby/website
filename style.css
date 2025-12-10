@@ -303,6 +303,130 @@ body {
   font-weight: 400;
   line-height: 1;
 }
+.portfolio-carousel {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-container {
+  position: relative;
+  height: 400px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.project-item {
+  position: absolute;
+  width: 100%;
+  padding: 2rem 0;
+  cursor: pointer;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0.3;
+  transform: scale(0.8);
+  text-align: center;
+  pointer-events: none;
+}
+
+.project-item.active {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+  z-index: 2;
+}
+
+/* Position projects vertically */
+.project-item[data-project="1"] { top: 0%; }
+.project-item[data-project="2"] { top: 100%; }
+.project-item[data-project="3"] { top: 200%; }
+.project-item[data-project="4"] { top: 300%; }
+.project-item[data-project="5"] { top: 400%; }
+
+/* When active, center it and position others */
+.project-item.active[data-project="1"] { top: 0%; }
+.project-item.active[data-project="2"] { top: 0%; }
+.project-item.active[data-project="3"] { top: 0%; }
+.project-item.active[data-project="4"] { top: 0%; }
+.project-item.active[data-project="5"] { top: 0%; }
+
+/* Position non-active items */
+.project-item.active ~ .project-item[data-project="1"] { top: -100%; }
+.project-item.active ~ .project-item[data-project="2"] { top: 100%; }
+.project-item.active ~ .project-item[data-project="3"] { top: 200%; }
+.project-item.active ~ .project-item[data-project="4"] { top: 300%; }
+.project-item.active ~ .project-item[data-project="5"] { top: 400%; }
+
+/* Carousel navigation arrows */
+.carousel-arrow {
+  background: none;
+  border: none;
+  font-size: 2.5rem;
+  color: var(--text-color);
+  cursor: pointer;
+  padding: 1rem;
+  transition: all 0.3s ease;
+  font-family: 'Roboto Mono', monospace;
+  z-index: 10;
+  opacity: 0.7;
+}
+
+.carousel-arrow:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.carousel-arrow:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.arrow-up {
+  margin-bottom: 2rem;
+}
+
+.arrow-down {
+  margin-top: 2rem;
+}
+
+/* Project title styling - adjust if needed */
+.project-title {
+  position: relative;
+  display: inline-block;
+  text-transform: uppercase;
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+  padding: 0 40px;
+  transition: color 0.3s ease;
+}
+
+/* Keep your existing bracket styles */
+.project-title::before {
+  content: '[';
+  position: absolute;
+  left: 5px; /* Adjust as needed */
+  top: 0;
+  font-size: 2.5rem;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.project-title::after {
+  content: ']';
+  position: absolute;
+  right: 5px; /* Adjust as needed */
+  top: 0;
+  font-size: 2.5rem;
+  font-weight: 400;
+  line-height: 1;
+}
 /*--------------------------------
    Collapse Button
 --------------------------------*/
