@@ -241,7 +241,7 @@ body {
   transform: translateY(0);
 }
 /* -------------------------------
-   Portfolio Section
+   Portfolio Carousel - Fixed Brackets
 --------------------------------*/
 .portfolio-section {
   position: absolute;
@@ -254,125 +254,117 @@ body {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.8s ease;
-  z-index: 1;
+  z-index: 3;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
   visibility: hidden;
 }
+
 .portfolio-section.active {
   opacity: 1;
   pointer-events: auto;
-   visibility: visible;
+  visibility: visible;
 }
 
-.portfolio-section > * {
+.portfolio-carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Stationary bracket frame */
+.bracket-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin: 2rem 0;
+}
+
+.bracket-left,
+.bracket-right {
+  font-size: 3.5rem;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--text-color);
+  flex-shrink: 0;
+}
+
+.bracket-left {
+  margin-right: 15px;
+}
+
+.bracket-right {
+  margin-left: 15px;
+}
+
+/* Viewport that masks the carousel track */
+.carousel-viewport {
+  width: 600px;
+  height: 80px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Carousel track that moves */
+.carousel-track {
+  position: relative;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  height: 100%;
+}
+
+/* Individual project items */
+.project-item {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
   opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transform: translateY(30px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-.portfolio-section.active > * {
+.project-item.active {
   opacity: 1;
   transform: translateY(0);
+  position: relative;
 }
+
+/* Project title styling */
 .project-title {
   text-transform: uppercase;
   font-size: 2rem;
   font-weight: 700;
   margin: 0;
-  transition: color 0.3s ease;
-}
-/* Brackets*/
-.project-title::before {
-  content: '[';
-  position: absolute;
-  left: 0px;
-  top: 0;
-  font-size: 2.5rem;
-  font-weight: 400;
-  line-height: 1;
+  padding: 0;
+  white-space: nowrap;
 }
 
-.project-title::after {
-  content: ']';
-  position: absolute;
-  right: 0px;
-  top: 0;
-  font-size: 2.5rem;
-  font-weight: 400;
-  line-height: 1;
-}
-.portfolio-carousel {
-  width: 100%;
-  max-width: 800px;
-  margin: 0 auto;
-  position: relative;
-  height: 500px;
+/* Navigation arrows */
+.carousel-nav {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
 }
 
-.carousel-container {
-  position: relative;
-  height: 400px;
-  width: 100%;
-  overflow: hidden;
-}
-
-.project-item {
-  position: absolute;
-  width: 100%;
-  padding: 2rem 0;
-  cursor: pointer;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  opacity: 0.3;
-  transform: scale(0.8);
-  text-align: center;
-  pointer-events: none;
-}
-
-.project-item.active {
-  opacity: 1;
-  transform: scale(1);
-  pointer-events: auto;
-  z-index: 2;
-}
-
-/* Position projects vertically */
-.project-item[data-project="1"] { top: 0%; }
-.project-item[data-project="2"] { top: 100%; }
-.project-item[data-project="3"] { top: 200%; }
-.project-item[data-project="4"] { top: 300%; }
-.project-item[data-project="5"] { top: 400%; }
-
-/* When active, center it and position others */
-.project-item.active[data-project="1"] { top: 0%; }
-.project-item.active[data-project="2"] { top: 0%; }
-.project-item.active[data-project="3"] { top: 0%; }
-.project-item.active[data-project="4"] { top: 0%; }
-.project-item.active[data-project="5"] { top: 0%; }
-
-/* Position non-active items */
-.project-item.active ~ .project-item[data-project="1"] { top: -100%; }
-.project-item.active ~ .project-item[data-project="2"] { top: 100%; }
-.project-item.active ~ .project-item[data-project="3"] { top: 200%; }
-.project-item.active ~ .project-item[data-project="4"] { top: 300%; }
-.project-item.active ~ .project-item[data-project="5"] { top: 400%; }
-
-/* Carousel navigation arrows */
 .carousel-arrow {
   background: none;
   border: none;
-  font-size: 2.5rem;
+  font-size: 2rem;
   color: var(--text-color);
   cursor: pointer;
-  padding: 1rem;
+  padding: 5px 15px;
   transition: all 0.3s ease;
   font-family: 'Roboto Mono', monospace;
-  z-index: 10;
   opacity: 0.7;
 }
 
@@ -387,45 +379,16 @@ body {
   transform: none;
 }
 
-.arrow-up {
-  margin-bottom: 2rem;
+/* Fade in animation */
+.portfolio-section > * {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
-.arrow-down {
-  margin-top: 2rem;
-}
-
-/* Project title styling - adjust if needed */
-.project-title {
-  position: relative;
-  display: inline-block;
-  text-transform: uppercase;
-  font-size: 2rem;
-  font-weight: 700;
-  margin: 0;
-  padding: 0 40px;
-  transition: color 0.3s ease;
-}
-
-/* Keep your existing bracket styles */
-.project-title::before {
-  content: '[';
-  position: absolute;
-  left: 5px; /* Adjust as needed */
-  top: 0;
-  font-size: 2.5rem;
-  font-weight: 400;
-  line-height: 1;
-}
-
-.project-title::after {
-  content: ']';
-  position: absolute;
-  right: 5px; /* Adjust as needed */
-  top: 0;
-  font-size: 2.5rem;
-  font-weight: 400;
-  line-height: 1;
+.portfolio-section.active > * {
+  opacity: 1;
+  transform: translateY(0);
 }
 /*--------------------------------
    Collapse Button
