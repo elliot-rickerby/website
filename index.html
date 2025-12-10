@@ -69,14 +69,46 @@
    </div>
   </div>
    
-  <!-- Portfolio Section -->
+ <!-- Portfolio Section -->
 <div class="portfolio-section" id="portfolioSection">
-<!-- Project items -->
+  <div class="portfolio-carousel">
+    <button class="carousel-arrow arrow-up">↑</button>
+    
+    <div class="carousel-container">
+      <!-- Project items -->
       <div class="project-item active" data-project="1">
-        <h3 class="project-title" style="text-transform: uppercase;" >#001 UNIQLO & TORAY INDUSTRIES</h3>
-        <div class="project-details">      
+        <h3 class="project-title">#001 UNIQLO & TORAY INDUSTRIES</h3>
+        <div class="project-details">
         </div>
       </div>
+      
+      <div class="project-item" data-project="2">
+        <h3 class="project-title">#002 INDEPENDENT DESIGNER</h3>
+        <div class="project-details">
+        </div>
+      </div>
+      
+      <div class="project-item" data-project="3">
+        <h3 class="project-title">#003 MASTERS THESIS</h3>
+        <div class="project-details">
+        </div>
+      </div>
+      
+      <div class="project-item" data-project="4">
+        <h3 class="project-title">#004 1GRANARY</h3>
+        <div class="project-details">
+        </div>
+      </div>
+      
+      <div class="project-item" data-project="5">
+        <h3 class="project-title">#005 FILLER PROJECT FOR NOW</h3>
+        <div class="project-details">
+        </div>
+      </div>
+    </div>
+    
+    <button class="carousel-arrow arrow-down">↓</button>
+  </div>
 </div>
   
 <!-- Contact Section -->
@@ -261,6 +293,76 @@ function parsePath(path) {
     end: match[4].split(",").map(Number),
   };
 }
+// Portfolio Carousel Functionality
+const carouselContainer = document.querySelector('.carousel-container');
+const projectItems = document.querySelectorAll('.project-item');
+const arrowUp = document.querySelector('.arrow-up');
+const arrowDown = document.querySelector('.arrow-down');
+let currentIndex = 0;
+const totalProjects = projectItems.length;
+
+// Function to update carousel
+function updateCarousel(newIndex) {
+  // Remove active class from all items
+  projectItems.forEach(item => item.classList.remove('active'));
+  
+  // Update current index
+  currentIndex = newIndex;
+  
+  // Add active class to new item
+  projectItems[currentIndex].classList.add('active');
+  
+  // Update arrow states
+  arrowUp.disabled = currentIndex === 0;
+  arrowDown.disabled = currentIndex === totalProjects - 1;
+  
+  // Update arrow opacity
+  arrowUp.style.opacity = currentIndex === 0 ? '0.2' : '0.7';
+  arrowDown.style.opacity = currentIndex === totalProjects - 1 ? '0.2' : '0.7';
+}
+
+// Arrow navigation
+arrowUp.addEventListener('click', (e) => {
+  e.stopPropagation();
+  if (currentIndex > 0) {
+    updateCarousel(currentIndex - 1);
+  }
+});
+
+arrowDown.addEventListener('click', (e) => {
+  e.stopPropagation();
+  if (currentIndex < totalProjects - 1) {
+    updateCarousel(currentIndex + 1);
+  }
+});
+
+// Keyboard navigation
+document.addEventListener('keydown', (e) => {
+  // Only respond if portfolio section is active
+  if (portfolioSection.classList.contains('active')) {
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (currentIndex > 0) {
+        updateCarousel(currentIndex - 1);
+      }
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (currentIndex < totalProjects - 1) {
+        updateCarousel(currentIndex + 1);
+      }
+    }
+  }
+});
+
+// Initialize carousel
+updateCarousel(0);
+
+// Optional: Add click navigation on project items
+projectItems.forEach((item, index) => {
+  item.addEventListener('click', () => {
+    updateCarousel(index);
+  });
+});
 
 function buildPath(points) {
   return `M${points.start.join(",")} C${points.control1.join(",")} ${points.control2.join(",")} ${points.end.join(",")}`;
