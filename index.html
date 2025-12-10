@@ -69,45 +69,40 @@
    </div>
   </div>
    
- <!-- Portfolio Section -->
+<!-- Portfolio Section -->
 <div class="portfolio-section" id="portfolioSection">
   <div class="portfolio-carousel">
-    <button class="carousel-arrow arrow-up">↑</button>
-    
-    <div class="carousel-container">
-      <!-- Project items -->
-      <div class="project-item active" data-project="1">
-        <h3 class="project-title">#001 UNIQLO & TORAY INDUSTRIES</h3>
-        <div class="project-details">
+    <!-- Stationary brackets -->
+    <div class="bracket-frame">
+      <div class="bracket-left">[</div>
+      <div class="carousel-viewport">
+        <div class="carousel-track">
+          <!-- Project items -->
+          <div class="project-item active">
+            <h3 class="project-title">#001 UNIQLO & TORAY INDUSTRIES</h3>
+          </div>
+          <div class="project-item">
+            <h3 class="project-title">#002 INDEPENDENT DESIGNER</h3>
+          </div>
+          <div class="project-item">
+            <h3 class="project-title">#003 MASTERS THESIS</h3>
+          </div>
+          <div class="project-item">
+            <h3 class="project-title">#004 1GRANARY</h3>
+          </div>
+          <div class="project-item">
+            <h3 class="project-title">#005 FILLER PROJECT FOR NOW</h3>
+          </div>
         </div>
       </div>
-      
-      <div class="project-item" data-project="2">
-        <h3 class="project-title">#002 INDEPENDENT DESIGNER</h3>
-        <div class="project-details">
-        </div>
-      </div>
-      
-      <div class="project-item" data-project="3">
-        <h3 class="project-title">#003 MASTERS THESIS</h3>
-        <div class="project-details">
-        </div>
-      </div>
-      
-      <div class="project-item" data-project="4">
-        <h3 class="project-title">#004 1GRANARY</h3>
-        <div class="project-details">
-        </div>
-      </div>
-      
-      <div class="project-item" data-project="5">
-        <h3 class="project-title">#005 FILLER PROJECT FOR NOW</h3>
-        <div class="project-details">
-        </div>
-      </div>
+      <div class="bracket-right">]</div>
     </div>
     
-    <button class="carousel-arrow arrow-down">↓</button>
+    <!-- Navigation arrows -->
+    <div class="carousel-nav">
+      <button class="carousel-arrow arrow-up">↑</button>
+      <button class="carousel-arrow arrow-down">↓</button>
+    </div>
   </div>
 </div>
   
@@ -276,30 +271,15 @@
       // Reset form
       gsap.set(formWrapper, { opacity: 0, y: 20, pointerEvents: "none" });
     });
-  </script>
-  
-<!-- GSAP Tendril Animation -->
-<script>
-const tendrils = document.querySelectorAll(".tendril");
-
-function parsePath(path) {
-  const d = path.getAttribute("d");
-  const match = d.match(/M([\d.,]+) C([\d.,]+) ([\d.,]+) ([\d.,]+)/);
-  if (!match) return null;
-  return {
-    start: match[1].split(",").map(Number),
-    control1: match[2].split(",").map(Number),
-    control2: match[3].split(",").map(Number),
-    end: match[4].split(",").map(Number),
-  };
-}
-// Portfolio Carousel Functionality
-const carouselContainer = document.querySelector('.carousel-container');
+    
+    // Portfolio Carousel 
+const carouselTrack = document.querySelector('.carousel-track');
 const projectItems = document.querySelectorAll('.project-item');
 const arrowUp = document.querySelector('.arrow-up');
 const arrowDown = document.querySelector('.arrow-down');
 let currentIndex = 0;
 const totalProjects = projectItems.length;
+const itemHeight = 80; // Should match CSS height
 
 // Function to update carousel
 function updateCarousel(newIndex) {
@@ -312,11 +292,13 @@ function updateCarousel(newIndex) {
   // Add active class to new item
   projectItems[currentIndex].classList.add('active');
   
+  // Move the track vertically
+  const trackPosition = -currentIndex * itemHeight;
+  carouselTrack.style.transform = `translateY(${trackPosition}px)`;
+  
   // Update arrow states
   arrowUp.disabled = currentIndex === 0;
   arrowDown.disabled = currentIndex === totalProjects - 1;
-  
-  // Update arrow opacity
   arrowUp.style.opacity = currentIndex === 0 ? '0.2' : '0.7';
   arrowDown.style.opacity = currentIndex === totalProjects - 1 ? '0.2' : '0.7';
 }
@@ -356,12 +338,23 @@ document.addEventListener('keydown', (e) => {
 
 // Initialize carousel
 updateCarousel(0);
+  </script>
+  
+<!-- GSAP Tendril Animation -->
+<script>
+const tendrils = document.querySelectorAll(".tendril");
 
-// Optional: Add click navigation on project items
-projectItems.forEach((item, index) => {
-  item.addEventListener('click', () => {
-    updateCarousel(index);
-  });
+function parsePath(path) {
+  const d = path.getAttribute("d");
+  const match = d.match(/M([\d.,]+) C([\d.,]+) ([\d.,]+) ([\d.,]+)/);
+  if (!match) return null;
+  return {
+    start: match[1].split(",").map(Number),
+    control1: match[2].split(",").map(Number),
+    control2: match[3].split(",").map(Number),
+    end: match[4].split(",").map(Number),
+  };
+
 });
 
 function buildPath(points) {
