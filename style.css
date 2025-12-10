@@ -345,6 +345,10 @@ body {
    text-transform: none !important;
 }
 
+body.dark-mode .title-number {
+  color: rgba(255, 255, 255, 0.6);
+}
+
 /* Keep the text at full opacity */
 .title-text {
   opacity: 1;
