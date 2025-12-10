@@ -75,11 +75,17 @@ elliot is open to collaborations and freelance work and is best contacted via th
     <!-- Up Arrow -->
     <button class="carousel-arrow arrow-up">↑</button>
     
-    <!-- Bracket Frame with Single Title -->
+    <!-- Fixed width bracket frame -->
     <div class="bracket-frame">
       <span class="bracket-left">[</span>
-      <div class="title-container">
-        <h3 class="project-title">#001 UNIQLO & TORAY INDUSTRIES</h3>
+      <div class="title-viewport">
+        <div class="title-track">
+          <h3 class="project-title">#001 UNIQLO & TORAY INDUSTRIES</h3>
+          <h3 class="project-title">#002 INDEPENDENT DESIGNER</h3>
+          <h3 class="project-title">#003 MASTERS THESIS</h3>
+          <h3 class="project-title">#004 1GRANARY</h3>
+          <h3 class="project-title">#005 FILLER PROJECT FOR NOW</h3>
+        </div>
       </div>
       <span class="bracket-right">]</span>
     </div>
@@ -254,80 +260,61 @@ collapseBtn.classList.remove('active');
 // Reset form
 gsap.set(formWrapper, { opacity: 0, y: 20, pointerEvents: "none" });
 });
-// Portfolio Carousel - Simple Version
-const projectTitle = document.querySelector('.project-title');
+// Portfolio Carousel - Cube Animation
+const titleTrack = document.querySelector('.title-track');
 const arrowUp = document.querySelector('.arrow-up');
 const arrowDown = document.querySelector('.arrow-down');
 
-// Project titles array
-const projects = [
-  "#001 UNIQLO & TORAY INDUSTRIES",
-  "#002 INDEPENDENT DESIGNER", 
-  "#003 MASTERS THESIS",
-  "#004 1GRANARY",
-  "#005 FILLER PROJECT FOR NOW"
-];
-
 let currentIndex = 0;
+const totalProjects = 5;
 
-// Function to update carousel
-function updateCarousel(newIndex) {
+// Function to update carousel with cube animation
+function updateCarousel(newIndex, direction) {
   // Update index
   currentIndex = newIndex;
   
-  // Animate out
-  projectTitle.style.opacity = '0';
-  projectTitle.style.transform = 'translateY(20px)';
+  // Remove all active classes
+  titleTrack.classList.remove('active-1', 'active-2', 'active-3', 'active-4', 'active-5');
   
-  // Wait for fade out, then update text and fade in
+  // Add new active class with delay for animation
   setTimeout(() => {
-    projectTitle.textContent = projects[currentIndex];
-    
-    // Reset position for animation
-    projectTitle.style.transform = 'translateY(-20px)';
-    
-    // Animate in
-    setTimeout(() => {
-      projectTitle.style.opacity = '1';
-      projectTitle.style.transform = 'translateY(0)';
-    }, 10);
-  }, 250);
+    titleTrack.classList.add(`active-${currentIndex + 1}`);
+  }, 10);
   
   // Update arrow states
   arrowUp.disabled = currentIndex === 0;
-  arrowDown.disabled = currentIndex === projects.length - 1;
+  arrowDown.disabled = currentIndex === totalProjects - 1;
   arrowUp.style.opacity = currentIndex === 0 ? '0.2' : '0.7';
-  arrowDown.style.opacity = currentIndex === projects.length - 1 ? '0.2' : '0.7';
+  arrowDown.style.opacity = currentIndex === totalProjects - 1 ? '0.2' : '0.7';
 }
 
 // Arrow navigation
 arrowUp.addEventListener('click', (e) => {
   e.stopPropagation();
   if (currentIndex > 0) {
-    updateCarousel(currentIndex - 1);
+    updateCarousel(currentIndex - 1, 'up');
   }
 });
 
 arrowDown.addEventListener('click', (e) => {
   e.stopPropagation();
-  if (currentIndex < projects.length - 1) {
-    updateCarousel(currentIndex + 1);
+  if (currentIndex < totalProjects - 1) {
+    updateCarousel(currentIndex + 1, 'down');
   }
 });
 
 // Keyboard navigation
 document.addEventListener('keydown', (e) => {
-  // Only respond if portfolio section is active
   if (portfolioSection.classList.contains('active')) {
     if (e.key === 'ArrowUp') {
       e.preventDefault();
       if (currentIndex > 0) {
-        updateCarousel(currentIndex - 1);
+        updateCarousel(currentIndex - 1, 'up');
       }
     } else if (e.key === 'ArrowDown') {
       e.preventDefault();
-      if (currentIndex < projects.length - 1) {
-        updateCarousel(currentIndex + 1);
+      if (currentIndex < totalProjects - 1) {
+        updateCarousel(currentIndex + 1, 'down');
       }
     }
   }
@@ -335,7 +322,6 @@ document.addEventListener('keydown', (e) => {
 
 // Initialize
 updateCarousel(0);
-</script>
 
 <!-- GSAP Tendril Animation -->
 <script>
