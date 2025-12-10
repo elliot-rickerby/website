@@ -338,7 +338,7 @@ body {
 
 /* Style the number portion */
 .title-number {
-  opacity: 0.5 !important;
+  opacity: 0.2 !important;
   font-weight: 400;
   margin-right: 10px;
   transition: opacity 0.3s ease;
