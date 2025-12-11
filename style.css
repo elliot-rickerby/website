@@ -254,9 +254,6 @@ body {
   pointer-events: auto;
   visibility: visible;
 }
-.portfolio-section:not(.active) {
-  display: none;
-}
 
 .portfolio-carousel {
   display: flex;
@@ -264,8 +261,18 @@ body {
   align-items: center;
   justify-content: center;
   gap: 20px;
+}
+
+/* ADD THESE 3 LINES - Portfolio animation fix */
+.portfolio-carousel > * {
   opacity: 0;
-  transition: opacity 0.8s ease;
+  transform: translateY(8px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.portfolio-section.active .portfolio-carousel > * {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Fixed width bracket frame */
