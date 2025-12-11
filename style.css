@@ -617,3 +617,23 @@ body.dark-mode .landing-nav a:hover {
   }
   .landing-nav a { opacity: 1; }
 }
+/* Scale to Device */
+@media (max-width: 768px) {
+  .bracket-frame {
+    width: 500px;
+  }
+  
+  .project-title {
+    font-size: 1.5rem;
+  }
+  
+  .hover-bulge {
+    font-size: 2.5rem;
+  }
+  
+  .about-section,
+  .contact-section {
+    max-width: 90%;
+    padding: 0 20px;
+  }
+}
