@@ -419,15 +419,13 @@ body.dark-mode .title-number {
 
 /* Project Details Panel - Hidden by default */
 .project-details-panel {
-  position: absolute;
-  top: 100%;
-  left: 0;
+  position: relative; /* Changed from absolute */
   width: 100%;
   max-width: min(85vw, 750px);
-  margin: 0 auto;
+  margin: 20px auto 0; /* Added top margin */
   opacity: 0;
   visibility: hidden;
-  transform: translateY(-20px);
+  transform: translateY(-10px);
   transition: all 0.6s ease;
   z-index: 1;
   pointer-events: none;
@@ -437,66 +435,76 @@ body.dark-mode .title-number {
   background: var(--bg-color);
   padding: 2rem;
   border: 2px solid var(--text-color);
-  margin-top: 1rem;
   text-align: left;
 }
 
-.project-details-title {
-  font-size: 1.5rem;
-  margin-bottom: 1.5rem;
-  text-transform: uppercase;
-}
-
-.project-details-text {
-  font-size: 1rem;
-  line-height: 1.6;
-  margin-bottom: 2rem;
-}
-
-.project-details-text p {
-  margin-bottom: 1rem;
-}
-
-.close-project-btn {
-  background: none;
-  border: 1px solid var(--text-color);
-  color: var(--text-color);
-  font-family: 'Roboto Mono', monospace;
-  font-size: 1rem;
-  padding: 0.5rem 1.5rem;
-  cursor: pointer;
-  text-transform: lowercase;
-  transition: all 0.3s ease;
-}
-
-.close-project-btn:hover {
-  background: var(--text-color);
-  color: var(--bg-color);
+/* Remove the border from the top since it's inside brackets */
+.project-details-content {
+  border-top: none;
 }
 
 /* Expanded state - when a project is clicked */
 .portfolio-section.expanded .portfolio-carousel {
-  transform: translateY(-40%);
+  transform: translateY(-10%); /* Less movement up */
   transition: transform 0.6s ease;
 }
 
 .portfolio-section.expanded .bracket-frame {
   align-items: flex-start;
-  height: auto;
-  min-height: 200px;
+  height: auto; /* Allow brackets to expand */
+  min-height: 300px; /* Set minimum expanded height */
   transition: all 0.6s ease;
+  position: relative;
 }
 
 .portfolio-section.expanded .bracket-left,
 .portfolio-section.expanded .bracket-right {
-  align-self: flex-start;
+  align-self: stretch; /* Make brackets stretch to full height */
+  height: 100%; /* Full height of parent */
   margin-top: 0;
   transition: all 0.6s ease;
+  display: flex;
+  align-items: flex-start; /* Align to top */
+  padding-top: 0; /* Align with title */
+}
+
+/* Make the bracket characters taller */
+.portfolio-section.expanded .bracket-left::before,
+.portfolio-section.expanded .bracket-right::before {
+  content: '[';
+  font-size: clamp(3rem, 6vw, 4.5rem); /* Larger brackets when expanded */
+}
+
+.portfolio-section.expanded .bracket-right::before {
+  content: ']';
+}
+
+/* Hide the original bracket text when expanded */
+.portfolio-section.expanded .bracket-left span,
+.portfolio-section.expanded .bracket-right span {
+  display: none;
 }
 
 .portfolio-section.expanded .title-viewport {
-  height: auto;
+  height: auto; /* Allow title to take natural height */
   margin-top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.portfolio-section.expanded .title-track {
+  position: relative;
+  transform: none !important; /* Stop carousel movement when expanded */
+  height: auto;
+}
+
+.portfolio-section.expanded .project-title {
+  position: relative !important; /* Override absolute positioning */
+  height: auto;
+  margin: 0;
+  padding: 20px 0; /* Add some padding */
+  top: 0 !important; /* Reset top position */
 }
 
 .portfolio-section.expanded .project-details-panel {
@@ -504,11 +512,14 @@ body.dark-mode .title-number {
   visibility: visible;
   transform: translateY(0);
   pointer-events: auto;
+  max-height: 1000px; /* Allow panel to grow */
+  transition: opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s; /* Delay panel appearance */
 }
 
 .portfolio-section.expanded .carousel-arrow {
   opacity: 0 !important;
   pointer-events: none !important;
+  transition: opacity 0.3s ease;
 }
 
 /*--------------------------------
