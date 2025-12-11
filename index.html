@@ -72,7 +72,7 @@ elliot is open to collaborations and freelance work and is best contacted via th
 <!-- Portfolio Section -->
 <div class="portfolio-section" id="portfolioSection">
   <div class="portfolio-carousel">
-    <!-- Up Arrow - SVG Triangle -->
+    <!-- Up Arrow -->
     <button class="carousel-arrow arrow-up">
       <svg class="arrow-icon" width="20" height="12" viewBox="0 0 20 12">
         <path d="M10 0L0 12H20L10 0Z" fill="currentColor"/>
@@ -83,33 +83,56 @@ elliot is open to collaborations and freelance work and is best contacted via th
     <div class="bracket-frame">
       <span class="bracket-left">[</span>
       <div class="title-viewport">
-      <div class="title-track">
-  <h3 class="project-title">
-    <span class="title-number">#001</span>&nbsp;<span class="title-text">UNIQLO & TORAY INDUSTRIES</span>
-  </h3>
-  <h3 class="project-title">
-    <span class="title-number">#002</span>&nbsp;<span class="title-text">INDEPENDENT DESIGNER</span>
-  </h3>
-  <h3 class="project-title">
-    <span class="title-number">#003</span>&nbsp;<span class="title-text">MASTERS THESIS</span>
-  </h3>
-  <h3 class="project-title">
-    <span class="title-number">#004</span>&nbsp;<span class="title-text">1GRANARY</span>
-  </h3>
-  <h3 class="project-title">
-    <span class="title-number">#005</span>&nbsp;<span class="title-text">FILLER PROJECT FOR NOW</span>
-  </h3>
-</div>
+        <div class="title-track">
+          <!-- Updated Project Titles with clickable links and data attributes -->
+          <h3 class="project-title" data-project="1">
+            <a href="#" class="project-link">
+              <span class="title-number">#001</span>&nbsp;<span class="title-text">UNIQLO & TORAY INDUSTRIES</span>
+            </a>
+          </h3>
+          <h3 class="project-title" data-project="2">
+            <a href="#" class="project-link">
+              <span class="title-number">#002</span>&nbsp;<span class="title-text">INDEPENDENT DESIGNER</span>
+            </a>
+          </h3>
+          <h3 class="project-title" data-project="3">
+            <a href="#" class="project-link">
+              <span class="title-number">#003</span>&nbsp;<span class="title-text">MASTERS THESIS</span>
+            </a>
+          </h3>
+          <h3 class="project-title" data-project="4">
+            <a href="#" class="project-link">
+              <span class="title-number">#004</span>&nbsp;<span class="title-text">1GRANARY</span>
+            </a>
+          </h3>
+          <h3 class="project-title" data-project="5">
+            <a href="#" class="project-link">
+              <span class="title-number">#005</span>&nbsp;<span class="title-text">FILLER PROJECT FOR NOW</span>
+            </a>
+          </h3>
+        </div>
       </div>
       <span class="bracket-right">]</span>
     </div>
     
-    <!-- Down Arrow - SVG Triangle -->
+    <!-- Down Arrow -->
     <button class="carousel-arrow arrow-down">
       <svg class="arrow-icon" width="20" height="12" viewBox="0 0 20 12">
         <path d="M10 12L0 0H20L10 12Z" fill="currentColor"/>
       </svg>
     </button>
+    
+    <!-- Project Details Panel (hidden by default) -->
+    <div class="project-details-panel">
+      <div class="project-details-content">
+        <h3 class="project-details-title"></h3>
+        <div class="project-details-text">
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+        <button class="close-project-btn">close</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -271,6 +294,9 @@ const totalProjects = 5;
 
 // Function to update carousel with cube animation
 function updateCarousel(newIndex, direction) {
+   if (portfolioSection.classList.contains('expanded')) {
+    return;
+  
   // Update index
   currentIndex = newIndex;
   
@@ -323,6 +349,91 @@ document.addEventListener('keydown', (e) => {
 
 // Initialize
 updateCarousel(0);
+
+// Portfolio Expansion Functionality
+const projectTitles = document.querySelectorAll('.project-title');
+const projectLinks = document.querySelectorAll('.project-link');
+const projectDetailsPanel = document.querySelector('.project-details-panel');
+const projectDetailsTitle = document.querySelector('.project-details-title');
+const projectDetailsText = document.querySelector('.project-details-text');
+const closeProjectBtn = document.querySelector('.close-project-btn');
+const portfolioSection = document.getElementById('portfolioSection');
+const carouselArrows = document.querySelectorAll('.carousel-arrow');
+
+// Project content data
+const projectData = {
+  1: {
+    title: "UNIQLO & TORAY INDUSTRIES",
+    content: "<p>Detailed information about UNIQLO & TORAY INDUSTRIES project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><p>Additional details about this research project and findings.</p>"
+  },
+  2: {
+    title: "INDEPENDENT DESIGNER", 
+    content: "<p>Detailed information about INDEPENDENT DESIGNER project. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>"
+  },
+  3: {
+    title: "MASTERS THESIS",
+    content: "<p>Detailed information about MASTERS THESIS. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>"
+  },
+  4: {
+    title: "1GRANARY",
+    content: "<p>Detailed information about 1GRANARY project. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>"
+  },
+  5: {
+    title: "FILLER PROJECT FOR NOW",
+    content: "<p>Detailed information about this placeholder project. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>"
+  }
+};
+
+// Handle project title clicks
+projectLinks.forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    const projectTitle = link.closest('.project-title');
+    const projectId = projectTitle.getAttribute('data-project');
+    
+    // Load project data
+    const data = projectData[projectId];
+    projectDetailsTitle.textContent = data.title;
+    projectDetailsText.innerHTML = data.content;
+    
+    // Expand the portfolio section
+    portfolioSection.classList.add('expanded');
+    
+    // Disable carousel arrows
+    carouselArrows.forEach(arrow => {
+      arrow.style.pointerEvents = 'none';
+      arrow.style.opacity = '0';
+    });
+  });
+});
+
+// Close project details
+closeProjectBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  
+  // Collapse the portfolio section
+  portfolioSection.classList.remove('expanded');
+  
+  // Re-enable carousel arrows if not disabled by carousel logic
+  setTimeout(() => {
+    if (portfolioSection.classList.contains('active') && !portfolioSection.classList.contains('expanded')) {
+      carouselArrows.forEach(arrow => {
+        arrow.style.pointerEvents = 'auto';
+        arrow.style.opacity = arrow.disabled ? '0.2' : '0.7';
+      });
+    }
+  }, 600);
+});
+
+// Also close when clicking outside the content area
+projectDetailsPanel.addEventListener('click', (e) => {
+  if (e.target === projectDetailsPanel) {
+    portfolioSection.classList.remove('expanded');
+  }
+});
 </script>
   
 <!-- GSAP Tendril Animation -->
