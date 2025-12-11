@@ -175,12 +175,13 @@ body {
   visibility: visible;
 }
 
-/* About Photo Styling */
+/* About Photo Styling - Now scales with viewport */
 #about-photo {
-  width: 100px;
+  width: clamp(60px, 10vw, 100px); /* Scales between 60px and 100px based on viewport */
   height: auto;
-  margin: 0 auto 1.5rem;
+  margin: 0 auto clamp(1rem, 2vh, 1.5rem); /* Margin also scales */
   display: block;
+  transition: width 0.3s ease, margin 0.3s ease;
 }
 
 /* Contact form wrapper inside contact section */
@@ -620,6 +621,23 @@ body.dark-mode .landing-nav a:hover {
 /* -------------------------------
    Responsive Text Scaling for About/Contact Sections Only
 --------------------------------*/
+@media (max-width: 1024px) {
+  /* For small laptops (1024px and below) */
+  #about-photo {
+    width: clamp(50px, 8vw, 80px);
+    margin: 0 auto clamp(0.8rem, 1.5vh, 1.2rem);
+  }
+  
+  /* Adjust fixed name position for smaller screens */
+  .landing-name.fixed {
+    top: 30px;
+  }
+  
+  .landing-nav.fixed {
+    top: calc(100% - 30px);
+  }
+}
+
 @media (max-width: 768px) {
   /* Scale down text in about and contact sections only */
   .about-section p,
@@ -637,8 +655,17 @@ body.dark-mode .landing-nav a:hover {
   
   /* Scale down about photo on mobile */
   #about-photo {
-    width: 80px;
-    margin-bottom: 1rem;
+    width: clamp(40px, 10vw, 70px);
+    margin: 0 auto clamp(0.6rem, 1vh, 1rem);
+  }
+  
+  /* Adjust fixed positions further for mobile */
+  .landing-name.fixed {
+    top: 25px;
+  }
+  
+  .landing-nav.fixed {
+    top: calc(100% - 25px);
   }
 }
 
@@ -662,6 +689,12 @@ body.dark-mode .landing-nav a:hover {
   #contact-form button[type="submit"] {
     font-size: 0.85rem;
     padding: 0.6rem;
+  }
+  
+  /* Even smaller portrait on very small screens */
+  #about-photo {
+    width: 60px;
+    margin: 0 auto 0.8rem;
   }
 }
 
