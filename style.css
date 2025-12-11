@@ -156,7 +156,7 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  max-width: min(90vw, 750px;
+  max-width: min(90vw, 750px);
   width: 90%;
   opacity: 0;
   pointer-events: none;
@@ -172,7 +172,7 @@ body {
 .contact-section.active {
   opacity: 1;
   pointer-events: auto;
-   visibility: visible;
+  visibility: visible;
 }
 
 /* About Photo Styling */
@@ -207,7 +207,7 @@ body {
 #contact-form input,
 #contact-form textarea {
   padding: 0.8rem;
-  font-size: clamp(0.9rem, 1.8vw, 1rem;
+  font-size: clamp(0.9rem, 1.8vw, 1rem);
   width: 100%;
   box-sizing: border-box;
   font-family: 'Roboto Mono', monospace;
@@ -220,7 +220,7 @@ body {
 
 #contact-form button[type="submit"] {
   font-family: 'Roboto Mono', monospace;
-  font-size: clamp(0.9 rem, 1.8vw, 1rem);
+  font-size: clamp(0.9rem, 1.8vw, 1rem);
   font-weight: 400;
   text-transform: lowercase;
   cursor: pointer;
@@ -250,7 +250,7 @@ body {
   transform: translate(-50%, -50%);
   text-align: center;
   width: 100%;
-  max-width: min(95vw, 900px;
+  max-width: min(95vw, 900px);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.8s ease;
@@ -278,7 +278,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 15px;
-  width: min(85vw, 750px;
+  width: min(85vw, 750px);
   margin: 0 auto;
 }
 
@@ -335,14 +335,13 @@ body {
 .title-track.active-4 { transform: translateY(-240px); }
 .title-track.active-5 { transform: translateY(-320px); }
 
-
 /* Style the number portion */
 .title-number {
   color: rgba(34, 34, 34, 0.6);
   font-weight: 400;
   margin-right: 10px;
   transition: opacity 0.3s ease;
-   text-transform: none !important;
+  text-transform: none !important;
 }
 
 body.dark-mode .title-number {
