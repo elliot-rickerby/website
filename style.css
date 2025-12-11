@@ -254,6 +254,9 @@ body {
   pointer-events: auto;
   visibility: visible;
 }
+.portfolio-section:not(.active) {
+  display: none;
+}
 
 .portfolio-carousel {
   display: flex;
