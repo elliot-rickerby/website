@@ -35,6 +35,7 @@ body {
   position: relative;
   overflow: hidden;
   transition: background-color 0.3s ease;
+  font-size: clamp(14px, 2vw, 16px);
 }
 
 /* Landing container (flex layout) */
@@ -166,6 +167,8 @@ body {
   flex-direction: column;
   gap: 1.5rem;
   visibility: hidden;
+  padding: clamp(1rem, 3vw, 2rem) 0;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
 }
 
 .about-section.active,
@@ -173,6 +176,39 @@ body {
   opacity: 1;
   pointer-events: auto;
   visibility: visible;
+}
+
+/* Paragraph text scaling */
+.about-section p,
+.contact-section p {
+  font-size: clamp(0.9rem, 1.8vw, 1.1rem);
+  line-height: 1.6;
+  margin-bottom: 1.2rem;
+}
+
+/* About section text block scaling */
+.about-section .text-block {
+  max-width: min(90vw, 750px);
+  margin: 0 auto;
+}
+
+/* Contact section content wrapper */
+.contact-section .content-wrapper {
+  max-width: min(90vw, 750px);
+  margin: 0 auto;
+}
+
+/* Contact section message */
+.contact-section > p:first-child {
+  margin-bottom: 1.5rem;
+  font-size: clamp(0.9rem, 1.8vw, 1rem);
+}
+
+/* Links within paragraphs */
+.about-section a,
+.contact-section a {
+  font-size: inherit;
+  word-break: break-word;
 }
 
 /* About Photo Styling */
@@ -207,10 +243,11 @@ body {
 #contact-form input,
 #contact-form textarea {
   padding: 0.8rem;
-  font-size: clamp(0.9rem, 1.8vw, 1rem);
+  font-size: clamp(0.85rem, 1.6vw, 1rem);
   width: 100%;
   box-sizing: border-box;
   font-family: 'Roboto Mono', monospace;
+  padding: clamp(0.6rem, 1.5vw, 0.8rem);
 }
 
 #contact-form textarea {
@@ -220,14 +257,51 @@ body {
 
 #contact-form button[type="submit"] {
   font-family: 'Roboto Mono', monospace;
-  font-size: clamp(0.9rem, 1.8vw, 1rem);
+  font-size: clamp(0.85rem, 1.6vw, 1rem);
   font-weight: 400;
   text-transform: lowercase;
   cursor: pointer;
-  padding: clamp(0.6rem, 1.5vh, 0.8rem);
+  padding: clamp(0.6rem, 1.5vw, 0.8rem);
   width: clamp(100px, 30%, 200px);
   box-sizing: border-box;
   align-self: center;
+}
+
+/* Contact form label scaling */
+#contact-form label {
+  font-size: clamp(0.85rem, 1.6vw, 1rem);
+}
+
+/* Better focus states */
+#contact-form input:focus,
+#contact-form textarea:focus {
+  outline: 2px solid var(--text-color);
+  outline-offset: 2px;
+}
+
+#contact-form button[type="submit"]:focus {
+  outline: 2px solid var(--text-color);
+  outline-offset: 4px;
+}
+
+/* Loading state for form submission */
+#contact-form button[type="submit"].loading {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+/* Success/error messages */
+.form-message {
+  text-align: center;
+  margin-top: 1rem;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.form-message.show {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .contact-section > * {
@@ -240,6 +314,7 @@ body {
   opacity: 1;
   transform: translateY(0);
 }
+
 /* -------------------------------
    Portfolio Carousel - SIMPLE WORKING VERSION
 --------------------------------*/
@@ -256,6 +331,7 @@ body {
   transition: opacity 0.8s ease;
   z-index: 3;
   visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
 }
 
 .portfolio-section.active {
@@ -319,6 +395,16 @@ body {
   margin: 0;
   padding: 0;
   white-space: nowrap;
+  color: rgba(34, 34, 34, 0.4);
+}
+
+/* Active state for current project title */
+.project-title.active {
+  color: var(--text-color);
+}
+
+body.dark-mode .project-title:not(.active) {
+  color: rgba(255, 255, 255, 0.4);
 }
 
 /* Stack them vertically */
@@ -351,7 +437,7 @@ body.dark-mode .title-number {
 /* Keep the text at full opacity */
 .title-text {
   opacity: 1;
-  text-transform: uppercase !important; 
+  text-transform: uppercase !important;
 }
 
 /* Arrows */
@@ -390,6 +476,7 @@ body.dark-mode .title-number {
 .arrow-down {
   order: 3;
 }
+
 /*--------------------------------
    Collapse Button
 --------------------------------*/
@@ -601,6 +688,206 @@ body.dark-mode .landing-nav a:hover {
 }
 
 /* -------------------------------
+   Responsive Styles
+--------------------------------*/
+@media (max-width: 768px) {
+  /* General section adjustments */
+  .about-section,
+  .contact-section {
+    padding: 0 5vw;
+    width: 95vw;
+    max-width: 95vw;
+  }
+  
+  /* About section specific */
+  .about-section .text-block {
+    padding: 0 10px;
+  }
+  
+  /* Contact form adjustments */
+  #contact-form {
+    gap: 0.8rem;
+  }
+  
+  #contact-form textarea {
+    min-height: clamp(80px, 15vh, 120px);
+  }
+  
+  /* Portfolio carousel adjustments */
+  .bracket-frame {
+    width: 90vw !important;
+    max-width: 400px !important;
+    gap: 10px;
+  }
+  
+  .bracket-left,
+  .bracket-right {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+  }
+  
+  .project-title {
+    font-size: clamp(1rem, 3vw, 1.3rem) !important;
+    height: 50px !important;
+    white-space: normal !important;
+    text-align: center;
+    padding: 0 5px;
+  }
+  
+  .title-viewport {
+    height: 50px !important;
+  }
+  
+  /* Portfolio title adjustments for mobile */
+  .title-text {
+    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+    letter-spacing: -0.5px;
+  }
+  
+  .title-number {
+    font-size: 0.9em;
+    margin-right: 5px;
+  }
+  
+  /* Adjust title positions for mobile */
+  .project-title:nth-child(2) { top: 50px; }
+  .project-title:nth-child(3) { top: 100px; }
+  .project-title:nth-child(4) { top: 150px; }
+  .project-title:nth-child(5) { top: 200px; }
+  
+  .title-track.active-2 { transform: translateY(-50px); }
+  .title-track.active-3 { transform: translateY(-100px); }
+  .title-track.active-4 { transform: translateY(-150px); }
+  .title-track.active-5 { transform: translateY(-200px); }
+  
+  /* Navigation adjustments */
+  .landing-nav {
+    gap: 1.5rem;
+    top: calc(50% + 3.5rem);
+  }
+  
+  .landing-nav a {
+    font-size: clamp(1rem, 3vw, 1.2rem);
+  }
+  
+  /* Name adjustments */
+  .hover-bulge {
+    font-size: clamp(1.8rem, 5vw, 2.5rem) !important;
+  }
+  
+  .hover-space {
+    width: clamp(0.5rem, 2vw, 0.8rem);
+  }
+  
+  /* About photo scaling */
+  #about-photo {
+    width: clamp(80px, 20vw, 100px);
+    margin-bottom: 1rem;
+  }
+  
+  /* Fixed position adjustments */
+  .landing-name.fixed {
+    top: 30px;
+  }
+  
+  .landing-nav.fixed {
+    top: calc(100% - 30px);
+  }
+  
+  /* Social icons */
+  #social-icons {
+    top: 15px;
+    left: 15px;
+    gap: 8px;
+  }
+  
+  .icon-btn .icon {
+    width: 22px;
+    height: 22px;
+  }
+  
+  /* Collapse button */
+  .collapse-btn {
+    top: 15px;
+    right: 15px;
+    font-size: 1rem;
+  }
+  
+  /* Dark mode toggle */
+  #dark-mode-toggle {
+    bottom: 15px;
+    right: 15px;
+  }
+  
+  .toggle-slider {
+    width: 50px;
+    height: 25px;
+  }
+  
+  .toggle-slider::before {
+    width: 19px;
+    height: 19px;
+  }
+  
+  #darkModeSwitch:checked + .toggle-slider::before {
+    transform: translateX(25px);
+  }
+}
+
+/* Extra small devices (phones under 480px) */
+@media (max-width: 480px) {
+  .about-section p,
+  .contact-section p {
+    font-size: clamp(0.8rem, 2vw, 0.9rem);
+    line-height: 1.5;
+  }
+  
+  .landing-nav {
+    gap: 1rem;
+    flex-direction: column;
+    top: calc(50% + 4rem);
+  }
+  
+  .hover-bulge {
+    font-size: clamp(1.5rem, 4vw, 2rem) !important;
+  }
+  
+  .project-title {
+    font-size: clamp(0.9rem, 2.5vw, 1.1rem) !important;
+  }
+  
+  .title-number {
+    margin-right: 5px;
+  }
+  
+  /* Allow portfolio titles to wrap on very small screens */
+  .project-title {
+    flex-direction: column;
+    gap: 2px;
+  }
+  
+  .title-text {
+    font-size: 0.9em;
+  }
+}
+
+/* Prevent extremely small viewports */
+@media (max-width: 320px) {
+  body {
+    min-width: 320px;
+    overflow-x: auto;
+  }
+  
+  .landing-container {
+    padding: 0 10px;
+  }
+  
+  .about-section,
+  .contact-section {
+    padding: 0 5px;
+  }
+}
+
+/* -------------------------------
    Accessibility: reduce motion
 --------------------------------*/
 @media (prefers-reduced-motion: reduce) {
@@ -615,24 +902,4 @@ body.dark-mode .landing-nav a:hover {
     animation: none !important;
   }
   .landing-nav a { opacity: 1; }
-}
-/* Scale to Device */
-@media (max-width: 768px) {
-  .bracket-frame {
-    width: 500px;
-  }
-  
-  .project-title {
-    font-size: 1.5rem;
-  }
-  
-  .hover-bulge {
-    font-size: 2.5rem;
-  }
-  
-  .about-section,
-  .contact-section {
-    max-width: 90%;
-    padding: 0 20px;
-  }
 }
