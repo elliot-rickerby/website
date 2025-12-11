@@ -1,471 +1,456 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio - UNIQLO & TORAY</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Elliot Rickerby</title>
 
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f5f5f5;
-            color: #333;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
 
-        /* Header with name */
-        .name-header {
-            position: fixed;
-            top: 2rem;
-            left: 2rem;
-            z-index: 100;
-            font-size: 1.5rem;
-            font-weight: 300;
-        }
-
-        /* Main navigation */
-        .main-nav {
-            position: fixed;
-            top: 2rem;
-            right: 2rem;
-            z-index: 100;
-            display: flex;
-            gap: 2rem;
-        }
-
-        .nav-link {
-            text-decoration: none;
-            color: #333;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: opacity 0.3s;
-        }
-
-        .nav-link:hover {
-            opacity: 0.7;
-        }
-
-        /* Portfolio section - FIXED POSITION */
-        .portfolio-section {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: white;
-            z-index: 90;
-            display: flex;
-            flex-direction: column;
-            justify-content: center; /* Center vertically */
-            align-items: center; /* Center horizontally */
-            padding: 4rem 2rem;
-            transform: translateY(100%);
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .portfolio-section.active {
-            transform: translateY(0);
-        }
-
-        /* Carousel container - CENTERED */
-        .carousel-container {
-            width: 100%;
-            max-width: 900px;
-            height: 500px;
-            position: relative;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Carousel slides */
-        .carousel-slides {
-            width: 100%;
-            height: 100%;
-            position: relative;
-        }
-
-        .carousel-slide {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 2rem;
-        }
-
-        .carousel-slide.active {
-            opacity: 1;
-        }
-
-        /* Project title with brackets */
-        .project-title {
-            font-size: 2.5rem;
-            font-weight: 300;
-            margin-bottom: 1.5rem;
-            cursor: pointer;
-            position: relative;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-        }
-
-        .title-brackets {
-            display: inline-block;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            color: #000;
-        }
-
-        .project-title:hover .title-brackets {
-            letter-spacing: 8px;
-            color: #e60012;
-        }
-
-        /* Details panel - EXPANDS DOWNWARD */
-        .details-panel {
-            position: absolute;
-            top: 100%; /* Starts directly below title */
-            left: 0;
-            width: 100%;
-            background: white;
-            padding: 0;
-            max-height: 0;
-            overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            z-index: 10;
-        }
-
-        .details-panel.expanded {
-            padding: 2rem;
-            max-height: 400px;
-            margin-top: 1rem;
-        }
-
-        .panel-content {
-            opacity: 0;
-            transition: opacity 0.3s ease 0.2s;
-        }
-
-        .details-panel.expanded .panel-content {
-            opacity: 1;
-        }
-
-        .close-panel {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #666;
-            transition: color 0.3s;
-        }
-
-        .close-panel:hover {
-            color: #000;
-        }
-
-        /* Project list (hidden by default) */
-        .project-list {
-            display: none; /* Hidden until needed */
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: white;
-            padding: 1rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            z-index: 20;
-        }
-
-        .project-list.visible {
-            display: block;
-        }
-
-        /* Navigation arrows */
-        .carousel-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.8);
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            transition: all 0.3s;
-            z-index: 30;
-        }
-
-        .carousel-nav:hover {
-            background: white;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .nav-prev {
-            left: -70px;
-        }
-
-        .nav-next {
-            right: -70px;
-        }
-
-        /* Project indicator dots */
-        .carousel-dots {
-            position: absolute;
-            bottom: -40px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 10px;
-        }
-
-        .dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: #ddd;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .dot.active {
-            background: #000;
-        }
-
-        /* Hide name when panel is open */
-        body.panel-open .name-header {
-            opacity: 0.3;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .carousel-container {
-                height: 400px;
-                padding: 0 1rem;
-            }
-
-            .project-title {
-                font-size: 1.8rem;
-            }
-
-            .nav-prev {
-                left: 10px;
-            }
-
-            .nav-next {
-                right: 10px;
-            }
-        }
-    </style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Your name at top left -->
-    <div class="name-header">Your Name</div>
+<!-- Tendril Background -->
+<svg class="tendril-bg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" preserveAspectRatio="none">
+<path class="tendril t1" d="M0,100 C150,80 200,200 400,300" stroke="#eee" stroke-width="2" fill="transparent"/>
+<path class="tendril t2" d="M0,300 C120,250 180,400 400,300" stroke="#eee" stroke-width="2" fill="transparent"/>
+<path class="tendril t3" d="M0,500 C160,450 240,550 400,300" stroke="#eee" stroke-width="2" fill="transparent"/>
+<path class="tendril t4" d="M800,100 C650,120 600,200 400,300" stroke="#eee" stroke-width="2" fill="transparent"/>
+<path class="tendril t5" d="M800,300 C680,350 620,400 400,300" stroke="#eee" stroke-width="2" fill="transparent"/>
+<path class="tendril t6" d="M800,500 C640,500 560,450 400,300" stroke="#eee" stroke-width="2" fill="transparent"/>
+<path class="tendril t7" d="M100,0 C200,150 600,150 400,300" stroke="#eee" stroke-width="2" fill="transparent"/>
+<path class="tendril t8" d="M400,0 C350,100 450,250 400,300" stroke="#eee" stroke-width="2" fill="transparent"/>
+<path class="tendril t9" d="M700,0 C650,200 500,250 400,300" stroke="#eee" stroke-width="2" fill="transparent"/>
+<path class="tendril t10" d="M100,600 C200,450 600,450 400,300" stroke="#eee" stroke-width="2" fill="transparent"/>
+<path class="tendril t11" d="M400,600 C350,500 450,350 400,300" stroke="#eee" stroke-width="2" fill="transparent"/>
+<path class="tendril t12" d="M700,600 C650,400 500,350 400,300" stroke="#eee" stroke-width="2" fill="transparent"/>
+</svg>
 
-    <!-- Main navigation -->
-    <nav class="main-nav">
-        <a href="#" class="nav-link">About</a>
-        <a href="#" class="nav-link" id="portfolio-link">Portfolio</a>
-        <a href="#" class="nav-link">Contact</a>
-    </nav>
+<!-- Landing Container -->
+<div class="landing-container">
+<h1 class="landing-name" id="landingName">
+<span class="hover-bulge">e</span>
+<span class="hover-bulge">l</span>
+<span class="hover-bulge">l</span>
+<span class="hover-bulge">i</span>
+<span class="hover-bulge">o</span>
+<span class="hover-bulge">t</span>
+<span class="hover-space"></span>
+<span class="hover-bulge">r</span>
+<span class="hover-bulge">i</span>
+<span class="hover-bulge">c</span>
+<span class="hover-bulge">k</span>
+<span class="hover-bulge">e</span>
+<span class="hover-bulge">r</span>
+<span class="hover-bulge">b</span>
+<span class="hover-bulge">y</span>
+</h1>
 
-    <!-- Portfolio Section (initially hidden) -->
-    <section class="portfolio-section" id="portfolio-section">
-        <div class="carousel-container">
-            <!-- Navigation arrows -->
-            <button class="carousel-nav nav-prev" id="prev-btn">←</button>
-            <button class="carousel-nav nav-next" id="next-btn">→</button>
+<nav class="landing-nav" id="landingNav">
+<a href="#" id="aboutBtn">About</a>
+<a href="#" id="portfolioBtn">Portfolio</a>
+<a href="#" id="contactBtn">Contact</a>
+</nav>
+</div>
 
-            <div class="carousel-slides">
-                <!-- Slide 1 -->
-                <div class="carousel-slide active" data-slide="1">
-                    <div class="project-title" data-project="1">
-                        <span class="title-brackets">[</span>
-                        #001 UNIQLO & TORAY INDUSTRIES
-                        <span class="title-brackets">]</span>
-                    </div>
-                    <div class="details-panel" id="panel-1">
-                        <button class="close-panel">×</button>
-                        <div class="panel-content">
-                            <h3>UNIQLO & TORAY INDUSTRIES</h3>
-                            <p>Detailed information about UNIQLO & TORAY INDUSTRIES project. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                            <p>Additional details about this research project and findings.</p>
-                        </div>
-                    </div>
-                </div>
+<!-- About Section -->
+<div class="about-section" id="aboutSection">
+<!-- inside about-section, before the text paragraphs -->
+<img id="about-photo" src="portrait.jpg" alt="Portrait of Elliot">
+<div class="text-block">
+<p>
+<b>elliot rickerby</b> is a freelance cultural researcher and psychologist. blending an empirical academic background with a passion for fashion, elliot aims to use quality research and scientific understanding to solve problems within the fashion industry. although specialising in mental health and consumer insights, he believes that every part of the industry stands to gain from a deeper understanding of the behaviours that shape its consumers, workforce and beyond.</p>
+<p>
+elliot has carried out research for Uniqlo as well as a range of independent designers, alongside contributing to several academic papers. his master's thesis - scheduled for publication in 2026 - marks an early step in addressing the mental health pressures within the fashion industry. he also writes regularly, with a collection of published articles and a Substack where he analyses fashion media.</p>
+<p>     
+elliot is open to collaborations and freelance work and is best contacted via the contact page, <a href= "https://www.linkedin.com/in/elliotrickerby/" >LinkedIn</a> or <a href="https://www.instagram.com/elliotrickerby_/" >Instagram</a>.</p>
+</div>
+</div>
 
-                <!-- Slide 2 -->
-                <div class="carousel-slide" data-slide="2">
-                    <div class="project-title" data-project="2">
-                        <span class="title-brackets">[</span>
-                        #002 INDEPENDENT DESIGNER
-                        <span class="title-brackets">]</span>
-                    </div>
-                    <div class="details-panel" id="panel-2">
-                        <button class="close-panel">×</button>
-                        <div class="panel-content">
-                            <h3>INDEPENDENT DESIGNER</h3>
-                            <p>Details about independent design work...</p>
-                        </div>
-                    </div>
-                </div>
+<!-- Portfolio Section -->
+<div class="portfolio-section" id="portfolioSection">
+  <div class="portfolio-carousel">
+    <!-- Up Arrow - SVG Triangle -->
+    <button class="carousel-arrow arrow-up">
+      <svg class="arrow-icon" width="20" height="12" viewBox="0 0 20 12">
+        <path d="M10 0L0 12H20L10 0Z" fill="currentColor"/>
+      </svg>
+    </button>
+    
+    <!-- Bracket Frame -->
+    <div class="bracket-frame">
+      <span class="bracket-left">[</span>
+      <div class="title-viewport">
+      <div class="title-track">
+  <h3 class="project-title">
+    <span class="title-number">#001</span>&nbsp;<span class="title-text">UNIQLO & TORAY INDUSTRIES</span>
+  </h3>
+  <h3 class="project-title">
+    <span class="title-number">#002</span>&nbsp;<span class="title-text">INDEPENDENT DESIGNER</span>
+  </h3>
+  <h3 class="project-title">
+    <span class="title-number">#003</span>&nbsp;<span class="title-text">MASTERS THESIS</span>
+  </h3>
+  <h3 class="project-title">
+    <span class="title-number">#004</span>&nbsp;<span class="title-text">1GRANARY</span>
+  </h3>
+  <h3 class="project-title">
+    <span class="title-number">#005</span>&nbsp;<span class="title-text">FILLER PROJECT FOR NOW</span>
+  </h3>
+</div>
+      </div>
+      <span class="bracket-right">]</span>
+    </div>
+    
+    <!-- Down Arrow - SVG Triangle -->
+    <button class="carousel-arrow arrow-down">
+      <svg class="arrow-icon" width="20" height="12" viewBox="0 0 20 12">
+        <path d="M10 12L0 0H20L10 12Z" fill="currentColor"/>
+      </svg>
+    </button>
+  </div>
+</div>
 
-                <!-- Add slides 3-5 similarly -->
-            </div>
+<!-- Contact Section -->
+<div class="contact-section" id="contactSection">
+<div class="content-wrapper">
+<p> if you would like to contact elliot please use the form below, or the social media buttons in the top left corner. standard response time is within 48 hours :)</p>
 
-            <!-- Dots indicator -->
-            <div class="carousel-dots" id="dots-container">
-                <!-- Dots will be generated by JS -->
-            </div>
-        </div>
-    </section>
+<!-- form wrapper INSIDE contact section -->
+<div id="contact-form-wrapper">
+<form id="contact-form" action="https://formspree.io/f/mrbnkaqr" method="POST">
+<label>Name</label>
+<input type="text" name="name" required />
 
-    <script>
-        // DOM Elements
-        const portfolioLink = document.getElementById('portfolio-link');
-        const portfolioSection = document.getElementById('portfolio-section');
-        const slides = document.querySelectorAll('.carousel-slide');
-        const prevBtn = document.getElementById('prev-btn');
-        const nextBtn = document.getElementById('next-btn');
-        const dotsContainer = document.getElementById('dots-container');
-        const projectTitles = document.querySelectorAll('.project-title');
-        const closeButtons = document.querySelectorAll('.close-panel');
+<label>Email</label>
+<input type="email" name="email" required />
 
-        let currentSlide = 0;
+<label>Message</label>
+<textarea name="message" required></textarea>
 
-        // Initialize carousel
-        function initCarousel() {
-            // Create dots
-            slides.forEach((_, index) => {
-                const dot = document.createElement('div');
-                dot.classList.add('dot');
-                if (index === 0) dot.classList.add('active');
-                dot.addEventListener('click', () => goToSlide(index));
-                dotsContainer.appendChild(dot);
-            });
+<button type="submit">send</button>
+</form>
+</div>
+</div>
+</div> 
 
-            // Position carousel in center
-            positionCarousel();
-        }
 
-        // Position carousel properly
-        function positionCarousel() {
-            const carousel = document.querySelector('.carousel-container');
-            const section = document.querySelector('.portfolio-section');
-            
-            // Ensure vertical centering
-            section.style.display = 'flex';
-            section.style.justifyContent = 'center';
-            section.style.alignItems = 'center';
-        }
+<!-- Collapse Button -->
+<a href="#" id="collapseBtn" class="collapse-btn">collapse</a>
 
-        // Navigation functions
-        function goToSlide(n) {
-            slides[currentSlide].classList.remove('active');
-            dotsContainer.children[currentSlide].classList.remove('active');
-            
-            currentSlide = (n + slides.length) % slides.length;
-            
-            slides[currentSlide].classList.add('active');
-            dotsContainer.children[currentSlide].classList.add('active');
-            
-            // Close any open panels
-            closeAllPanels();
-        }
+<!-- Socials -->
+<div id="social-icons">
+<a href="https://www.instagram.com/elliotrickerby_/" target="_blank" class="icon-btn">
+<!-- Instagram SVG -->
+<svg viewBox="0 0 24 24" class="icon">
+<path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm10 2c1.7 0 3 1.3 3 3v10c0 
+     1.7-1.3 3-3 3H7c-1.7 0-3-1.3-3-3V7c0-1.7 1.3-3 3-3h10zm-5 3.5A4.5 4.5 0 1 0 16.5 12 4.5 4.5 0 0 0 12 7.5zm0 
+     7.4A2.9 2.9 0 1 1 14.9 12 2.9 2.9 0 0 1 12 14.9zm4.8-8.9a1.1 1.1 0 1 1-1.1 1.1 1.1 1.1 0 0 1 1.1-1.1z"/>
+</svg>
+</a>
 
-        function nextSlide() {
-            goToSlide(currentSlide + 1);
-        }
+<a href="https://www.linkedin.com/in/elliotrickerby/" target="_blank" class="icon-btn">
+<!-- LinkedIn SVG -->
+<svg viewBox="0 0 24 24" class="icon">
+<path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.2 8.48h4.53V24H.2zM8.47 
+     8.48h4.34v2.11h.06c.6-1.14 2.07-2.34 4.26-2.34C21.4 8.25 24 10.7 24 15.08V24h-4.53v-8.1c0-1.93-.04-4.41-2.69-4.41-2.69 
+     0-3.1 2.1-3.1 4.27V24H8.47z"/>
+</svg>
+</a>
+</div>
 
-        function prevSlide() {
-            goToSlide(currentSlide - 1);
-        }
+<!-- Dark Mode Toggle -->
+<div id="dark-mode-toggle">
+<input type="checkbox" id="darkModeSwitch" />
+<label for="darkModeSwitch" class="toggle-slider">
+<span class="toggle-icon">🌙</span>
+<span class="toggle-icon">☀️</span>
+</label>
+</div>
 
-        // Panel functions
-        function openPanel(projectNumber) {
-            // Close all panels first
-            closeAllPanels();
-            
-            // Open selected panel
-            const panel = document.getElementById(`panel-${projectNumber}`);
-            panel.classList.add('expanded');
-            
-            // Add body class to adjust header
-            document.body.classList.add('panel-open');
-        }
+<!-- GSAP Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
 
-        function closeAllPanels() {
-            document.querySelectorAll('.details-panel').forEach(panel => {
-                panel.classList.remove('expanded');
-            });
-            document.body.classList.remove('panel-open');
-        }
+<!-- JavaScript -->
+<script>
+const aboutBtn = document.getElementById('aboutBtn');
+const landingName = document.getElementById('landingName');
+const landingNav = document.getElementById('landingNav');
+const aboutSection = document.getElementById('aboutSection');
+const collapseBtn = document.getElementById('collapseBtn');
+const contactBtn = document.getElementById('contactBtn');
+const contactSection = document.getElementById('contactSection');
+const socialIcons = document.getElementById('social-icons');
+const formWrapper = document.getElementById("contact-form-wrapper");
+const portfolioBtn = document.getElementById('portfolioBtn');
+const portfolioSection = document.getElementById('portfolioSection');
 
-        // Event Listeners
-        portfolioLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            portfolioSection.classList.toggle('active');
-            // Re-center when opening
-            if (portfolioSection.classList.contains('active')) {
-                positionCarousel();
-            }
-        });
+aboutBtn.addEventListener('click', (e) => {
+e.preventDefault();
+landingName.classList.add('fixed');
+landingNav.classList.add('fixed');
 
-        prevBtn.addEventListener('click', prevSlide);
-        nextBtn.addEventListener('click', nextSlide);
+aboutSection.classList.add('active');
 
-        projectTitles.forEach(title => {
-            title.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const projectNum = title.getAttribute('data-project');
-                openPanel(projectNum);
-            });
-        });
+collapseBtn.classList.add('active');
+aboutBtn.classList.add('active');
 
-        closeButtons.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                closeAllPanels();
-            });
-        });
+contactBtn.classList.remove('active');
+contactSection.classList.remove('active');
+portfolioBtn.classList.remove('active');
+portfolioSection.classList.remove('active');
 
-        // Close panel when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!e.target.closest('.details-panel') && 
-                !e.target.closest('.project-title')) {
-                closeAllPanels();
-            }
-        });
+socialIcons.classList.remove('active');
+});
 
-        // Initialize on load
-        document.addEventListener('DOMContentLoaded', () => {
-            initCarousel();
-            
-            // Ensure proper positioning on resize
-            window.addEventListener('resize', positionCarousel);
-        });
-    </script>
+contactBtn.addEventListener('click', (e) => {
+e.preventDefault();
+
+landingName.classList.add('fixed');
+landingNav.classList.add('fixed');
+
+contactSection.classList.add('active');
+collapseBtn.classList.add('active');
+contactBtn.classList.add('active');
+
+aboutSection.classList.remove('active');
+aboutBtn.classList.remove('active');
+portfolioBtn.classList.remove('active');
+portfolioSection.classList.remove('active');
+
+socialIcons.classList.add('active');
+
+});
+
+portfolioBtn.addEventListener('click', (e) => {
+e.preventDefault();
+
+landingName.classList.add('fixed');
+landingNav.classList.add('fixed');
+
+portfolioSection.classList.add('active');
+collapseBtn.classList.add('active');
+portfolioBtn.classList.add('active');
+
+aboutSection.classList.remove('active');
+aboutBtn.classList.remove('active');
+contactSection.classList.remove('active');
+contactBtn.classList.remove('active');
+
+socialIcons.classList.remove('active');
+});
+
+// Collapse all sections
+collapseBtn.addEventListener('click', (e) => {
+e.preventDefault();
+
+landingName.classList.remove('fixed');
+landingNav.classList.remove('fixed');
+
+aboutSection.classList.remove('active');
+contactSection.classList.remove('active');
+portfolioSection.classList.remove('active');
+
+aboutBtn.classList.remove('active');
+contactBtn.classList.remove('active');
+portfolioBtn.classList.remove('active');
+
+socialIcons.classList.remove('active');
+collapseBtn.classList.remove('active');
+                             
+});
+// Portfolio Carousel - Cube Animation
+const titleTrack = document.querySelector('.title-track');
+const arrowUp = document.querySelector('.arrow-up');
+const arrowDown = document.querySelector('.arrow-down');
+
+let currentIndex = 0;
+const totalProjects = 5;
+
+// Function to update carousel with cube animation
+function updateCarousel(newIndex, direction) {
+  // Update index
+  currentIndex = newIndex;
+  
+  // Remove all active classes
+  titleTrack.classList.remove('active-1', 'active-2', 'active-3', 'active-4', 'active-5');
+  
+  // Add new active class with delay for animation
+  setTimeout(() => {
+    titleTrack.classList.add(`active-${currentIndex + 1}`);
+  }, 10);
+  
+  // Update arrow states
+  arrowUp.disabled = currentIndex === 0;
+  arrowDown.disabled = currentIndex === totalProjects - 1;
+  arrowUp.style.opacity = currentIndex === 0 ? '0.2' : '0.7';
+  arrowDown.style.opacity = currentIndex === totalProjects - 1 ? '0.2' : '0.7';
+}
+
+// Arrow navigation
+arrowUp.addEventListener('click', (e) => {
+  e.stopPropagation();
+  if (currentIndex > 0) {
+    updateCarousel(currentIndex - 1, 'up');
+  }
+});
+
+arrowDown.addEventListener('click', (e) => {
+  e.stopPropagation();
+  if (currentIndex < totalProjects - 1) {
+    updateCarousel(currentIndex + 1, 'down');
+  }
+});
+
+// Keyboard navigation
+document.addEventListener('keydown', (e) => {
+  if (portfolioSection.classList.contains('active')) {
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (currentIndex > 0) {
+        updateCarousel(currentIndex - 1, 'up');
+      }
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (currentIndex < totalProjects - 1) {
+        updateCarousel(currentIndex + 1, 'down');
+      }
+    }
+  }
+});
+
+// Initialize
+updateCarousel(0);
+</script>
+  
+<!-- GSAP Tendril Animation -->
+<script>
+const tendrils = document.querySelectorAll(".tendril");
+
+function parsePath(path) {
+const d = path.getAttribute("d");
+const match = d.match(/M([\d.,]+) C([\d.,]+) ([\d.,]+) ([\d.,]+)/);
+if (!match) return null;
+return {
+start: match[1].split(",").map(Number),
+control1: match[2].split(",").map(Number),
+control2: match[3].split(",").map(Number),
+end: match[4].split(",").map(Number),
+};
+}
+
+function buildPath(points) {
+return `M${points.start.join(",")} C${points.control1.join(",")} ${points.control2.join(",")} ${points.end.join(",")}`;
+}
+
+// Animate each tendril
+tendrils.forEach((path, i) => {
+const length = path.getTotalLength();
+path.style.strokeDasharray = length;
+path.style.strokeDashoffset = length;
+
+const points = parsePath(path);
+if (!points) return;
+
+// Keep base control points
+const baseC1 = [...points.control1];
+const baseC2 = [...points.control2];
+
+// Animate growth first
+gsap.to(path, {
+strokeDashoffset: 0,
+duration: 1 + Math.random(), // 1–2s fast growth
+ease: "power1.inOut",
+delay: i * 0.2, // stagger start times
+onComplete: () => {
+// Start subtle wriggle for this path
+
+// Separate offsets for control1 and control2
+let c1Offset = { x: 0, y: 0 };
+let c2Offset = { x: 0, y: 0 };
+
+// Animate control1
+gsap.to(c1Offset, {
+x: () => Math.random() * 14 - 7,
+y: () => Math.random() * 14 - 7,
+duration: 1 + Math.random() * 1.2,
+yoyo: true,
+repeat: -1,
+ease: "sine.inOut",
+onUpdate: () => {
+points.control1[0] = baseC1[0] + c1Offset.x;
+points.control1[1] = baseC1[1] + c1Offset.y;
+points.control2[0] = baseC2[0] + c2Offset.x;
+points.control2[1] = baseC2[1] + c2Offset.y;
+path.setAttribute("d", buildPath(points));
+}
+});
+
+// Animate control2 independently
+gsap.to(c2Offset, {
+x: () => Math.random() * 14 - 7,
+y: () => Math.random() * 14 - 7,
+duration: 1 + Math.random() * 1.2,
+yoyo: true,
+repeat: -1,
+ease: "sine.inOut"
+});
+}
+});
+});
+</script>
+
+<script>
+// DOM element management
+document.addEventListener('DOMContentLoaded', () => {
+const collapse = document.getElementById('collapseBtn');
+const socials = document.getElementById('social-icons');
+
+if (collapse && collapse.parentElement !== document.body) {
+document.body.appendChild(collapse);
+}
+if (socials && socials.parentElement !== document.body) {
+document.body.appendChild(socials);
+}
+
+collapse && (collapse.style.zIndex = 9999);
+socials && (socials.style.zIndex = 9999);
+
+// Dark Mode Toggle
+const darkModeToggle = document.getElementById('darkModeSwitch');
+const body = document.body;
+
+// Check for saved theme preference
+const savedTheme = localStorage.getItem('theme');
+
+// Default to LIGHT mode
+if (savedTheme === 'dark') {
+body.classList.add('dark-mode');
+darkModeToggle.checked = true;
+} else {
+// Ensure light mode is default
+body.classList.remove('dark-mode');
+darkModeToggle.checked = false;
+// Only set localStorage if it doesn't exist
+if (!savedTheme) {
+localStorage.setItem('theme', 'light');
+}
+}
+
+// Toggle dark mode
+darkModeToggle.addEventListener('change', () => {
+if (darkModeToggle.checked) {
+body.classList.add('dark-mode');
+localStorage.setItem('theme', 'dark');
+} else {
+body.classList.remove('dark-mode');
+localStorage.setItem('theme', 'light');
+}
+});
+});
+</script>
+
 </body>
 </html>
