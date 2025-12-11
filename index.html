@@ -79,12 +79,12 @@ elliot is open to collaborations and freelance work and is best contacted via th
       </svg>
     </button>
     
-    <!-- Bracket Frame -->
+    <!-- Bracket Frame - Updated with nested spans -->
     <div class="bracket-frame">
-      <span class="bracket-left">[</span>
+      <span class="bracket-left"><span>[</span></span>
       <div class="title-viewport">
         <div class="title-track">
-          <!-- Updated Project Titles with clickable links and data attributes -->
+          <!-- Project Titles -->
           <h3 class="project-title" data-project="1">
             <a href="#" class="project-link">
               <span class="title-number">#001</span>&nbsp;<span class="title-text">UNIQLO & TORAY INDUSTRIES</span>
@@ -112,7 +112,7 @@ elliot is open to collaborations and freelance work and is best contacted via th
           </h3>
         </div>
       </div>
-      <span class="bracket-right">]</span>
+      <span class="bracket-right"><span>]</span></span>
     </div>
     
     <!-- Down Arrow -->
@@ -122,13 +122,12 @@ elliot is open to collaborations and freelance work and is best contacted via th
       </svg>
     </button>
     
-    <!-- Project Details Panel (hidden by default) -->
+    <!-- Project Details Panel -->
     <div class="project-details-panel">
       <div class="project-details-content">
         <h3 class="project-details-title"></h3>
         <div class="project-details-text">
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
         </div>
         <button class="close-project-btn">close</button>
       </div>
@@ -158,7 +157,6 @@ elliot is open to collaborations and freelance work and is best contacted via th
 </div>
 </div>
 </div> 
-
 
 <!-- Collapse Button -->
 <a href="#" id="collapseBtn" class="collapse-btn">collapse</a>
@@ -381,8 +379,18 @@ projectLinks.forEach(link => {
     projectDetailsTitle.textContent = data.title;
     projectDetailsText.innerHTML = data.content;
     
-    // Expand the portfolio section
-    portfolioSection.classList.add('expanded');
+    // First, move to the correct project in carousel if needed
+    const projectIndex = parseInt(projectId) - 1;
+    if (currentIndex !== projectIndex) {
+      updateCarousel(projectIndex);
+      // Wait for carousel animation before expanding
+      setTimeout(() => {
+        portfolioSection.classList.add('expanded');
+      }, 500);
+    } else {
+      // Expand immediately if already on correct project
+      portfolioSection.classList.add('expanded');
+    }
     
     // Disable carousel arrows
     carouselArrows.forEach(arrow => {
