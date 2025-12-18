@@ -255,22 +255,25 @@ body {
   visibility: visible;
 }
 
+/* -------------------------------
+   Portfolio Carousel
+--------------------------------*/
 .portfolio-carousel {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  position: relative; /* For absolute positioning of arrows */
 }
 
-/* Fade in animation */
-.portfolio-carousel > * {
+/* Fade in animation for carousel children */
+.portfolio-carousel > *:not(.carousel-arrow) {
   opacity: 0;
   transform: translateY(8px);
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
-.portfolio-section.active .portfolio-carousel > * {
+.portfolio-section.active .portfolio-carousel > *:not(.carousel-arrow) {
   opacity: 1;
   transform: translateY(0);
 }
@@ -284,7 +287,7 @@ body {
   justify-content: center;
   gap: 15px;
   width: min(85vw, 750px);
-  margin: 0 auto;
+  margin: 60px auto; /* Space for arrows */
   position: relative;
   height: 80px;
   transition: height 0.6s ease;
@@ -370,12 +373,11 @@ body.dark-mode .title-number {
 }
 
 /* -------------------------------
-   Arrows - FIXED POSITION
+   Arrows - ABSOLUTELY POSITIONED (NO MOVEMENT)
 --------------------------------*/
 .carousel-arrow {
   background: none;
   border: none;
-  font-size: 2.5rem;
   color: var(--text-color);
   cursor: pointer;
   padding: 10px;
@@ -383,21 +385,28 @@ body.dark-mode .title-number {
   font-family: 'Roboto Mono', monospace;
   opacity: 0.7;
   line-height: 1;
-  position: relative;
+  position: absolute; /* Absolute positioning */
   z-index: 2;
+  margin: 0;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-/* Arrow ordering - KEEP ARROWS IN PLACE */
+/* Up arrow positioned above bracket frame */
 .arrow-up {
-  order: 1;
+  top: 0; /* At the top of the carousel */
 }
 
-.bracket-frame {
-  order: 2;
-}
-
+/* Down arrow positioned below bracket frame */
 .arrow-down {
-  order: 3;
+  bottom: 0; /* At the bottom of the carousel */
+}
+
+/* Arrow icons */
+.arrow-icon {
+  width: 30px;
+  height: 18px;
+  display: block;
 }
 
 .carousel-arrow:hover {
@@ -444,7 +453,7 @@ body.dark-mode .project-link:hover {
 }
 
 /* -------------------------------
-   Expanded State - SIMPLE & CLEAN
+   Expanded State
 --------------------------------*/
 .portfolio-section.expanded .bracket-frame {
   height: 70vh;
@@ -492,17 +501,24 @@ body.dark-mode .project-link:hover {
   height: 100%;
 }
 
-/* Arrows when expanded - SIMPLE FADE */
+/* -------------------------------
+   Arrow States - FADE ONLY, NO MOVEMENT
+--------------------------------*/
+/* Arrows fade out when expanded - stay in same position */
 .portfolio-section.expanded .carousel-arrow {
   opacity: 0;
   pointer-events: none;
+  /* NO position changes - stay exactly where they are */
+  top: 0; /* Keep original position */
+  bottom: 0; /* Keep original position */
 }
 
-/* Arrows when not expanded */
+/* Arrows fade in when not expanded */
 .portfolio-section.active:not(.expanded) .carousel-arrow {
   opacity: 0.7;
   pointer-events: auto;
 }
+
 /*--------------------------------
    Collapse Button
 --------------------------------*/
