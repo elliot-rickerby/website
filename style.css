@@ -276,7 +276,7 @@ body {
   transform: translateY(0);
 }
 
-/* Fixed width bracket frame - NO JUMPING FIX */
+/* Fixed width bracket frame - FIXED FOR SMOOTH EXPANSION */
 .bracket-frame {
   display: flex;
   align-items: center;
@@ -286,28 +286,29 @@ body {
   margin: 0 auto;
   position: relative;
   height: 80px; /* Fixed height for normal state */
-  /* CRITICAL: No transition on position, only on height */
+  /* Smooth height transition only */
   transition: height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-  /* Ensure it stays centered */
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  /* Prevent any position shifting */
+  transform-origin: center center;
+  will-change: height;
 }
 
-/* SVG Brackets - Thicker, no scaling stroke */
+/* SVG Brackets - MUCH THICKER */
 .bracket-svg {
-  width: 12px; /* Narrow brackets */
+  width: 15px; /* Slightly wider to accommodate thicker stroke */
   height: 80px; /* Height matches frame height */
   flex-shrink: 0;
-  /* Only transition height, not position */
+  /* Only transition height */
   transition: height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-  /* Keep brackets centered vertically */
+  /* Keep brackets perfectly centered */
   align-self: center;
   /* Prevent any position shifts */
   position: relative;
   top: 0;
   margin: 0;
+  /* Ensure smooth scaling */
+  transform-origin: center center;
+  will-change: height;
 }
 
 .bracket-left,
@@ -323,6 +324,9 @@ body {
   position: relative;
   display: flex;
   align-items: center; /* Center content vertically */
+  /* Prevent position changes */
+  position: relative;
+  top: 0;
 }
 
 /* Track that moves */
@@ -383,7 +387,7 @@ body.dark-mode .title-number {
   text-transform: uppercase !important; 
 }
 
-/* Arrows */
+/* Arrows - FIXED FADE OUT (no position change) */
 .carousel-arrow {
   background: none;
   border: none;
@@ -391,10 +395,16 @@ body.dark-mode .title-number {
   color: var(--text-color);
   cursor: pointer;
   padding: 10px;
-  transition: opacity 0.4s ease, transform 0.3s ease;
+  /* Only fade opacity, don't move position */
+  transition: opacity 0.4s ease 0.2s; /* Add delay to match bracket expansion */
   font-family: 'Roboto Mono', monospace;
   opacity: 0;
   line-height: 1;
+  /* Keep arrows in fixed position */
+  position: relative;
+  top: 0;
+  transform: none !important;
+  will-change: opacity;
 }
 
 .carousel-arrow:hover {
@@ -453,31 +463,29 @@ body.dark-mode .project-link:hover {
 }
 
 /* -------------------------------
-   EXPANDED STATE - NO JUMPING, CONSISTENT THICKNESS
+   EXPANDED STATE - SMOOTH IN BOTH DIRECTIONS
 --------------------------------*/
 .portfolio-section.expanded .bracket-frame {
-  /* Expand height without moving position */
-  height: 70vh !important; /* 70% of viewport height */
+  /* Expand height without any position change */
+  height: 70vh !important;
   min-height: 400px;
   max-height: 600px;
-  /* CRITICAL: Keep alignment as center, not stretch */
+  /* Keep everything centered */
   align-items: center;
-  /* Ensure no position change */
+  /* CRITICAL: Ensure no position shift */
   position: relative;
   top: 0;
   transform: none;
-  margin-top: 0;
-  margin-bottom: 0;
+  margin: 0 auto;
 }
 
 .portfolio-section.expanded .bracket-svg {
-  /* Brackets get taller but stay centered */
+  /* Brackets get taller but stay perfectly centered */
   height: 100% !important;
-  width: 12px; /* Keep width constant */
-  /* Keep brackets centered vertically */
+  width: 15px; /* Keep width constant */
   align-self: center;
-  /* Ensure stroke stays consistent thickness */
-  stroke-width: 3.5px !important;
+  /* Thicker stroke stays consistent */
+  stroke-width: 6px !important;
 }
 
 .portfolio-section.expanded .title-viewport {
@@ -486,6 +494,8 @@ body.dark-mode .project-link:hover {
   align-items: center;
   justify-content: center;
   height: 100%;
+  position: relative;
+  top: 0;
 }
 
 .portfolio-section.expanded .title-track {
@@ -494,7 +504,8 @@ body.dark-mode .project-link:hover {
   transform: translateY(0) !important;
   height: 100%;
   display: flex;
-  align-items: center; /* Center vertically */
+  align-items: center;
+  top: 0;
 }
 
 .portfolio-section.expanded .project-title {
@@ -537,13 +548,21 @@ body.dark-mode .project-link:hover {
   display: flex;
 }
 
-/* Disable arrows when expanded */
+/* Arrows when expanded - FADE ONLY (no position change) */
 .portfolio-section.expanded .carousel-arrow {
   opacity: 0 !important;
   pointer-events: none !important;
   cursor: default !important;
+  /* No transform or position changes */
+  transform: none !important;
+  top: 0 !important;
+  transition: opacity 0.3s ease 0s; /* Immediate fade when expanding */
 }
 
+/* When NOT expanded, arrows should fade in smoothly */
+.portfolio-section:not(.expanded).active .carousel-arrow {
+  transition: opacity 0.4s ease 0.6s; /* Delay fade in after collapse */
+}
 
 /*--------------------------------
    Collapse Button
