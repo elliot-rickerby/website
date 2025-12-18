@@ -261,6 +261,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 20px;
+  position: relative;
 }
 
 /* Portfolio animation fix */
@@ -284,8 +285,9 @@ body {
   width: min(85vw, 750px);
   margin: 0 auto;
   position: relative;
-  height: auto; /* Let it grow naturally */
-  transition: gap 0.8s cubic-bezier(0.4, 0, 0.2, 1); /* Keep gap transition */
+  height: clamp(60px, 10vh, 80px); /* Match title height */
+  transition: height 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
+              gap 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .bracket-left,
@@ -296,23 +298,23 @@ body {
   color: var(--text-color);
   flex-shrink: 0;
   transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  height: 100%;
   display: flex;
   align-items: center;
-  height: clamp(60px, 10vh, 80px); /* Match title-viewport height */
 }
 
 /* Simple viewport - masks everything except one title */
 .title-viewport {
   width: 100%;
-  height: clamp(60px, 10vh, 80px);
+  height: 100%;
   overflow: hidden;
   position: relative;
-  transition: height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Track that moves */
 .title-track {
-  position: relative;
+  position: absolute;
+  width: 100%;
   height: 100%;
   transition: transform 0.5s ease;
 }
@@ -321,7 +323,7 @@ body {
 .project-title {
   position: absolute;
   width: 100%;
-  height: 80px;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -330,23 +332,21 @@ body {
   margin: 0;
   padding: 0;
   white-space: nowrap;
-  top: 0;
-  left: 0;
 }
 
 /* Stack them vertically */
 .project-title:nth-child(1) { top: 0; }
-.project-title:nth-child(2) { top: 80px; }
-.project-title:nth-child(3) { top: 160px; }
-.project-title:nth-child(4) { top: 240px; }
-.project-title:nth-child(5) { top: 320px; }
+.project-title:nth-child(2) { top: 100%; }
+.project-title:nth-child(3) { top: 200%; }
+.project-title:nth-child(4) { top: 300%; }
+.project-title:nth-child(5) { top: 400%; }
 
 /* Move track to show active title */
 .title-track.active-1 { transform: translateY(0); }
-.title-track.active-2 { transform: translateY(-80px); }
-.title-track.active-3 { transform: translateY(-160px); }
-.title-track.active-4 { transform: translateY(-240px); }
-.title-track.active-5 { transform: translateY(-320px); }
+.title-track.active-2 { transform: translateY(-100%); }
+.title-track.active-3 { transform: translateY(-200%); }
+.title-track.active-4 { transform: translateY(-300%); }
+.title-track.active-5 { transform: translateY(-400%); }
 
 /* Style the number portion */
 .title-number {
@@ -448,67 +448,104 @@ body.dark-mode .project-link:hover {
   /* Keep carousel centered */
   justify-content: center;
   align-items: center;
-  height: 100%; /* Take full height */
 }
 
 .portfolio-section.expanded .bracket-frame {
-  /* Make the frame much taller */
-  height: 70vh; /* Use viewport height to fill center */
-  min-height: 400px; /* Minimum height */
-  max-height: 600px; /* Maximum height */
+  /* Make the frame much taller - FIXED POSITION */
+  height: 70vh !important; /* Force height to 70% of viewport */
+  min-height: 400px !important;
+  max-height: 600px !important;
   align-items: stretch; /* Make brackets stretch full height */
-  justify-content: center; /* Keep content centered horizontally */
   gap: 30px; /* Increase gap when expanded */
+  transition: height 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
+              gap 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative; /* Ensure it stays in place */
+  top: 0;
+  transform: none;
 }
 
 .portfolio-section.expanded .bracket-left,
 .portfolio-section.expanded .bracket-right {
   /* Make brackets stretch vertically */
   align-self: stretch; /* Stretch to fill container height */
-  height: 100%; /* Take full height of bracket-frame */
-  font-size: clamp(4rem, 10vw, 6rem) !important; /* Much larger brackets */
+  height: 100% !important; /* Force full height */
+  font-size: clamp(4rem, 10vw, 8rem) !important; /* Much larger brackets */
   display: flex;
   align-items: center; /* Center the bracket character vertically */
   justify-content: center; /* Center horizontally */
   transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative; /* Ensure they don't move */
+  top: 0;
 }
 
 .portfolio-section.expanded .title-viewport {
   /* Keep title area centered */
-  height: clamp(60px, 10vh, 80px); /* Keep original height */
+  height: 100% !important;
   margin: auto 0; /* Center vertically within stretched brackets */
   display: flex;
   align-items: center;
+  position: relative;
+  top: 0;
 }
 
 .portfolio-section.expanded .title-track {
   /* Keep track positioning */
-  position: relative;
+  position: absolute;
+  width: 100%;
   height: 100%;
+  top: 0;
+  left: 0;
 }
 
 .portfolio-section.expanded .project-title {
-  /* Keep title centered */
+  /* Keep title centered - FIXED */
   position: absolute !important;
-  height: 80px !important;
+  height: 100% !important;
   display: flex;
   align-items: center;
   justify-content: center;
   top: 0;
   left: 0;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
+
+/* Only show the active title - hide others */
+.portfolio-section.expanded .title-track .project-title {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.portfolio-section.expanded .title-track .project-title:nth-child(1) { 
+  top: 0; 
+  opacity: 1;
+  visibility: visible;
+}
+
+.portfolio-section.expanded .title-track.active-1 .project-title:nth-child(1),
+.portfolio-section.expanded .title-track.active-2 .project-title:nth-child(2),
+.portfolio-section.expanded .title-track.active-3 .project-title:nth-child(3),
+.portfolio-section.expanded .title-track.active-4 .project-title:nth-child(4),
+.portfolio-section.expanded .title-track.active-5 .project-title:nth-child(5) {
+  opacity: 1 !important;
+  visibility: visible !important;
+  position: absolute;
+  top: 0 !important;
+  transform: none !important;
+}
+
+/* Reset track transform when expanded to show only one title */
+.portfolio-section.expanded .title-track.active-1 { transform: translateY(0) !important; }
+.portfolio-section.expanded .title-track.active-2 { transform: translateY(0) !important; }
+.portfolio-section.expanded .title-track.active-3 { transform: translateY(0) !important; }
+.portfolio-section.expanded .title-track.active-4 { transform: translateY(0) !important; }
+.portfolio-section.expanded .title-track.active-5 { transform: translateY(0) !important; }
 
 /* Disable arrows when expanded */
 .portfolio-section.expanded .carousel-arrow {
   opacity: 0 !important;
   pointer-events: none !important;
   cursor: default !important;
-}
-
-/* Fix for project title centering when expanded */
-.portfolio-section.expanded .title-viewport .title-track .project-title {
-  transform: none !important;
-  opacity: 1 !important;
 }
 
 /*--------------------------------
