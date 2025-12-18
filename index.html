@@ -193,94 +193,80 @@ const collapseBtn = document.getElementById('collapseBtn');
 const contactBtn = document.getElementById('contactBtn');
 const contactSection = document.getElementById('contactSection');
 const socialIcons = document.getElementById('social-icons');
-const formWrapper = document.getElementById("contact-form-wrapper");
 const portfolioBtn = document.getElementById('portfolioBtn');
 const portfolioSection = document.getElementById('portfolioSection');
 
 aboutBtn.addEventListener('click', (e) => {
-e.preventDefault();
-landingName.classList.add('fixed');
-landingNav.classList.add('fixed');
-
-aboutSection.classList.add('active');
-
-collapseBtn.classList.add('active');
-aboutBtn.classList.add('active');
-
-contactBtn.classList.remove('active');
-contactSection.classList.remove('active');
-portfolioBtn.classList.remove('active');
-portfolioSection.classList.remove('active');
-
-socialIcons.classList.remove('active');
+  e.preventDefault();
+  landingName.classList.add('fixed');
+  landingNav.classList.add('fixed');
+  aboutSection.classList.add('active');
+  collapseBtn.classList.add('active');
+  aboutBtn.classList.add('active');
+  contactBtn.classList.remove('active');
+  contactSection.classList.remove('active');
+  portfolioBtn.classList.remove('active');
+  portfolioSection.classList.remove('active');
+  socialIcons.classList.remove('active');
 });
 
 contactBtn.addEventListener('click', (e) => {
-e.preventDefault();
-
-landingName.classList.add('fixed');
-landingNav.classList.add('fixed');
-
-contactSection.classList.add('active');
-collapseBtn.classList.add('active');
-contactBtn.classList.add('active');
-
-aboutSection.classList.remove('active');
-aboutBtn.classList.remove('active');
-portfolioBtn.classList.remove('active');
-portfolioSection.classList.remove('active');
-
-socialIcons.classList.add('active');
-
+  e.preventDefault();
+  landingName.classList.add('fixed');
+  landingNav.classList.add('fixed');
+  contactSection.classList.add('active');
+  collapseBtn.classList.add('active');
+  contactBtn.classList.add('active');
+  aboutSection.classList.remove('active');
+  aboutBtn.classList.remove('active');
+  portfolioBtn.classList.remove('active');
+  portfolioSection.classList.remove('active');
+  socialIcons.classList.add('active');
 });
 
 portfolioBtn.addEventListener('click', (e) => {
-e.preventDefault();
-
-landingName.classList.add('fixed');
-landingNav.classList.add('fixed');
-
-portfolioSection.classList.add('active');
-collapseBtn.classList.add('active');
-portfolioBtn.classList.add('active');
-
-aboutSection.classList.remove('active');
-aboutBtn.classList.remove('active');
-contactSection.classList.remove('active');
-contactBtn.classList.remove('active');
-
-socialIcons.classList.remove('active');
+  e.preventDefault();
+  landingName.classList.add('fixed');
+  landingNav.classList.add('fixed');
+  portfolioSection.classList.add('active');
+  collapseBtn.classList.add('active');
+  portfolioBtn.classList.add('active');
+  aboutSection.classList.remove('active');
+  aboutBtn.classList.remove('active');
+  contactSection.classList.remove('active');
+  contactBtn.classList.remove('active');
+  socialIcons.classList.remove('active');
 });
 
 // Collapse all sections
 collapseBtn.addEventListener('click', (e) => {
-e.preventDefault();
-
-landingName.classList.remove('fixed');
-landingNav.classList.remove('fixed');
-
-aboutSection.classList.remove('active');
-contactSection.classList.remove('active');
-portfolioSection.classList.remove('active');
-
-aboutBtn.classList.remove('active');
-contactBtn.classList.remove('active');
-portfolioBtn.classList.remove('active');
-
-socialIcons.classList.remove('active');
-collapseBtn.classList.remove('active');
-                             
+  e.preventDefault();
+  landingName.classList.remove('fixed');
+  landingNav.classList.remove('fixed');
+  aboutSection.classList.remove('active');
+  contactSection.classList.remove('active');
+  portfolioSection.classList.remove('active');
+  aboutBtn.classList.remove('active');
+  contactBtn.classList.remove('active');
+  portfolioBtn.classList.remove('active');
+  socialIcons.classList.remove('active');
+  collapseBtn.classList.remove('active');
 });
-// Portfolio Carousel - Cube Animation
+
+// Portfolio Carousel
 const titleTrack = document.querySelector('.title-track');
 const arrowUp = document.querySelector('.arrow-up');
 const arrowDown = document.querySelector('.arrow-down');
-
 let currentIndex = 0;
 const totalProjects = 5;
 
 // Function to update carousel with cube animation
 function updateCarousel(newIndex, direction) {
+  // Don't update if portfolio is expanded
+  if (portfolioSection.classList.contains('expanded')) {
+    return;
+  }
+  
   // Update index
   currentIndex = newIndex;
   
@@ -331,19 +317,8 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// Update your existing updateCarousel function:
-function updateCarousel(newIndex, direction) {
-  // Don't update if portfolio is expanded
-  if (portfolioSection.classList.contains('expanded')) {
-    return;
-  }
-  
-  // Rest of your existing updateCarousel code...
-}
-
-// Add click event to project titles (simplified version)
+// Add click event to project titles
 const projectTitles = document.querySelectorAll('.project-title');
-const carouselArrows = document.querySelectorAll('.carousel-arrow');
 
 projectTitles.forEach(title => {
   title.addEventListener('click', (e) => {
@@ -353,172 +328,167 @@ projectTitles.forEach(title => {
     // Toggle expanded state
     portfolioSection.classList.toggle('expanded');
     
-    // Disable/enable arrows based on state
+    // Disable/enable arrows
     if (portfolioSection.classList.contains('expanded')) {
-      carouselArrows.forEach(arrow => {
-        arrow.disabled = true;
-        arrow.style.pointerEvents = 'none';
-        arrow.style.opacity = '0.2';
-        arrow.style.cursor = 'default';
-      });
+      arrowUp.disabled = true;
+      arrowDown.disabled = true;
+      arrowUp.style.opacity = '0';
+      arrowDown.style.opacity = '0';
+      arrowUp.style.pointerEvents = 'none';
+      arrowDown.style.pointerEvents = 'none';
     } else {
-      carouselArrows.forEach(arrow => {
-        arrow.disabled = false;
-        arrow.style.pointerEvents = 'auto';
-        arrow.style.opacity = arrow === arrowUp && currentIndex === 0 || 
-                              arrow === arrowDown && currentIndex === totalProjects - 1 ? '0.2' : '0.7';
-        arrow.style.cursor = 'pointer';
+      arrowUp.disabled = currentIndex === 0;
+      arrowDown.disabled = currentIndex === totalProjects - 1;
+      arrowUp.style.opacity = arrowUp.disabled ? '0.2' : '0.7';
+      arrowDown.style.opacity = arrowDown.disabled ? '0.2' : '0.7';
+      arrowUp.style.pointerEvents = 'auto';
+      arrowDown.style.pointerEvents = 'auto';
+    }
+  });
+});
+
+// Close when clicking outside
+document.addEventListener('click', (e) => {
+  if (portfolioSection.classList.contains('expanded') && 
+      !e.target.closest('.bracket-frame') &&
+      !e.target.closest('.carousel-arrow') &&
+      !e.target.closest('.project-title')) {
+    portfolioSection.classList.remove('expanded');
+    
+    // Re-enable arrows
+    arrowUp.disabled = currentIndex === 0;
+    arrowDown.disabled = currentIndex === totalProjects - 1;
+    arrowUp.style.opacity = arrowUp.disabled ? '0.2' : '0.7';
+    arrowDown.style.opacity = arrowDown.disabled ? '0.2' : '0.7';
+    arrowUp.style.pointerEvents = 'auto';
+    arrowDown.style.pointerEvents = 'auto';
+  }
+});
+
+// Initialize
+updateCarousel(0);
+
+// GSAP Tendril Animation
+const tendrils = document.querySelectorAll(".tendril");
+
+function parsePath(path) {
+  const d = path.getAttribute("d");
+  const match = d.match(/M([\d.,]+) C([\d.,]+) ([\d.,]+) ([\d.,]+)/);
+  if (!match) return null;
+  return {
+    start: match[1].split(",").map(Number),
+    control1: match[2].split(",").map(Number),
+    control2: match[3].split(",").map(Number),
+    end: match[4].split(",").map(Number),
+  };
+}
+
+function buildPath(points) {
+  return `M${points.start.join(",")} C${points.control1.join(",")} ${points.control2.join(",")} ${points.end.join(",")}`;
+}
+
+// Animate each tendril
+tendrils.forEach((path, i) => {
+  const length = path.getTotalLength();
+  path.style.strokeDasharray = length;
+  path.style.strokeDashoffset = length;
+
+  const points = parsePath(path);
+  if (!points) return;
+
+  // Keep base control points
+  const baseC1 = [...points.control1];
+  const baseC2 = [...points.control2];
+
+  // Animate growth first
+  gsap.to(path, {
+    strokeDashoffset: 0,
+    duration: 1 + Math.random(), // 1–2s fast growth
+    ease: "power1.inOut",
+    delay: i * 0.2, // stagger start times
+    onComplete: () => {
+      // Start subtle wriggle for this path
+
+      // Separate offsets for control1 and control2
+      let c1Offset = { x: 0, y: 0 };
+      let c2Offset = { x: 0, y: 0 };
+
+      // Animate control1
+      gsap.to(c1Offset, {
+        x: () => Math.random() * 14 - 7,
+        y: () => Math.random() * 14 - 7,
+        duration: 1 + Math.random() * 1.2,
+        yoyo: true,
+        repeat: -1,
+        ease: "sine.inOut",
+        onUpdate: () => {
+          points.control1[0] = baseC1[0] + c1Offset.x;
+          points.control1[1] = baseC1[1] + c1Offset.y;
+          points.control2[0] = baseC2[0] + c2Offset.x;
+          points.control2[1] = baseC2[1] + c2Offset.y;
+          path.setAttribute("d", buildPath(points));
+        }
+      });
+
+      // Animate control2 independently
+      gsap.to(c2Offset, {
+        x: () => Math.random() * 14 - 7,
+        y: () => Math.random() * 14 - 7,
+        duration: 1 + Math.random() * 1.2,
+        yoyo: true,
+        repeat: -1,
+        ease: "sine.inOut"
       });
     }
   });
 });
 
-// Close when clicking the close button or outside the content
-document.addEventListener('click', (e) => {
-  if (portfolioSection.classList.contains('expanded') && 
-      !e.target.closest('.bracket-frame') &&
-      !e.target.closest('.carousel-arrow')) {
-    portfolioSection.classList.remove('expanded');
-    
-    // Re-enable arrows
-    carouselArrows.forEach(arrow => {
-      arrow.disabled = false;
-      arrow.style.pointerEvents = 'auto';
-      arrow.style.opacity = arrow === arrowUp && currentIndex === 0 || 
-                            arrow === arrowDown && currentIndex === totalProjects - 1 ? '0.2' : '0.7';
-      arrow.style.cursor = 'pointer';
-    });
-  }
-});
-  
-// Initialize
-updateCarousel(0);
-</script>
-  
-<!-- GSAP Tendril Animation -->
-<script>
-const tendrils = document.querySelectorAll(".tendril");
-
-function parsePath(path) {
-const d = path.getAttribute("d");
-const match = d.match(/M([\d.,]+) C([\d.,]+) ([\d.,]+) ([\d.,]+)/);
-if (!match) return null;
-return {
-start: match[1].split(",").map(Number),
-control1: match[2].split(",").map(Number),
-control2: match[3].split(",").map(Number),
-end: match[4].split(",").map(Number),
-};
-}
-
-function buildPath(points) {
-return `M${points.start.join(",")} C${points.control1.join(",")} ${points.control2.join(",")} ${points.end.join(",")}`;
-}
-
-// Animate each tendril
-tendrils.forEach((path, i) => {
-const length = path.getTotalLength();
-path.style.strokeDasharray = length;
-path.style.strokeDashoffset = length;
-
-const points = parsePath(path);
-if (!points) return;
-
-// Keep base control points
-const baseC1 = [...points.control1];
-const baseC2 = [...points.control2];
-
-// Animate growth first
-gsap.to(path, {
-strokeDashoffset: 0,
-duration: 1 + Math.random(), // 1–2s fast growth
-ease: "power1.inOut",
-delay: i * 0.2, // stagger start times
-onComplete: () => {
-// Start subtle wriggle for this path
-
-// Separate offsets for control1 and control2
-let c1Offset = { x: 0, y: 0 };
-let c2Offset = { x: 0, y: 0 };
-
-// Animate control1
-gsap.to(c1Offset, {
-x: () => Math.random() * 14 - 7,
-y: () => Math.random() * 14 - 7,
-duration: 1 + Math.random() * 1.2,
-yoyo: true,
-repeat: -1,
-ease: "sine.inOut",
-onUpdate: () => {
-points.control1[0] = baseC1[0] + c1Offset.x;
-points.control1[1] = baseC1[1] + c1Offset.y;
-points.control2[0] = baseC2[0] + c2Offset.x;
-points.control2[1] = baseC2[1] + c2Offset.y;
-path.setAttribute("d", buildPath(points));
-}
-});
-
-// Animate control2 independently
-gsap.to(c2Offset, {
-x: () => Math.random() * 14 - 7,
-y: () => Math.random() * 14 - 7,
-duration: 1 + Math.random() * 1.2,
-yoyo: true,
-repeat: -1,
-ease: "sine.inOut"
-});
-}
-});
-});
-</script>
-
-<script>
 // DOM element management
 document.addEventListener('DOMContentLoaded', () => {
-const collapse = document.getElementById('collapseBtn');
-const socials = document.getElementById('social-icons');
+  const collapse = document.getElementById('collapseBtn');
+  const socials = document.getElementById('social-icons');
 
-if (collapse && collapse.parentElement !== document.body) {
-document.body.appendChild(collapse);
-}
-if (socials && socials.parentElement !== document.body) {
-document.body.appendChild(socials);
-}
+  if (collapse && collapse.parentElement !== document.body) {
+    document.body.appendChild(collapse);
+  }
+  if (socials && socials.parentElement !== document.body) {
+    document.body.appendChild(socials);
+  }
 
-collapse && (collapse.style.zIndex = 9999);
-socials && (socials.style.zIndex = 9999);
+  collapse && (collapse.style.zIndex = 9999);
+  socials && (socials.style.zIndex = 9999);
 
-// Dark Mode Toggle
-const darkModeToggle = document.getElementById('darkModeSwitch');
-const body = document.body;
+  // Dark Mode Toggle
+  const darkModeToggle = document.getElementById('darkModeSwitch');
+  const body = document.body;
 
-// Check for saved theme preference
-const savedTheme = localStorage.getItem('theme');
+  // Check for saved theme preference
+  const savedTheme = localStorage.getItem('theme');
 
-// Default to LIGHT mode
-if (savedTheme === 'dark') {
-body.classList.add('dark-mode');
-darkModeToggle.checked = true;
-} else {
-// Ensure light mode is default
-body.classList.remove('dark-mode');
-darkModeToggle.checked = false;
-// Only set localStorage if it doesn't exist
-if (!savedTheme) {
-localStorage.setItem('theme', 'light');
-}
-}
+  // Default to LIGHT mode
+  if (savedTheme === 'dark') {
+    body.classList.add('dark-mode');
+    darkModeToggle.checked = true;
+  } else {
+    // Ensure light mode is default
+    body.classList.remove('dark-mode');
+    darkModeToggle.checked = false;
+    // Only set localStorage if it doesn't exist
+    if (!savedTheme) {
+      localStorage.setItem('theme', 'light');
+    }
+  }
 
-// Toggle dark mode
-darkModeToggle.addEventListener('change', () => {
-if (darkModeToggle.checked) {
-body.classList.add('dark-mode');
-localStorage.setItem('theme', 'dark');
-} else {
-body.classList.remove('dark-mode');
-localStorage.setItem('theme', 'light');
-}
-});
+  // Toggle dark mode
+  darkModeToggle.addEventListener('change', () => {
+    if (darkModeToggle.checked) {
+      body.classList.add('dark-mode');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      body.classList.remove('dark-mode');
+      localStorage.setItem('theme', 'light');
+    }
+  });
 });
 </script>
 
