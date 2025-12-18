@@ -232,7 +232,7 @@ body {
 }
 
 /* -------------------------------
-   Portfolio Carousel - SIMPLE WORKING VERSION
+   Portfolio Carousel
 --------------------------------*/
 .portfolio-section {
   position: absolute;
@@ -425,48 +425,63 @@ body.dark-mode .title-number {
 body.dark-mode .project-link:hover {
   color: #999; 
 }
-/* Bracket stretching animation */
+/* Bracket stretching animation - FIXED VERSION */
 .portfolio-section.expanded .bracket-frame {
   align-items: flex-start;
-  min-height: 400px; /* Adjust this value based on how tall you want it */
-  transition: min-height 0.8s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth animation */
+  min-height: 400px; /* How tall you want the expanded brackets */
+  transition: min-height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
 }
 
 .portfolio-section.expanded .bracket-left,
 .portfolio-section.expanded .bracket-right {
-  align-self: stretch; /* Make brackets stretch to full height */
+  align-self: stretch;
   height: 100%;
   transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-  display: flex;
-  align-items: flex-start;
 }
 
-/* Make bracket characters grow taller */
+/* Make ONLY the visible bracket characters grow */
 .portfolio-section.expanded .bracket-left span,
 .portfolio-section.expanded .bracket-right span {
   display: inline-block;
-  font-size: clamp(3rem, 8vw, 5rem); /* Much larger brackets */
+  font-size: clamp(3rem, 8vw, 5rem); /* Larger brackets */
   line-height: 1;
   transition: font-size 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: top center; /* Grow from top */
 }
 
-/* Keep the title in place */
+/* CRITICAL FIX: Keep the carousel viewport masking intact */
 .portfolio-section.expanded .title-viewport {
-  height: auto;
+  height: clamp(60px, 10vh, 80px) !important; /* Keep original height */
+  overflow: hidden !important; /* Keep hiding other projects */
   margin-top: 0;
 }
 
 .portfolio-section.expanded .title-track {
-  transform: none !important;
-  height: auto;
+  position: relative;
+  height: 100%;
+  /* DON'T reset transform - keep the active project in view */
 }
 
 .portfolio-section.expanded .project-title {
-  position: relative !important;
-  height: auto;
-  margin: 0;
-  padding: 20px 0;
-  top: 0 !important;
+  position: absolute !important; /* Keep absolute positioning */
+  height: 80px !important; /* Keep original height */
+  margin: 0 !important;
+  padding: 0 !important;
+  top: 0 !important; /* Reset top */
+}
+
+/* Hide all other project titles when expanded */
+.portfolio-section.expanded .project-title:not(:nth-child(1)):not(:nth-child(2)):not(:nth-child(3)):not(:nth-child(4)):not(:nth-child(5)) {
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+/* Disable arrows when expanded */
+.portfolio-section.expanded .carousel-arrow {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  cursor: default !important;
 }
 
 
