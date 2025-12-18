@@ -393,6 +393,7 @@ body.dark-mode .title-number {
 .arrow-down {
   order: 3;
 }
+
 /* Make project titles clickable with hover underline */
 .project-link {
   text-decoration: none;
@@ -400,6 +401,10 @@ body.dark-mode .title-number {
   position: relative;
   display: inline-block;
   padding-bottom: 2px;
+}
+
+.project-link:hover {
+  color: #555;
 }
 
 .project-link::after {
@@ -419,10 +424,10 @@ body.dark-mode .title-number {
 
 /* Project Details Panel - Hidden by default */
 .project-details-panel {
-  position: relative; /* Changed from absolute */
+  position: relative;
   width: 100%;
   max-width: min(85vw, 750px);
-  margin: 20px auto 0; /* Added top margin */
+  margin: 20px auto 0;
   opacity: 0;
   visibility: hidden;
   transform: translateY(-10px);
@@ -435,44 +440,73 @@ body.dark-mode .title-number {
   background: var(--bg-color);
   padding: 2rem;
   border: 2px solid var(--text-color);
+  border-top: none;
   text-align: left;
 }
 
-/* Remove the border from the top since it's inside brackets */
-.project-details-content {
-  border-top: none;
+.project-details-title {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+}
+
+.project-details-text {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.project-details-text p {
+  margin-bottom: 1rem;
+}
+
+.close-project-btn {
+  background: none;
+  border: 1px solid var(--text-color);
+  color: var(--text-color);
+  font-family: 'Roboto Mono', monospace;
+  font-size: 1rem;
+  padding: 0.5rem 1.5rem;
+  cursor: pointer;
+  text-transform: lowercase;
+  transition: all 0.3s ease;
+}
+
+.close-project-btn:hover {
+  background: var(--text-color);
+  color: var(--bg-color);
 }
 
 /* Expanded state - when a project is clicked */
 .portfolio-section.expanded .portfolio-carousel {
-  transform: translateY(-10%); /* Less movement up */
+  transform: translateY(-10%);
   transition: transform 0.6s ease;
 }
 
 .portfolio-section.expanded .bracket-frame {
   align-items: flex-start;
-  height: auto; /* Allow brackets to expand */
-  min-height: 300px; /* Set minimum expanded height */
+  height: auto;
+  min-height: 300px;
   transition: all 0.6s ease;
   position: relative;
 }
 
 .portfolio-section.expanded .bracket-left,
 .portfolio-section.expanded .bracket-right {
-  align-self: stretch; /* Make brackets stretch to full height */
-  height: 100%; /* Full height of parent */
+  align-self: stretch;
+  height: 100%;
   margin-top: 0;
   transition: all 0.6s ease;
   display: flex;
-  align-items: flex-start; /* Align to top */
-  padding-top: 0; /* Align with title */
+  align-items: flex-start;
+  padding-top: 0;
 }
 
 /* Make the bracket characters taller */
 .portfolio-section.expanded .bracket-left::before,
 .portfolio-section.expanded .bracket-right::before {
   content: '[';
-  font-size: clamp(3rem, 6vw, 4.5rem); /* Larger brackets when expanded */
+  font-size: clamp(3rem, 6vw, 4.5rem);
 }
 
 .portfolio-section.expanded .bracket-right::before {
@@ -486,7 +520,7 @@ body.dark-mode .title-number {
 }
 
 .portfolio-section.expanded .title-viewport {
-  height: auto; /* Allow title to take natural height */
+  height: auto;
   margin-top: 0;
   display: flex;
   flex-direction: column;
@@ -495,16 +529,16 @@ body.dark-mode .title-number {
 
 .portfolio-section.expanded .title-track {
   position: relative;
-  transform: none !important; /* Stop carousel movement when expanded */
+  transform: none !important;
   height: auto;
 }
 
 .portfolio-section.expanded .project-title {
-  position: relative !important; /* Override absolute positioning */
+  position: relative !important;
   height: auto;
   margin: 0;
-  padding: 20px 0; /* Add some padding */
-  top: 0 !important; /* Reset top position */
+  padding: 20px 0;
+  top: 0 !important;
 }
 
 .portfolio-section.expanded .project-details-panel {
@@ -512,8 +546,8 @@ body.dark-mode .title-number {
   visibility: visible;
   transform: translateY(0);
   pointer-events: auto;
-  max-height: 1000px; /* Allow panel to grow */
-  transition: opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s; /* Delay panel appearance */
+  max-height: 1000px;
+  transition: opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s;
 }
 
 .portfolio-section.expanded .carousel-arrow {
@@ -522,13 +556,6 @@ body.dark-mode .title-number {
   transition: opacity 0.3s ease;
 }
 
-/*--------------------------------
-   Collapse Button
---------------------------------*/
-.collapse-btn {
-   position: fixed;
-   /* ... rest of your existing CSS ... */
-}
 /*--------------------------------
    Collapse Button
 --------------------------------*/
