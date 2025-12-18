@@ -232,11 +232,153 @@ body {
 }
 
 /* -------------------------------
-   Portfolio Carousel - BRACKETS ONLY
-   (Remove all previous bracket CSS and replace with this)
+   Portfolio Carousel Basic Styling
+--------------------------------*/
+.portfolio-section {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 100%;
+  max-width: min(95vw, 900px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s ease;
+  z-index: 3;
+  visibility: hidden;
+}
+
+.portfolio-section.active {
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
+}
+
+.portfolio-carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* Portfolio animation fix */
+.portfolio-carousel > * {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.portfolio-section.active .portfolio-carousel > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Arrows */
+.carousel-arrow {
+  background: none;
+  border: none;
+  font-size: 2.5rem;
+  color: var(--text-color);
+  cursor: pointer;
+  padding: 10px;
+  transition: opacity 0.4s ease, transform 0.3s ease;
+  font-family: 'Roboto Mono', monospace;
+  opacity: 0.7;
+  line-height: 1;
+}
+
+.carousel-arrow:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.carousel-arrow:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.arrow-up {
+  order: 1;
+}
+
+.arrow-down {
+  order: 3;
+}
+
+/* Arrows - Add transition */
+.carousel-arrow {
+  background: none;
+  border: none;
+  font-size: 2.5rem;
+  color: var(--text-color);
+  cursor: pointer;
+  padding: 10px;
+  transition: opacity 0.3s ease; /* Add this line */
+  font-family: 'Roboto Mono', monospace;
+  opacity: 0.7;
+  line-height: 1;
+}
+
+/* Hide arrows smoothly when expanded */
+.portfolio-section.expanded .carousel-arrow {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transition: opacity 0.2s ease 0s !important; /* Immediate fade out */
+}
+
+/* Show arrows smoothly when not expanded */
+.portfolio-section.active:not(.expanded) .carousel-arrow {
+  opacity: 0.7;
+  pointer-events: auto;
+  transition: opacity 0.4s ease 0.3s !important; /* Delayed fade in */
+}
+
+/* Make project titles clickable with hover underline */
+.project-link {
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 2px;
+}
+
+.project-link:hover {
+  color: #555;
+}
+
+.project-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0%;
+  height: 2px;
+  background-color: var(--text-color);
+  transition: width 0.3s ease;
+}
+
+.project-link:hover::after {
+  width: 100%;
+}
+
+body.dark-mode .project-link:hover {
+  color: #999; 
+}
+
+/* Hide arrows when expanded */
+.portfolio-section.expanded .carousel-arrow {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* -------------------------------
+   Portfolio Carousel Brackets
 --------------------------------*/
 
-/* Fixed width bracket frame - SIMPLE HEIGHT TRANSITION */
+/* Fixed width bracket frame */
 .bracket-frame {
   display: flex;
   align-items: center;
@@ -245,8 +387,7 @@ body {
   width: min(85vw, 750px);
   margin: 0 auto;
   position: relative;
-  height: 80px; /* Fixed height for normal state */
-  /* SIMPLE linear transition - same in both directions */
+  height: 80px; 
   transition: height 0.6s linear;
 }
 
@@ -385,6 +526,27 @@ body {
 .portfolio-section.expanded .title-track.active-4 .project-title:nth-child(4),
 .portfolio-section.expanded .title-track.active-5 .project-title:nth-child(5) {
   display: flex;
+}
+
+/* -------------------------------
+   Style the number portion
+--------------------------------*/
+.title-number {
+  color: rgba(34, 34, 34, 0.6);
+  font-weight: 400;
+  margin-right: 10px;
+  transition: opacity 0.3s ease;
+  text-transform: none !important;
+}
+
+body.dark-mode .title-number {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Keep the text at full opacity */
+.title-text {
+  opacity: 1;
+  text-transform: uppercase !important; 
 }
 
 /*--------------------------------
