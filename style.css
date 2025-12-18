@@ -275,10 +275,10 @@ body {
   transform: translateY(0);
 }
 
-/* Fixed width bracket frame */
+/* Fixed width bracket frame - FIX FOR CENTER EXPANSION */
 .bracket-frame {
   display: flex;
-  align-items: center;
+  align-items: center; /* This centers vertically in normal state */
   justify-content: center;
   gap: 15px;
   width: min(85vw, 750px);
@@ -286,14 +286,18 @@ body {
   position: relative;
   height: 80px; /* Fixed height for normal state */
   transition: height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Add transform-origin for center scaling */
+  transform-origin: center center;
 }
 
-/* SVG Brackets */
+/* SVG Brackets - Better proportions */
 .bracket-svg {
-  width: 30px; /* Fixed width */
+  width: 20px; /* Slightly narrower for better proportions */
   height: 80px; /* Height matches frame height */
   flex-shrink: 0;
   transition: height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Add transform-origin for center scaling */
+  transform-origin: center center;
 }
 
 .bracket-left,
@@ -307,6 +311,9 @@ body {
   height: 100%;
   overflow: hidden;
   position: relative;
+  /* Ensure content stays centered */
+  display: flex;
+  align-items: center;
 }
 
 /* Track that moves */
@@ -435,29 +442,37 @@ body.dark-mode .project-link:hover {
 }
 
 /* -------------------------------
-   EXPANDED STATE - SVG BRACKETS
+   EXPANDED STATE - FIXED CENTER EXPANSION
 --------------------------------*/
 .portfolio-section.expanded .bracket-frame {
-  /* Stretch the frame vertically */
+  /* Stretch the frame vertically FROM THE CENTER */
   height: 70vh !important; /* 70% of viewport height */
   min-height: 400px;
   max-height: 600px;
-  align-items: stretch;
+  align-items: stretch; /* Change from center to stretch */
   transition: height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Keep the frame positioned correctly */
+  position: relative;
+  top: 0;
+  transform: none;
 }
 
 .portfolio-section.expanded .bracket-svg {
   /* Brackets stretch to fill the frame height */
   height: 100% !important;
-  width: 30px; /* Keep width constant */
+  width: 20px; /* Keep width constant */
   align-self: stretch;
+  /* Ensure SVG scales from center */
+  transform-origin: center center;
 }
 
 .portfolio-section.expanded .title-viewport {
-  /* Keep title centered */
+  /* Keep title centered vertically within stretched frame */
   display: flex;
-  align-items: center;
+  align-items: center; /* This centers the title vertically */
   justify-content: center;
+  margin: 0;
+  padding: 0;
 }
 
 .portfolio-section.expanded .title-track {
@@ -465,16 +480,19 @@ body.dark-mode .project-link:hover {
   position: relative;
   transform: translateY(0) !important;
   height: 100%;
+  display: flex;
+  align-items: center; /* Center vertically */
 }
 
 .portfolio-section.expanded .project-title {
-  /* Only show the active project */
-  position: absolute;
+  /* Only show the active project - centered */
+  position: relative !important; /* Change from absolute to relative */
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0;
+  top: 0 !important; /* Reset positioning */
 }
 
 /* Show only the active project when expanded */
@@ -484,11 +502,26 @@ body.dark-mode .project-link:hover {
 .portfolio-section.expanded .title-track.active-4 .project-title:nth-child(4),
 .portfolio-section.expanded .title-track.active-5 .project-title:nth-child(5) {
   opacity: 1;
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: relative !important;
+  top: 0 !important;
   width: 100%;
   height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Hide all other titles when expanded */
+.portfolio-section.expanded .title-track .project-title {
+  display: none;
+}
+
+.portfolio-section.expanded .title-track.active-1 .project-title:nth-child(1),
+.portfolio-section.expanded .title-track.active-2 .project-title:nth-child(2),
+.portfolio-section.expanded .title-track.active-3 .project-title:nth-child(3),
+.portfolio-section.expanded .title-track.active-4 .project-title:nth-child(4),
+.portfolio-section.expanded .title-track.active-5 .project-title:nth-child(5) {
+  display: flex;
 }
 
 /* Disable arrows when expanded */
@@ -497,7 +530,6 @@ body.dark-mode .project-link:hover {
   pointer-events: none !important;
   cursor: default !important;
 }
-
 /*--------------------------------
    Collapse Button
 --------------------------------*/
