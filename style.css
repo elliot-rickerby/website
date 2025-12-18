@@ -425,114 +425,38 @@ body.dark-mode .title-number {
 body.dark-mode .project-link:hover {
   color: #999; 
 }
-
-/* Project Details Panel - Hidden by default */
-.project-details-panel {
-  position: relative;
-  width: 100%;
-  max-width: min(85vw, 750px);
-  margin: 20px auto 0;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-10px);
-  transition: all 0.6s ease;
-  z-index: 1;
-  pointer-events: none;
-}
-
-.project-details-content {
-  background: var(--bg-color);
-  padding: 2rem;
-  border: 2px solid var(--text-color);
-  border-top: none;
-  text-align: left;
-}
-
-.project-details-title {
-  font-size: 1.5rem;
-  margin-bottom: 1.5rem;
-  text-transform: uppercase;
-}
-
-.project-details-text {
-  font-size: 1rem;
-  line-height: 1.6;
-  margin-bottom: 2rem;
-}
-
-.project-details-text p {
-  margin-bottom: 1rem;
-}
-
-.close-project-btn {
-  background: none;
-  border: 1px solid var(--text-color);
-  color: var(--text-color);
-  font-family: 'Roboto Mono', monospace;
-  font-size: 1rem;
-  padding: 0.5rem 1.5rem;
-  cursor: pointer;
-  text-transform: lowercase;
-  transition: all 0.3s ease;
-}
-
-.close-project-btn:hover {
-  background: var(--text-color);
-  color: var(--bg-color);
-}
-
-/* Expanded state - when a project is clicked */
-.portfolio-section.expanded .portfolio-carousel {
-  transform: translateY(-10%);
-  transition: transform 0.6s ease;
-}
-
+/* Bracket stretching animation */
 .portfolio-section.expanded .bracket-frame {
   align-items: flex-start;
-  height: auto;
-  min-height: 300px;
-  transition: all 0.6s ease;
-  position: relative;
+  min-height: 400px; /* Adjust this value based on how tall you want it */
+  transition: min-height 0.8s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth animation */
 }
 
 .portfolio-section.expanded .bracket-left,
 .portfolio-section.expanded .bracket-right {
-  align-self: stretch;
+  align-self: stretch; /* Make brackets stretch to full height */
   height: 100%;
-  margin-top: 0;
-  transition: all 0.6s ease;
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   align-items: flex-start;
-  padding-top: 0;
 }
 
-/* Make the bracket characters taller */
-.portfolio-section.expanded .bracket-left::before,
-.portfolio-section.expanded .bracket-right::before {
-  content: '[';
-  font-size: clamp(3rem, 6vw, 4.5rem);
-}
-
-.portfolio-section.expanded .bracket-right::before {
-  content: ']';
-}
-
-/* Hide the original bracket text when expanded */
+/* Make bracket characters grow taller */
 .portfolio-section.expanded .bracket-left span,
 .portfolio-section.expanded .bracket-right span {
-  display: none;
+  display: inline-block;
+  font-size: clamp(3rem, 8vw, 5rem); /* Much larger brackets */
+  line-height: 1;
+  transition: font-size 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* Keep the title in place */
 .portfolio-section.expanded .title-viewport {
   height: auto;
   margin-top: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 .portfolio-section.expanded .title-track {
-  position: relative;
   transform: none !important;
   height: auto;
 }
@@ -545,20 +469,6 @@ body.dark-mode .project-link:hover {
   top: 0 !important;
 }
 
-.portfolio-section.expanded .project-details-panel {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-  pointer-events: auto;
-  max-height: 1000px;
-  transition: opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s;
-}
-
-.portfolio-section.expanded .carousel-arrow {
-  opacity: 0 !important;
-  pointer-events: none !important;
-  transition: opacity 0.3s ease;
-}
 
 /*--------------------------------
    Collapse Button
