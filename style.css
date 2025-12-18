@@ -232,7 +232,7 @@ body {
 }
 
 /* -------------------------------
-   Portfolio Carousel Basic Styling
+   Portfolio Section
 --------------------------------*/
 .portfolio-section {
   position: absolute;
@@ -263,7 +263,7 @@ body {
   gap: 20px;
 }
 
-/* Portfolio animation fix */
+/* Fade in animation */
 .portfolio-carousel > * {
   opacity: 0;
   transform: translateY(8px);
@@ -275,7 +275,103 @@ body {
   transform: translateY(0);
 }
 
-/* Arrows */
+/* -------------------------------
+   Bracket Frame & Animation
+--------------------------------*/
+.bracket-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  width: min(85vw, 750px);
+  margin: 0 auto;
+  position: relative;
+  height: 80px;
+  transition: height 0.6s ease;
+}
+
+.bracket-svg {
+  width: 15px;
+  height: 80px;
+  flex-shrink: 0;
+  transition: height 0.6s ease;
+  align-self: center;
+}
+
+.bracket-left,
+.bracket-right {
+  color: var(--text-color);
+}
+
+/* -------------------------------
+   Title Viewport & Track
+--------------------------------*/
+.title-viewport {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.title-track {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s ease;
+  display: flex;
+  align-items: center;
+}
+
+/* -------------------------------
+   Project Titles
+--------------------------------*/
+.project-title {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(1.2rem, 3vw, 2rem);
+  font-weight: 700;
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+}
+
+.project-title:nth-child(1) { top: 0; }
+.project-title:nth-child(2) { top: 100%; }
+.project-title:nth-child(3) { top: 200%; }
+.project-title:nth-child(4) { top: 300%; }
+.project-title:nth-child(5) { top: 400%; }
+
+.title-track.active-1 { transform: translateY(0); }
+.title-track.active-2 { transform: translateY(-100%); }
+.title-track.active-3 { transform: translateY(-200%); }
+.title-track.active-4 { transform: translateY(-300%); }
+.title-track.active-5 { transform: translateY(-400%); }
+
+.title-number {
+  color: rgba(34, 34, 34, 0.6);
+  font-weight: 400;
+  margin-right: 10px;
+  text-transform: none !important;
+}
+
+body.dark-mode .title-number {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.title-text {
+  opacity: 1;
+  text-transform: uppercase !important;
+}
+
+/* -------------------------------
+   Arrows - FIXED POSITION
+--------------------------------*/
 .carousel-arrow {
   background: none;
   border: none;
@@ -283,60 +379,39 @@ body {
   color: var(--text-color);
   cursor: pointer;
   padding: 10px;
-  transition: opacity 0.4s ease, transform 0.3s ease;
+  transition: opacity 0.3s ease;
   font-family: 'Roboto Mono', monospace;
   opacity: 0.7;
   line-height: 1;
+  position: relative;
+  z-index: 2;
 }
 
-.carousel-arrow:hover {
-  opacity: 1;
-  transform: scale(1.1);
-}
-
-.carousel-arrow:disabled {
-  opacity: 0.2;
-  cursor: not-allowed;
-  transform: none;
-}
-
+/* Arrow ordering - KEEP ARROWS IN PLACE */
 .arrow-up {
   order: 1;
+}
+
+.bracket-frame {
+  order: 2;
 }
 
 .arrow-down {
   order: 3;
 }
 
-/* Arrows - Add transition */
-.carousel-arrow {
-  background: none;
-  border: none;
-  font-size: 2.5rem;
-  color: var(--text-color);
-  cursor: pointer;
-  padding: 10px;
-  transition: opacity 0.3s ease; /* Add this line */
-  font-family: 'Roboto Mono', monospace;
-  opacity: 0.7;
-  line-height: 1;
+.carousel-arrow:hover {
+  opacity: 1;
 }
 
-/* Hide arrows smoothly when expanded */
-.portfolio-section.expanded .carousel-arrow {
-  opacity: 0 !important;
-  pointer-events: none !important;
-  transition: opacity 0.2s ease 0s !important; /* Immediate fade out */
+.carousel-arrow:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
 }
 
-/* Show arrows smoothly when not expanded */
-.portfolio-section.active:not(.expanded) .carousel-arrow {
-  opacity: 0.7;
-  pointer-events: auto;
-  transition: opacity 0.4s ease 0.3s !important; /* Delayed fade in */
-}
-
-/* Make project titles clickable with hover underline */
+/* -------------------------------
+   Project Links
+--------------------------------*/
 .project-link {
   text-decoration: none;
   color: inherit;
@@ -365,116 +440,23 @@ body {
 }
 
 body.dark-mode .project-link:hover {
-  color: #999; 
-}
-
-/* Hide arrows when expanded */
-.portfolio-section.expanded .carousel-arrow {
-  opacity: 0 !important;
-  pointer-events: none !important;
+  color: #999;
 }
 
 /* -------------------------------
-   Portfolio Carousel Brackets
+   Expanded State - SIMPLE & CLEAN
 --------------------------------*/
-
-/* Fixed width bracket frame */
-.bracket-frame {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 15px;
-  width: min(85vw, 750px);
-  margin: 0 auto;
-  position: relative;
-  height: 80px; 
-  transition: height 0.6s linear;
-}
-
-/* SVG Brackets */
-.bracket-svg {
-  width: 15px;
-  height: 80px; /* Height matches frame height */
-  flex-shrink: 0;
-  /* Match the frame transition EXACTLY */
-  transition: height 0.6s linear;
-  /* Keep brackets perfectly centered */
-  align-self: center;
-  position: relative;
-  top: 0;
-  margin: 0;
-}
-
-.bracket-left,
-.bracket-right {
-  color: var(--text-color);
-}
-
-/* Simple viewport */
-.title-viewport {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-/* Track that moves */
-.title-track {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  transition: transform 0.5s ease;
-  display: flex;
-  align-items: center;
-}
-
-/* ALL titles - only ONE is visible at a time */
-.project-title {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: clamp(1.2rem, 3vw, 2rem);
-  font-weight: 700;
-  margin: 0;
-  padding: 0;
-  white-space: nowrap;
-}
-
-/* Stack them vertically */
-.project-title:nth-child(1) { top: 0; }
-.project-title:nth-child(2) { top: 100%; }
-.project-title:nth-child(3) { top: 200%; }
-.project-title:nth-child(4) { top: 300%; }
-.project-title:nth-child(5) { top: 400%; }
-
-/* Move track to show active title */
-.title-track.active-1 { transform: translateY(0); }
-.title-track.active-2 { transform: translateY(-100%); }
-.title-track.active-3 { transform: translateY(-200%); }
-.title-track.active-4 { transform: translateY(-300%); }
-.title-track.active-5 { transform: translateY(-400%); }
-
-/* EXPANDED STATE - SIMPLE HEIGHT CHANGE */
 .portfolio-section.expanded .bracket-frame {
-  /* Simple height change - NO overshoot */
-  height: 70vh !important;
+  height: 70vh;
   min-height: 400px;
   max-height: 600px;
-  /* Keep everything centered */
   align-items: center;
 }
 
 .portfolio-section.expanded .bracket-svg {
-  /* Simple height match */
-  height: 100% !important;
+  height: 100%;
   width: 15px;
   align-self: center;
-  stroke-width: 6px !important;
 }
 
 .portfolio-section.expanded .title-viewport {
@@ -484,38 +466,14 @@ body.dark-mode .project-link:hover {
   height: 100%;
 }
 
-/* Show only the active project when expanded */
 .portfolio-section.expanded .title-track {
-  transform: translateY(0) !important;
+  transform: translateY(0);
   height: 100%;
   display: flex;
   align-items: center;
 }
 
-.portfolio-section.expanded .project-title {
-  position: relative !important;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-}
-
-.portfolio-section.expanded .title-track.active-1 .project-title:nth-child(1),
-.portfolio-section.expanded .title-track.active-2 .project-title:nth-child(2),
-.portfolio-section.expanded .title-track.active-3 .project-title:nth-child(3),
-.portfolio-section.expanded .title-track.active-4 .project-title:nth-child(4),
-.portfolio-section.expanded .title-track.active-5 .project-title:nth-child(5) {
-  opacity: 1;
-  position: relative !important;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Hide all other titles when expanded */
+/* Hide all titles except active one when expanded */
 .portfolio-section.expanded .title-track .project-title {
   display: none;
 }
@@ -526,29 +484,25 @@ body.dark-mode .project-link:hover {
 .portfolio-section.expanded .title-track.active-4 .project-title:nth-child(4),
 .portfolio-section.expanded .title-track.active-5 .project-title:nth-child(5) {
   display: flex;
-}
-
-/* -------------------------------
-   Style the number portion
---------------------------------*/
-.title-number {
-  color: rgba(34, 34, 34, 0.6);
-  font-weight: 400;
-  margin-right: 10px;
-  transition: opacity 0.3s ease;
-  text-transform: none !important;
-}
-
-body.dark-mode .title-number {
-  color: rgba(255, 255, 255, 0.6);
-}
-
-/* Keep the text at full opacity */
-.title-text {
+  align-items: center;
+  justify-content: center;
   opacity: 1;
-  text-transform: uppercase !important; 
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
+/* Arrows when expanded - SIMPLE FADE */
+.portfolio-section.expanded .carousel-arrow {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Arrows when not expanded */
+.portfolio-section.active:not(.expanded) .carousel-arrow {
+  opacity: 0.7;
+  pointer-events: auto;
+}
 /*--------------------------------
    Collapse Button
 --------------------------------*/
