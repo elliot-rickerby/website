@@ -261,6 +261,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 20px;
+  position: relative;
 }
 
 /* Portfolio animation fix */
@@ -275,29 +276,38 @@ body {
   transform: translateY(0);
 }
 
-/* Fixed width bracket frame - FIX FOR CENTER EXPANSION */
+/* Fixed width bracket frame - NO JUMPING FIX */
 .bracket-frame {
   display: flex;
-  align-items: center; /* This centers vertically in normal state */
+  align-items: center;
   justify-content: center;
   gap: 15px;
   width: min(85vw, 750px);
   margin: 0 auto;
   position: relative;
   height: 80px; /* Fixed height for normal state */
+  /* CRITICAL: No transition on position, only on height */
   transition: height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-  /* Add transform-origin for center scaling */
-  transform-origin: center center;
+  /* Ensure it stays centered */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
-/* SVG Brackets - Better proportions */
+/* SVG Brackets - Thicker, no scaling stroke */
 .bracket-svg {
-  width: 20px; /* Slightly narrower for better proportions */
+  width: 12px; /* Narrow brackets */
   height: 80px; /* Height matches frame height */
   flex-shrink: 0;
+  /* Only transition height, not position */
   transition: height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-  /* Add transform-origin for center scaling */
-  transform-origin: center center;
+  /* Keep brackets centered vertically */
+  align-self: center;
+  /* Prevent any position shifts */
+  position: relative;
+  top: 0;
+  margin: 0;
 }
 
 .bracket-left,
@@ -311,9 +321,8 @@ body {
   height: 100%;
   overflow: hidden;
   position: relative;
-  /* Ensure content stays centered */
   display: flex;
-  align-items: center;
+  align-items: center; /* Center content vertically */
 }
 
 /* Track that moves */
@@ -322,6 +331,8 @@ body {
   width: 100%;
   height: 100%;
   transition: transform 0.5s ease;
+  display: flex;
+  align-items: center; /* Center titles vertically */
 }
 
 /* ALL titles - only ONE is visible at a time */
@@ -442,37 +453,39 @@ body.dark-mode .project-link:hover {
 }
 
 /* -------------------------------
-   EXPANDED STATE - FIXED CENTER EXPANSION
+   EXPANDED STATE - NO JUMPING, CONSISTENT THICKNESS
 --------------------------------*/
 .portfolio-section.expanded .bracket-frame {
-  /* Stretch the frame vertically FROM THE CENTER */
+  /* Expand height without moving position */
   height: 70vh !important; /* 70% of viewport height */
   min-height: 400px;
   max-height: 600px;
-  align-items: stretch; /* Change from center to stretch */
-  transition: height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-  /* Keep the frame positioned correctly */
+  /* CRITICAL: Keep alignment as center, not stretch */
+  align-items: center;
+  /* Ensure no position change */
   position: relative;
   top: 0;
   transform: none;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 .portfolio-section.expanded .bracket-svg {
-  /* Brackets stretch to fill the frame height */
+  /* Brackets get taller but stay centered */
   height: 100% !important;
-  width: 20px; /* Keep width constant */
-  align-self: stretch;
-  /* Ensure SVG scales from center */
-  transform-origin: center center;
+  width: 12px; /* Keep width constant */
+  /* Keep brackets centered vertically */
+  align-self: center;
+  /* Ensure stroke stays consistent thickness */
+  stroke-width: 3.5px !important;
 }
 
 .portfolio-section.expanded .title-viewport {
-  /* Keep title centered vertically within stretched frame */
+  /* Keep title centered */
   display: flex;
-  align-items: center; /* This centers the title vertically */
+  align-items: center;
   justify-content: center;
-  margin: 0;
-  padding: 0;
+  height: 100%;
 }
 
 .portfolio-section.expanded .title-track {
@@ -486,13 +499,13 @@ body.dark-mode .project-link:hover {
 
 .portfolio-section.expanded .project-title {
   /* Only show the active project - centered */
-  position: relative !important; /* Change from absolute to relative */
+  position: relative !important;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0;
-  top: 0 !important; /* Reset positioning */
+  top: 0 !important;
 }
 
 /* Show only the active project when expanded */
@@ -530,6 +543,8 @@ body.dark-mode .project-link:hover {
   pointer-events: none !important;
   cursor: default !important;
 }
+
+
 /*--------------------------------
    Collapse Button
 --------------------------------*/
