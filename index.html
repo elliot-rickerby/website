@@ -330,7 +330,48 @@ document.addEventListener('keydown', (e) => {
     }
   }
 });
+// Add this to your existing JavaScript (after your carousel code)
 
+// Get all project titles
+const projectTitles = document.querySelectorAll('.project-title');
+
+// Add click event to each project title
+projectTitles.forEach(title => {
+  title.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    // Toggle expanded class on portfolio section
+    portfolioSection.classList.toggle('expanded');
+    
+    // Disable carousel arrows when expanded
+    const arrows = document.querySelectorAll('.carousel-arrow');
+    arrows.forEach(arrow => {
+      if (portfolioSection.classList.contains('expanded')) {
+        arrow.style.pointerEvents = 'none';
+        arrow.style.opacity = '0';
+      } else {
+        arrow.style.pointerEvents = 'auto';
+        arrow.style.opacity = '0.7';
+      }
+    });
+  });
+});
+
+// Also close when clicking outside (optional)
+portfolioSection.addEventListener('click', (e) => {
+  if (e.target === portfolioSection && portfolioSection.classList.contains('expanded')) {
+    portfolioSection.classList.remove('expanded');
+    
+    // Re-enable arrows
+    const arrows = document.querySelectorAll('.carousel-arrow');
+    arrows.forEach(arrow => {
+      arrow.style.pointerEvents = 'auto';
+      arrow.style.opacity = '0.7';
+    });
+  }
+});
+  
 // Initialize
 updateCarousel(0);
 </script>
