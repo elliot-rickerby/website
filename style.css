@@ -284,22 +284,21 @@ body {
   width: min(85vw, 750px);
   margin: 0 auto;
   position: relative;
-  height: clamp(60px, 10vh, 80px);
-  transition: height 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
-              gap 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  height: 80px; /* Fixed height for normal state */
+  transition: height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* SVG Brackets */
+.bracket-svg {
+  width: 30px; /* Fixed width */
+  height: 80px; /* Height matches frame height */
+  flex-shrink: 0;
+  transition: height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .bracket-left,
 .bracket-right {
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 400;
-  line-height: 1;
   color: var(--text-color);
-  flex-shrink: 0;
-  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-  height: 100%;
-  display: flex;
-  align-items: center;
 }
 
 /* Simple viewport - masks everything except one title */
@@ -436,32 +435,26 @@ body.dark-mode .project-link:hover {
 }
 
 /* -------------------------------
-   EXPANDED STATE - SIMPLE SOLUTION
+   EXPANDED STATE - SVG BRACKETS
 --------------------------------*/
 .portfolio-section.expanded .bracket-frame {
-  /* Force stretching to 70% of viewport height */
-  height: 70vh !important;
+  /* Stretch the frame vertically */
+  height: 70vh !important; /* 70% of viewport height */
   min-height: 400px;
   max-height: 600px;
   align-items: stretch;
-  gap: 30px;
-  transition: height 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
-              gap 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.portfolio-section.expanded .bracket-left,
-.portfolio-section.expanded .bracket-right {
-  /* Make brackets stretch to full height */
-  align-self: stretch;
+.portfolio-section.expanded .bracket-svg {
+  /* Brackets stretch to fill the frame height */
   height: 100% !important;
-  font-size: clamp(4rem, 10vw, 8rem) !important;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 30px; /* Keep width constant */
+  align-self: stretch;
 }
 
 .portfolio-section.expanded .title-viewport {
-  /* Keep title centered vertically */
+  /* Keep title centered */
   display: flex;
   align-items: center;
   justify-content: center;
