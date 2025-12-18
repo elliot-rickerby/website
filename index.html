@@ -364,7 +364,85 @@ document.addEventListener('click', (e) => {
     arrowDown.style.pointerEvents = 'auto';
   }
 });
+// Add click event to project titles
+const projectTitles = document.querySelectorAll('.project-title');
 
+projectTitles.forEach(title => {
+  title.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    // Get the project number from data attribute
+    const projectNum = title.getAttribute('data-project');
+    
+    // Toggle expanded state
+    portfolioSection.classList.toggle('expanded');
+    
+    if (portfolioSection.classList.contains('expanded')) {
+      // When expanding, update to show the clicked project
+      updateCarousel(projectNum - 1, 'click');
+      
+      // Force the track to show only the clicked project
+      titleTrack.classList.remove('active-1', 'active-2', 'active-3', 'active-4', 'active-5');
+      titleTrack.classList.add(`active-${projectNum}`);
+      
+      // Disable arrows
+      arrowUp.disabled = true;
+      arrowDown.disabled = true;
+      arrowUp.style.opacity = '0';
+      arrowDown.style.opacity = '0';
+      arrowUp.style.pointerEvents = 'none';
+      arrowDown.style.pointerEvents = 'none';
+    } else {
+      // When collapsing, re-enable arrows
+      arrowUp.disabled = currentIndex === 0;
+      arrowDown.disabled = currentIndex === totalProjects - 1;
+      arrowUp.style.opacity = arrowUp.disabled ? '0.2' : '0.7';
+      arrowDown.style.opacity = arrowDown.disabled ? '0.2' : '0.7';
+      arrowUp.style.pointerEvents = 'auto';
+      arrowDown.style.pointerEvents = 'auto';
+    }
+  });
+});
+
+// Update the updateCarousel function to handle expanded state
+function updateCarousel(newIndex, direction) {
+  // Update index
+  currentIndex = newIndex;
+  
+  // Remove all active classes
+  titleTrack.classList.remove('active-1', 'active-2', 'active-3', 'active-4', 'active-5');
+  
+  // Add new active class
+  titleTrack.classList.add(`active-${currentIndex + 1}`);
+  
+  // Update arrow states (only if not expanded)
+  if (!portfolioSection.classList.contains('expanded')) {
+    arrowUp.disabled = currentIndex === 0;
+    arrowDown.disabled = currentIndex === totalProjects - 1;
+    arrowUp.style.opacity = currentIndex === 0 ? '0.2' : '0.7';
+    arrowDown.style.opacity = currentIndex === totalProjects - 1 ? '0.2' : '0.7';
+  }
+}
+
+// Close when clicking outside
+document.addEventListener('click', (e) => {
+  if (portfolioSection.classList.contains('expanded') && 
+      !e.target.closest('.bracket-frame') &&
+      !e.target.closest('.carousel-arrow') &&
+      !e.target.closest('.project-title')) {
+    portfolioSection.classList.remove('expanded');
+    
+    // Re-enable arrows
+    arrowUp.disabled = currentIndex === 0;
+    arrowDown.disabled = currentIndex === totalProjects - 1;
+    arrowUp.style.opacity = arrowUp.disabled ? '0.2' : '0.7';
+    arrowDown.style.opacity = arrowDown.disabled ? '0.2' : '0.7';
+    arrowUp.style.pointerEvents = 'auto';
+    arrowDown.style.pointerEvents = 'auto';
+  }
+});
+  
 // Initialize
 updateCarousel(0);
 
