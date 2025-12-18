@@ -422,6 +422,10 @@ body.dark-mode .title-number {
   width: 100%;
 }
 
+body.dark-mode .project-link:hover {
+  color: #888; /* Dark mode hover color - ADD THIS LINE */
+}
+
 /* Project Details Panel - Hidden by default */
 .project-details-panel {
   position: relative;
