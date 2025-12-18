@@ -330,44 +330,63 @@ document.addEventListener('keydown', (e) => {
     }
   }
 });
-// Add this to your existing JavaScript (after your carousel code)
 
-// Get all project titles
+// Update your existing updateCarousel function:
+function updateCarousel(newIndex, direction) {
+  // Don't update if portfolio is expanded
+  if (portfolioSection.classList.contains('expanded')) {
+    return;
+  }
+  
+  // Rest of your existing updateCarousel code...
+}
+
+// Add click event to project titles (simplified version)
 const projectTitles = document.querySelectorAll('.project-title');
+const carouselArrows = document.querySelectorAll('.carousel-arrow');
 
-// Add click event to each project title
 projectTitles.forEach(title => {
   title.addEventListener('click', (e) => {
     e.preventDefault();
     e.stopPropagation();
     
-    // Toggle expanded class on portfolio section
+    // Toggle expanded state
     portfolioSection.classList.toggle('expanded');
     
-    // Disable carousel arrows when expanded
-    const arrows = document.querySelectorAll('.carousel-arrow');
-    arrows.forEach(arrow => {
-      if (portfolioSection.classList.contains('expanded')) {
+    // Disable/enable arrows based on state
+    if (portfolioSection.classList.contains('expanded')) {
+      carouselArrows.forEach(arrow => {
+        arrow.disabled = true;
         arrow.style.pointerEvents = 'none';
-        arrow.style.opacity = '0';
-      } else {
+        arrow.style.opacity = '0.2';
+        arrow.style.cursor = 'default';
+      });
+    } else {
+      carouselArrows.forEach(arrow => {
+        arrow.disabled = false;
         arrow.style.pointerEvents = 'auto';
-        arrow.style.opacity = '0.7';
-      }
-    });
+        arrow.style.opacity = arrow === arrowUp && currentIndex === 0 || 
+                              arrow === arrowDown && currentIndex === totalProjects - 1 ? '0.2' : '0.7';
+        arrow.style.cursor = 'pointer';
+      });
+    }
   });
 });
 
-// Also close when clicking outside (optional)
-portfolioSection.addEventListener('click', (e) => {
-  if (e.target === portfolioSection && portfolioSection.classList.contains('expanded')) {
+// Close when clicking the close button or outside the content
+document.addEventListener('click', (e) => {
+  if (portfolioSection.classList.contains('expanded') && 
+      !e.target.closest('.bracket-frame') &&
+      !e.target.closest('.carousel-arrow')) {
     portfolioSection.classList.remove('expanded');
     
     // Re-enable arrows
-    const arrows = document.querySelectorAll('.carousel-arrow');
-    arrows.forEach(arrow => {
+    carouselArrows.forEach(arrow => {
+      arrow.disabled = false;
       arrow.style.pointerEvents = 'auto';
-      arrow.style.opacity = '0.7';
+      arrow.style.opacity = arrow === arrowUp && currentIndex === 0 || 
+                            arrow === arrowDown && currentIndex === totalProjects - 1 ? '0.2' : '0.7';
+      arrow.style.cursor = 'pointer';
     });
   }
 });
