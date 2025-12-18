@@ -263,7 +263,7 @@ body {
   gap: 20px;
 }
 
-/* ADD THESE 3 LINES - Portfolio animation fix */
+/* Portfolio animation fix */
 .portfolio-carousel > * {
   opacity: 0;
   transform: translateY(8px);
@@ -283,6 +283,9 @@ body {
   gap: 15px;
   width: min(85vw, 750px);
   margin: 0 auto;
+  position: relative;
+  height: auto; /* Let it grow naturally */
+  transition: gap 0.8s cubic-bezier(0.4, 0, 0.2, 1); /* Keep gap transition */
 }
 
 .bracket-left,
@@ -292,6 +295,10 @@ body {
   line-height: 1;
   color: var(--text-color);
   flex-shrink: 0;
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  height: clamp(60px, 10vh, 80px); /* Match title-viewport height */
 }
 
 /* Simple viewport - masks everything except one title */
@@ -300,6 +307,7 @@ body {
   height: clamp(60px, 10vh, 80px);
   overflow: hidden;
   position: relative;
+  transition: height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Track that moves */
@@ -322,6 +330,8 @@ body {
   margin: 0;
   padding: 0;
   white-space: nowrap;
+  top: 0;
+  left: 0;
 }
 
 /* Stack them vertically */
@@ -426,45 +436,66 @@ body.dark-mode .project-link:hover {
   color: #999; 
 }
 
-/* Bracket stretching animation */
+/* EXPANDED STATE - FIXED POSITIONING */
+.portfolio-section.expanded {
+  /* Keep the portfolio section centered */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.portfolio-section.expanded .portfolio-carousel {
+  /* Keep carousel centered */
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Take full height */
+}
+
 .portfolio-section.expanded .bracket-frame {
-  align-items: flex-start;
-  height: 400px; /* Fixed height for stretching */
-  min-height: 400px;
-  transition: height 0.8s cubic-bezier(0.4, 0, 0.2, 1), min-height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
+  /* Make the frame much taller */
+  height: 70vh; /* Use viewport height to fill center */
+  min-height: 400px; /* Minimum height */
+  max-height: 600px; /* Maximum height */
+  align-items: stretch; /* Make brackets stretch full height */
+  justify-content: center; /* Keep content centered horizontally */
+  gap: 30px; /* Increase gap when expanded */
 }
 
 .portfolio-section.expanded .bracket-left,
 .portfolio-section.expanded .bracket-right {
-  align-self: stretch;
-  height: 100%;
+  /* Make brackets stretch vertically */
+  align-self: stretch; /* Stretch to fill container height */
+  height: 100%; /* Take full height of bracket-frame */
+  font-size: clamp(4rem, 10vw, 6rem) !important; /* Much larger brackets */
+  display: flex;
+  align-items: center; /* Center the bracket character vertically */
+  justify-content: center; /* Center horizontally */
   transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Make bracket characters grow taller */
-.portfolio-section.expanded .bracket-left,
-.portfolio-section.expanded .bracket-right {
-  font-size: clamp(3rem, 8vw, 5rem) !important; /* Much larger brackets */
-  transition: font-size 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Keep carousel layout intact */
 .portfolio-section.expanded .title-viewport {
+  /* Keep title area centered */
   height: clamp(60px, 10vh, 80px); /* Keep original height */
-  overflow: hidden; /* Keep hiding other projects */
-  margin-top: 0;
+  margin: auto 0; /* Center vertically within stretched brackets */
+  display: flex;
+  align-items: center;
 }
 
 .portfolio-section.expanded .title-track {
+  /* Keep track positioning */
   position: relative;
   height: 100%;
-  /* Keep transform as is - don't reset it */
 }
 
 .portfolio-section.expanded .project-title {
-  position: absolute !important; /* Keep absolute positioning */
-  height: 80px !important; /* Keep original height */
+  /* Keep title centered */
+  position: absolute !important;
+  height: 80px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
 }
 
 /* Disable arrows when expanded */
@@ -472,6 +503,12 @@ body.dark-mode .project-link:hover {
   opacity: 0 !important;
   pointer-events: none !important;
   cursor: default !important;
+}
+
+/* Fix for project title centering when expanded */
+.portfolio-section.expanded .title-viewport .title-track .project-title {
+  transform: none !important;
+  opacity: 1 !important;
 }
 
 /*--------------------------------
