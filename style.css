@@ -279,7 +279,7 @@ body {
 }
 
 /* -------------------------------
-   Bracket Frame & Animation
+   Bracket Frame & Animation - SMOOTH BOTH WAYS
 --------------------------------*/
 .bracket-frame {
   display: flex;
@@ -287,17 +287,19 @@ body {
   justify-content: center;
   gap: 15px;
   width: min(85vw, 750px);
-  margin: 60px auto; /* Space for arrows */
+  margin: 70px auto; /* Space for arrows */
   position: relative;
   height: 80px;
-  transition: height 0.6s ease;
+  /* Smooth easing for both expanding and collapsing */
+  transition: height 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .bracket-svg {
   width: 15px;
   height: 80px;
   flex-shrink: 0;
-  transition: height 0.6s ease;
+  /* Match the frame transition */
+  transition: height 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   align-self: center;
 }
 
@@ -373,7 +375,7 @@ body.dark-mode .title-number {
 }
 
 /* -------------------------------
-   Arrows - ABSOLUTELY POSITIONED (NO MOVEMENT)
+   Arrows - ORIGINAL SIZE, ABSOLUTE POSITIONING
 --------------------------------*/
 .carousel-arrow {
   background: none;
@@ -383,7 +385,7 @@ body.dark-mode .title-number {
   padding: 10px;
   transition: opacity 0.3s ease;
   font-family: 'Roboto Mono', monospace;
-  opacity: 0.7;
+  opacity: 0.7; /* Default visible state */
   line-height: 1;
   position: absolute; /* Absolute positioning */
   z-index: 2;
@@ -394,25 +396,26 @@ body.dark-mode .title-number {
 
 /* Up arrow positioned above bracket frame */
 .arrow-up {
-  top: 0; /* At the top of the carousel */
+  top: 10px; /* Adjusted position */
 }
 
 /* Down arrow positioned below bracket frame */
 .arrow-down {
-  bottom: 0; /* At the bottom of the carousel */
+  bottom: 10px; /* Adjusted position */
 }
 
-/* Arrow icons */
+/* Arrow icons - ORIGINAL SIZE */
 .arrow-icon {
-  width: 30px;
-  height: 18px;
+  width: 20px; /* Original size */
+  height: 12px; /* Original size */
   display: block;
 }
 
-.carousel-arrow:hover {
+.carousel-arrow:hover:not(:disabled) {
   opacity: 1;
 }
 
+/* Disabled state for first/last project - FADED */
 .carousel-arrow:disabled {
   opacity: 0.2;
   cursor: not-allowed;
@@ -453,7 +456,7 @@ body.dark-mode .project-link:hover {
 }
 
 /* -------------------------------
-   Expanded State
+   Expanded State - SMOOTH ANIMATION
 --------------------------------*/
 .portfolio-section.expanded .bracket-frame {
   height: 70vh;
@@ -509,8 +512,8 @@ body.dark-mode .project-link:hover {
   opacity: 0;
   pointer-events: none;
   /* NO position changes - stay exactly where they are */
-  top: 0; /* Keep original position */
-  bottom: 0; /* Keep original position */
+  top: 10px; /* Keep original position */
+  bottom: 10px; /* Keep original position */
 }
 
 /* Arrows fade in when not expanded */
