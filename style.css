@@ -425,11 +425,13 @@ body.dark-mode .title-number {
 body.dark-mode .project-link:hover {
   color: #999; 
 }
-/* Bracket stretching animation - FIXED VERSION */
+
+/* Bracket stretching animation */
 .portfolio-section.expanded .bracket-frame {
   align-items: flex-start;
-  min-height: 400px; /* How tall you want the expanded brackets */
-  transition: min-height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  height: 400px; /* Fixed height for stretching */
+  min-height: 400px;
+  transition: height 0.8s cubic-bezier(0.4, 0, 0.2, 1), min-height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
 }
 
@@ -440,41 +442,29 @@ body.dark-mode .project-link:hover {
   transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Make ONLY the visible bracket characters grow */
-.portfolio-section.expanded .bracket-left span,
-.portfolio-section.expanded .bracket-right span {
-  display: inline-block;
-  font-size: clamp(3rem, 8vw, 5rem); /* Larger brackets */
-  line-height: 1;
+/* Make bracket characters grow taller */
+.portfolio-section.expanded .bracket-left,
+.portfolio-section.expanded .bracket-right {
+  font-size: clamp(3rem, 8vw, 5rem) !important; /* Much larger brackets */
   transition: font-size 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-  transform-origin: top center; /* Grow from top */
 }
 
-/* CRITICAL FIX: Keep the carousel viewport masking intact */
+/* Keep carousel layout intact */
 .portfolio-section.expanded .title-viewport {
-  height: clamp(60px, 10vh, 80px) !important; /* Keep original height */
-  overflow: hidden !important; /* Keep hiding other projects */
+  height: clamp(60px, 10vh, 80px); /* Keep original height */
+  overflow: hidden; /* Keep hiding other projects */
   margin-top: 0;
 }
 
 .portfolio-section.expanded .title-track {
   position: relative;
   height: 100%;
-  /* DON'T reset transform - keep the active project in view */
+  /* Keep transform as is - don't reset it */
 }
 
 .portfolio-section.expanded .project-title {
   position: absolute !important; /* Keep absolute positioning */
   height: 80px !important; /* Keep original height */
-  margin: 0 !important;
-  padding: 0 !important;
-  top: 0 !important; /* Reset top */
-}
-
-/* Hide all other project titles when expanded */
-.portfolio-section.expanded .project-title:not(:nth-child(1)):not(:nth-child(2)):not(:nth-child(3)):not(:nth-child(4)):not(:nth-child(5)) {
-  opacity: 0 !important;
-  visibility: hidden !important;
 }
 
 /* Disable arrows when expanded */
@@ -483,7 +473,6 @@ body.dark-mode .project-link:hover {
   pointer-events: none !important;
   cursor: default !important;
 }
-
 
 /*--------------------------------
    Collapse Button
