@@ -273,7 +273,7 @@ collapseBtn.addEventListener('click', (e) => {
   collapseBtn.classList.remove('active');
 });
 
-// Portfolio Carousel
+// Portfolio Carousel - SIMPLIFIED
 const titleTrack = document.querySelector('.title-track');
 const arrowUp = document.querySelector('.arrow-up');
 const arrowDown = document.querySelector('.arrow-down');
@@ -282,42 +282,33 @@ const totalProjects = 5;
 
 // Function to update carousel
 function updateCarousel(newIndex) {
-  // Update index
   currentIndex = newIndex;
-  
-  // Remove all active classes
   titleTrack.classList.remove('active-1', 'active-2', 'active-3', 'active-4', 'active-5');
-  
-  // Add new active class
   titleTrack.classList.add(`active-${currentIndex + 1}`);
   
   // Update arrow states
-  if (!portfolioSection.classList.contains('expanded')) {
-    arrowUp.disabled = currentIndex === 0;
-    arrowDown.disabled = currentIndex === totalProjects - 1;
-    arrowUp.style.opacity = currentIndex === 0 ? '0.2' : '0.7';
-    arrowDown.style.opacity = currentIndex === totalProjects - 1 ? '0.2' : '0.7';
-  }
+  arrowUp.disabled = currentIndex === 0;
+  arrowDown.disabled = currentIndex === totalProjects - 1;
 }
 
 // Arrow navigation
 arrowUp.addEventListener('click', (e) => {
   e.stopPropagation();
-  if (currentIndex > 0) {
+  if (currentIndex > 0 && !portfolioSection.classList.contains('expanded')) {
     updateCarousel(currentIndex - 1);
   }
 });
 
 arrowDown.addEventListener('click', (e) => {
   e.stopPropagation();
-  if (currentIndex < totalProjects - 1) {
+  if (currentIndex < totalProjects - 1 && !portfolioSection.classList.contains('expanded')) {
     updateCarousel(currentIndex + 1);
   }
 });
 
 // Keyboard navigation
 document.addEventListener('keydown', (e) => {
-  if (portfolioSection.classList.contains('active')) {
+  if (portfolioSection.classList.contains('active') && !portfolioSection.classList.contains('expanded')) {
     if (e.key === 'ArrowUp') {
       e.preventDefault();
       if (currentIndex > 0) {
@@ -340,21 +331,16 @@ projectTitles.forEach(title => {
     e.preventDefault();
     e.stopPropagation();
     
-    // Get the project number from data attribute
+    // Get the project number
     const projectNum = parseInt(title.getAttribute('data-project'));
     
-    // Toggle expanded state - CSS will handle arrow visibility
+    // Toggle expanded state
+    const isExpanding = !portfolioSection.classList.contains('expanded');
     portfolioSection.classList.toggle('expanded');
     
     // Update to show the clicked project
-    if (portfolioSection.classList.contains('expanded')) {
+    if (isExpanding) {
       updateCarousel(projectNum - 1);
-    }
-    
-    // Update arrow states based on current index (when not expanded)
-    if (!portfolioSection.classList.contains('expanded')) {
-      arrowUp.disabled = currentIndex === 0;
-      arrowDown.disabled = currentIndex === totalProjects - 1;
     }
   });
 });
@@ -365,34 +351,10 @@ document.addEventListener('click', (e) => {
       !e.target.closest('.bracket-frame') &&
       !e.target.closest('.carousel-arrow') &&
       !e.target.closest('.project-title')) {
-    
     portfolioSection.classList.remove('expanded');
-    
-    // Update arrow states after collapse
-    setTimeout(() => {
-      arrowUp.disabled = currentIndex === 0;
-      arrowDown.disabled = currentIndex === totalProjects - 1;
-    }, 400); // Match CSS transition time
   }
 });
 
-// Update the updateCarousel function
-function updateCarousel(newIndex) {
-  // Update index
-  currentIndex = newIndex;
-  
-  // Remove all active classes
-  titleTrack.classList.remove('active-1', 'active-2', 'active-3', 'active-4', 'active-5');
-  
-  // Add new active class
-  titleTrack.classList.add(`active-${currentIndex + 1}`);
-  
-  // Update arrow states (only if not expanded)
-  if (!portfolioSection.classList.contains('expanded')) {
-    arrowUp.disabled = currentIndex === 0;
-    arrowDown.disabled = currentIndex === totalProjects - 1;
-  }
-}  
 // Initialize
 updateCarousel(0);
 
