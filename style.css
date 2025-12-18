@@ -232,51 +232,11 @@ body {
 }
 
 /* -------------------------------
-   Portfolio Carousel
+   Portfolio Carousel - BRACKETS ONLY
+   (Remove all previous bracket CSS and replace with this)
 --------------------------------*/
-.portfolio-section {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  width: 100%;
-  max-width: min(95vw, 900px);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.8s ease;
-  z-index: 3;
-  visibility: hidden;
-}
 
-.portfolio-section.active {
-  opacity: 1;
-  pointer-events: auto;
-  visibility: visible;
-}
-
-.portfolio-carousel {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  position: relative;
-}
-
-/* Portfolio animation fix */
-.portfolio-carousel > * {
-  opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.portfolio-section.active .portfolio-carousel > * {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Fixed width bracket frame - NO OVEREXTENSION */
+/* Fixed width bracket frame - SIMPLE HEIGHT TRANSITION */
 .bracket-frame {
   display: flex;
   align-items: center;
@@ -286,10 +246,8 @@ body {
   margin: 0 auto;
   position: relative;
   height: 80px; /* Fixed height for normal state */
-  /* Smooth transition with NO overshoot */
-  transition: height 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
-  /* Prevent any overshoot/jumping */
-  will-change: height;
+  /* SIMPLE linear transition - same in both directions */
+  transition: height 0.6s linear;
 }
 
 /* SVG Brackets */
@@ -297,15 +255,13 @@ body {
   width: 15px;
   height: 80px; /* Height matches frame height */
   flex-shrink: 0;
-  /* Match the frame transition exactly */
-  transition: height 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  /* Match the frame transition EXACTLY */
+  transition: height 0.6s linear;
   /* Keep brackets perfectly centered */
   align-self: center;
   position: relative;
   top: 0;
   margin: 0;
-  /* Prevent any overshoot */
-  will-change: height;
 }
 
 .bracket-left,
@@ -313,7 +269,7 @@ body {
   color: var(--text-color);
 }
 
-/* Simple viewport - masks everything except one title */
+/* Simple viewport */
 .title-viewport {
   width: 100%;
   height: 100%;
@@ -321,8 +277,6 @@ body {
   position: relative;
   display: flex;
   align-items: center;
-  position: relative;
-  top: 0;
 }
 
 /* Track that moves */
@@ -364,118 +318,18 @@ body {
 .title-track.active-4 { transform: translateY(-300%); }
 .title-track.active-5 { transform: translateY(-400%); }
 
-/* Style the number portion */
-.title-number {
-  color: rgba(34, 34, 34, 0.6);
-  font-weight: 400;
-  margin-right: 10px;
-  transition: opacity 0.3s ease;
-  text-transform: none !important;
-}
-
-body.dark-mode .title-number {
-  color: rgba(255, 255, 255, 0.6);
-}
-
-/* Keep the text at full opacity */
-.title-text {
-  opacity: 1;
-  text-transform: uppercase !important; 
-}
-
-/* Arrows - SIMPLE FADE IN/OUT */
-.carousel-arrow {
-  background: none;
-  border: none;
-  font-size: 2.5rem;
-  color: var(--text-color);
-  cursor: pointer;
-  padding: 10px;
-  /* Simple opacity transition */
-  transition: opacity 0.3s ease;
-  font-family: 'Roboto Mono', monospace;
-  opacity: 0.7; /* Always visible when not expanded */
-  line-height: 1;
-  /* No position changes */
-  position: relative;
-  top: 0;
-  transform: none !important;
-}
-
-.carousel-arrow:hover {
-  opacity: 1;
-  transform: scale(1.1);
-}
-
-.carousel-arrow:disabled {
-  opacity: 0.2;
-  cursor: not-allowed;
-  transform: none;
-}
-
-.arrow-up {
-  order: 1;
-}
-
-.bracket-frame {
-  order: 2;
-}
-
-.arrow-down {
-  order: 3;
-}
-
-/* Make project titles clickable with hover underline */
-.project-link {
-  text-decoration: none;
-  color: inherit;
-  position: relative;
-  display: inline-block;
-  padding-bottom: 2px;
-}
-
-.project-link:hover {
-  color: #555;
-}
-
-.project-link::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -2px;
-  width: 0%;
-  height: 2px;
-  background-color: var(--text-color);
-  transition: width 0.3s ease;
-}
-
-.project-link:hover::after {
-  width: 100%;
-}
-
-body.dark-mode .project-link:hover {
-  color: #999; 
-}
-
-/* -------------------------------
-   EXPANDED STATE - NO JUMPING, NO OVEREXTENSION
---------------------------------*/
+/* EXPANDED STATE - SIMPLE HEIGHT CHANGE */
 .portfolio-section.expanded .bracket-frame {
-  /* Expand smoothly with NO overshoot */
+  /* Simple height change - NO overshoot */
   height: 70vh !important;
   min-height: 400px;
   max-height: 600px;
   /* Keep everything centered */
   align-items: center;
-  /* CRITICAL: No position change */
-  position: relative;
-  top: 0;
-  transform: none;
-  margin: 0 auto;
 }
 
 .portfolio-section.expanded .bracket-svg {
-  /* Brackets get taller smoothly */
+  /* Simple height match */
   height: 100% !important;
   width: 15px;
   align-self: center;
@@ -487,17 +341,14 @@ body.dark-mode .project-link:hover {
   align-items: center;
   justify-content: center;
   height: 100%;
-  position: relative;
-  top: 0;
 }
 
+/* Show only the active project when expanded */
 .portfolio-section.expanded .title-track {
-  position: relative;
   transform: translateY(0) !important;
   height: 100%;
   display: flex;
   align-items: center;
-  top: 0;
 }
 
 .portfolio-section.expanded .project-title {
@@ -507,10 +358,8 @@ body.dark-mode .project-link:hover {
   align-items: center;
   justify-content: center;
   opacity: 0;
-  top: 0 !important;
 }
 
-/* Show only the active project when expanded */
 .portfolio-section.expanded .title-track.active-1 .project-title:nth-child(1),
 .portfolio-section.expanded .title-track.active-2 .project-title:nth-child(2),
 .portfolio-section.expanded .title-track.active-3 .project-title:nth-child(3),
@@ -518,7 +367,6 @@ body.dark-mode .project-link:hover {
 .portfolio-section.expanded .title-track.active-5 .project-title:nth-child(5) {
   opacity: 1;
   position: relative !important;
-  top: 0 !important;
   width: 100%;
   height: 100%;
   display: flex;
@@ -537,34 +385,6 @@ body.dark-mode .project-link:hover {
 .portfolio-section.expanded .title-track.active-4 .project-title:nth-child(4),
 .portfolio-section.expanded .title-track.active-5 .project-title:nth-child(5) {
   display: flex;
-}
-
-/* ARROWS: Hide when expanded, show when not expanded */
-.portfolio-section.expanded .carousel-arrow {
-  opacity: 0 !important;
-  pointer-events: none !important;
-  cursor: default !important;
-  /* Immediate hide when expanded */
-  transition: opacity 0.2s ease 0s !important;
-}
-
-/* When portfolio is active but NOT expanded, show arrows */
-.portfolio-section.active:not(.expanded) .carousel-arrow {
-  opacity: 0.7;
-  pointer-events: auto;
-  cursor: pointer;
-  /* Smooth show when collapsing */
-  transition: opacity 0.4s ease 0.3s !important;
-}
-
-/* Hover state when not expanded */
-.portfolio-section.active:not(.expanded) .carousel-arrow:hover {
-  opacity: 1;
-}
-
-/* Disabled state for first/last project */
-.portfolio-section.active:not(.expanded) .carousel-arrow:disabled {
-  opacity: 0.2;
 }
 
 /*--------------------------------
