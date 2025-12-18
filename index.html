@@ -343,30 +343,18 @@ projectTitles.forEach(title => {
     // Get the project number from data attribute
     const projectNum = parseInt(title.getAttribute('data-project'));
     
-    // If already expanded and clicking the same project, collapse
+    // Toggle expanded state - CSS will handle arrow visibility
+    portfolioSection.classList.toggle('expanded');
+    
+    // Update to show the clicked project
     if (portfolioSection.classList.contains('expanded')) {
-      // Immediately fade out arrows when collapsing
-      arrowUp.style.transition = 'opacity 0.2s ease 0s';
-      arrowDown.style.transition = 'opacity 0.2s ease 0s';
-      arrowUp.style.opacity = '0';
-      arrowDown.style.opacity = '0';
-      
-      // Wait a tiny bit before collapsing to let fade happen
-      setTimeout(() => {
-        portfolioSection.classList.remove('expanded');
-      }, 50);
-    } else {
-      // When expanding
-      portfolioSection.classList.add('expanded');
       updateCarousel(projectNum - 1);
-      
-      // Fade out arrows with delay to match expansion
-      setTimeout(() => {
-        arrowUp.style.transition = 'opacity 0.3s ease 0.2s';
-        arrowDown.style.transition = 'opacity 0.3s ease 0.2s';
-        arrowUp.style.opacity = '0';
-        arrowDown.style.opacity = '0';
-      }, 100);
+    }
+    
+    // Update arrow states based on current index (when not expanded)
+    if (!portfolioSection.classList.contains('expanded')) {
+      arrowUp.disabled = currentIndex === 0;
+      arrowDown.disabled = currentIndex === totalProjects - 1;
     }
   });
 });
@@ -378,19 +366,33 @@ document.addEventListener('click', (e) => {
       !e.target.closest('.carousel-arrow') &&
       !e.target.closest('.project-title')) {
     
-    // Fade out arrows immediately
-    arrowUp.style.transition = 'opacity 0.2s ease 0s';
-    arrowDown.style.transition = 'opacity 0.2s ease 0s';
-    arrowUp.style.opacity = '0';
-    arrowDown.style.opacity = '0';
+    portfolioSection.classList.remove('expanded');
     
-    // Collapse after fade
+    // Update arrow states after collapse
     setTimeout(() => {
-      portfolioSection.classList.remove('expanded');
-    }, 200);
+      arrowUp.disabled = currentIndex === 0;
+      arrowDown.disabled = currentIndex === totalProjects - 1;
+    }, 400); // Match CSS transition time
   }
 });
+
+// Update the updateCarousel function
+function updateCarousel(newIndex) {
+  // Update index
+  currentIndex = newIndex;
   
+  // Remove all active classes
+  titleTrack.classList.remove('active-1', 'active-2', 'active-3', 'active-4', 'active-5');
+  
+  // Add new active class
+  titleTrack.classList.add(`active-${currentIndex + 1}`);
+  
+  // Update arrow states (only if not expanded)
+  if (!portfolioSection.classList.contains('expanded')) {
+    arrowUp.disabled = currentIndex === 0;
+    arrowDown.disabled = currentIndex === totalProjects - 1;
+  }
+}  
 // Initialize
 updateCarousel(0);
 
