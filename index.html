@@ -61,11 +61,11 @@
 <img id="about-photo" src="portrait.jpg" alt="Portrait of Elliot">
 <div class="text-block">
 <p>
-<b>elliot rickerby</b> is a freelance cultural researcher and psychologist. blending an empirical academic background with a passion for fashion, elliot aims to use quality research and scientific understanding to solve problems within the fashion industry. although specialising in mental health and consumer insights, he believes that every part of the industry stands to gain from a deeper understanding of the behaviours that shape its consumers, workforce and beyond.</p>
+<b>elliot rickerby</b> is a freelance cultural researcher and psychologist. blending an empirical academic background with a passion for fashion, elliot aims to use quality research and scientific und[...]
 <p>
-elliot has carried out research for Uniqlo as well as a range of independent designers, alongside contributing to several academic papers. his master's thesis - scheduled for publication in 2026 - marks an early step in addressing the mental health pressures within the fashion industry. he also writes regularly, with a collection of published articles and a Substack where he analyses fashion media.</p>
+elliot has carried out research for Uniqlo as well as a range of independent designers, alongside contributing to several academic papers. his master's thesis - scheduled for publication in 2026 - mar[...]
 <p>     
-elliot is open to collaborations and freelance work and is best contacted via the contact page, <a href= "https://www.linkedin.com/in/elliotrickerby/" >LinkedIn</a> or <a href="https://www.instagram.com/elliotrickerby_/" >Instagram</a>.</p>
+elliot is open to collaborations and freelance work and is best contacted via the contact page, <a href= "https://www.linkedin.com/in/elliotrickerby/" >LinkedIn</a> or <a href="https://www.instagram.c[...]
 </div>
 </div>
 
@@ -259,6 +259,11 @@ collapseBtn.addEventListener('click', (e) => {
   portfolioBtn.classList.remove('active');
   socialIcons.classList.remove('active');
   collapseBtn.classList.remove('active');
+
+  // Ensure bracket frame collapses visually
+  if (window.bracketFrameEl) {
+    window.bracketFrameEl.style.height = `${window.COLLAPSED_HEIGHT}px`;
+  }
 });
 
 // Portfolio Carousel - SIMPLIFIED
@@ -267,6 +272,24 @@ const arrowUp = document.querySelector('.arrow-up');
 const arrowDown = document.querySelector('.arrow-down');
 let currentIndex = 0;
 const totalProjects = 5;
+
+// Bracket frame height management (explicit pixel heights for smooth reversible transitions)
+const bracketFrame = document.querySelector('.bracket-frame');
+const COLLAPSED_HEIGHT = 80; // keep in sync with CSS collapsed height
+const EXPANDED_VH = 0.7;
+const EXPANDED_MAX_PX = 600;
+
+window.bracketFrameEl = bracketFrame;
+window.COLLAPSED_HEIGHT = COLLAPSED_HEIGHT;
+
+function getExpandedHeight() {
+  return Math.round(Math.min(window.innerHeight * EXPANDED_VH, EXPANDED_MAX_PX));
+}
+
+// Initialize explicit collapsed height so pseudo-elements have a defined height
+if (bracketFrame) {
+  bracketFrame.style.height = `${COLLAPSED_HEIGHT}px`;
+}
 
 // Function to update carousel
 function updateCarousel(newIndex) {
@@ -322,13 +345,24 @@ projectTitles.forEach(title => {
     // Get the project number
     const projectNum = parseInt(title.getAttribute('data-project'));
     
-    // Toggle expanded state
-    const isExpanding = !portfolioSection.classList.contains('expanded');
-    portfolioSection.classList.toggle('expanded');
-    
-    // Update to show the clicked project
+    // Determine current action
+    const isCurrentlyExpanded = portfolioSection.classList.contains('expanded');
+    const isExpanding = !isCurrentlyExpanded;
+
     if (isExpanding) {
+      // Compute explicit expanded height and apply it for smooth animation
+      const expandedPx = getExpandedHeight();
+      bracketFrame.style.height = `${expandedPx}px`;
+
+      // Add expanded class (CSS will hide non-active titles)
+      portfolioSection.classList.add('expanded');
+
+      // Show the clicked project
       updateCarousel(projectNum - 1);
+    } else {
+      // Collapse: return to explicit collapsed height
+      bracketFrame.style.height = `${COLLAPSED_HEIGHT}px`;
+      portfolioSection.classList.remove('expanded');
     }
   });
 });
@@ -339,7 +373,16 @@ document.addEventListener('click', (e) => {
       !e.target.closest('.bracket-frame') &&
       !e.target.closest('.carousel-arrow') &&
       !e.target.closest('.project-title')) {
+    // collapse visually & logically
+    bracketFrame.style.height = `${COLLAPSED_HEIGHT}px`;
     portfolioSection.classList.remove('expanded');
+  }
+});
+
+// Recompute expanded height on resize when expanded
+window.addEventListener('resize', () => {
+  if (portfolioSection.classList.contains('expanded')) {
+    bracketFrame.style.height = `${getExpandedHeight()}px`;
   }
 });
 
