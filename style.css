@@ -286,7 +286,7 @@ body {
 }
 
 /* -------------------------------
-   Bracket Frame - FIXED SMOOTH ANIMATION
+   Bracket Frame - FIXED REVERSE ANIMATION
 --------------------------------*/
 .bracket-frame {
   display: flex;
@@ -298,7 +298,29 @@ body {
   position: relative;
   height: 80px;
   overflow: visible;
-  transition: height 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  /* SMOOTH IN BOTH DIRECTIONS */
+  transition: height 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Make brackets transition smoothly too */
+.bracket-left,
+.bracket-right {
+  position: relative;
+  width: 15px;
+  height: 100%;
+  flex-shrink: 0;
+  /* ADD TRANSITION FOR BRACKETS TOO */
+  transition: height 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.portfolio-section.expanded .bracket-frame {
+  align-items: stretch;
+  height: min(70vh, 600px);
+}
+
+.portfolio-section.expanded .bracket-left,
+.portfolio-section.expanded .bracket-right {
+  height: 100%;
 }
 
 /* -------------------------------
