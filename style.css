@@ -286,7 +286,7 @@ body {
 }
 
 /* -------------------------------
-   Bracket Frame 
+   Bracket Frame - SMOOTH ANIMATION
 --------------------------------*/
 .bracket-frame {
   display: flex;
@@ -296,17 +296,19 @@ body {
   width: min(85vw, 750px);
   margin: 70px auto;
   position: relative;
+  
+  /* Start with collapsed height */
   height: 80px;
   min-height: 80px;
-  max-height: 80px;
-  transition: height 0.6s cubic-bezier(0.22, 0.12, 0.08, 1), 
-              max-height 0.6s cubic-bezier(0.22, 0.12, 0.08, 1);
-  will-change: height, max-height;
-  overflow: visible;
+  
+  /* SMOOTH transition for height */
+  transition: height 0.6s cubic-bezier(0.22, 0.61, 0.36, 1),
+              min-height 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+  overflow: hidden;
 }
 
 /* -------------------------------
-   CSS BRACKETS
+   CSS BRACKETS - smooth stretching
 --------------------------------*/
 .bracket-left,
 .bracket-right {
@@ -314,8 +316,7 @@ body {
   width: 15px;
   height: 100%;
   flex-shrink: 0;
-  transition: none;
-  will-change: transform;
+  transition: height 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 /* Create bracket shape with CSS - consistent 3px stroke */
@@ -328,32 +329,33 @@ body {
   background-color: var(--text-color);
 }
 
-/* Vertical part */
+/* Vertical part (will stretch smoothly) */
 .bracket-left::before,
 .bracket-right::before {
   width: 3px;
   top: 0;
   bottom: 0;
+  transition: all 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 /* Left bracket vertical line */
 .bracket-left::before { left: 0; }
-
 /* Right bracket vertical line */
 .bracket-right::before { right: 0; }
 
-/* Top horizontal arms */
+/* Top horizontal arms (fixed size) */
 .bracket-left::after,
 .bracket-right::after {
   height: 3px;
   width: 12px;
   top: 0;
+  transition: top 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 .bracket-left::after { left: 0; }
 .bracket-right::after { right: 0; }
 
-/* Bottom horizontal arms */
+/* Bottom horizontal arms (fixed size) */
 .bracket-left .bottom-arm,
 .bracket-right .bottom-arm {
   position: absolute;
@@ -361,10 +363,42 @@ body {
   width: 12px;
   bottom: 0;
   background-color: var(--text-color);
+  transition: bottom 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 .bracket-left .bottom-arm { left: 0; }
 .bracket-right .bottom-arm { right: 0; }
+
+/* -------------------------------
+   Expanded State - SMOOTH expansion
+--------------------------------*/
+.portfolio-section.expanded .bracket-frame {
+  align-items: stretch;
+  /* Use viewport-based height for smooth expansion */
+  height: min(70vh, 600px);
+  min-height: 400px;
+}
+
+/* Brackets stretch to fill */
+.portfolio-section.expanded .bracket-left,
+.portfolio-section.expanded .bracket-right {
+  height: 100%;
+}
+
+/* Title viewport grows with bracket */
+.title-viewport {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  transition: height 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.portfolio-section.expanded .title-viewport {
+  height: 100%;
+}
 
 /* -------------------------------
    Title Viewport & Track
