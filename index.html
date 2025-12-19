@@ -200,6 +200,7 @@ const socialIcons = document.getElementById('social-icons');
 const portfolioBtn = document.getElementById('portfolioBtn');
 const portfolioSection = document.getElementById('portfolioSection');
 
+// Navigation
 aboutBtn.addEventListener('click', (e) => {
   e.preventDefault();
   landingName.classList.add('fixed');
@@ -250,32 +251,26 @@ collapseBtn.addEventListener('click', (e) => {
   aboutSection.classList.remove('active');
   contactSection.classList.remove('active');
   portfolioSection.classList.remove('active');
+  portfolioSection.classList.remove('expanded');
   aboutBtn.classList.remove('active');
   contactBtn.classList.remove('active');
   portfolioBtn.classList.remove('active');
   socialIcons.classList.remove('active');
   collapseBtn.classList.remove('active');
-
-  // Ensure bracket frame collapses visually
-  if (window.bracketFrameEl) {
-    window.bracketFrameEl.style.height = `${window.COLLAPSED_HEIGHT}px`;
-  }
 });
 
-// Portfolio Carousel - SIMPLIFIED (no height manipulation)
+// Portfolio Carousel - SIMPLE AND WORKING
 const titleTrack = document.querySelector('.title-track');
 const arrowUp = document.querySelector('.arrow-up');
 const arrowDown = document.querySelector('.arrow-down');
 let currentIndex = 0;
 const totalProjects = 5;
 
-// Function to update carousel
 function updateCarousel(newIndex) {
   currentIndex = newIndex;
   titleTrack.classList.remove('active-1', 'active-2', 'active-3', 'active-4', 'active-5');
   titleTrack.classList.add(`active-${currentIndex + 1}`);
   
-  // Update arrow states
   arrowUp.disabled = currentIndex === 0;
   arrowDown.disabled = currentIndex === totalProjects - 1;
 }
@@ -312,7 +307,7 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// Add click event to project titles - TOGGLE expanded class only
+// Project title click - SIMPLE TOGGLE
 const projectTitles = document.querySelectorAll('.project-title');
 
 projectTitles.forEach(title => {
@@ -320,21 +315,18 @@ projectTitles.forEach(title => {
     e.preventDefault();
     e.stopPropagation();
     
-    // Get the project number
     const projectNum = parseInt(title.getAttribute('data-project'));
     
-    // Toggle expanded class - CSS will handle the animation
-    if (portfolioSection.classList.contains('expanded')) {
-      // Already expanded, check if clicking same project
-      if (currentIndex === projectNum - 1) {
-        // Clicking current project - collapse
-        portfolioSection.classList.remove('expanded');
-      } else {
-        // Switching to different project - update carousel but stay expanded
-        updateCarousel(projectNum - 1);
-      }
-    } else {
-      // Not expanded - expand and show this project
+    // If already expanded and clicking same project, collapse
+    if (portfolioSection.classList.contains('expanded') && currentIndex === projectNum - 1) {
+      portfolioSection.classList.remove('expanded');
+    } 
+    // If already expanded but clicking different project, switch
+    else if (portfolioSection.classList.contains('expanded')) {
+      updateCarousel(projectNum - 1);
+    }
+    // If not expanded, expand and show this project
+    else {
       updateCarousel(projectNum - 1);
       portfolioSection.classList.add('expanded');
     }
@@ -347,7 +339,6 @@ document.addEventListener('click', (e) => {
       !e.target.closest('.bracket-frame') &&
       !e.target.closest('.carousel-arrow') &&
       !e.target.closest('.project-title')) {
-    // Just remove expanded class - CSS handles the collapse animation
     portfolioSection.classList.remove('expanded');
   }
 });
@@ -355,7 +346,7 @@ document.addEventListener('click', (e) => {
 // Initialize
 updateCarousel(0);
 
-// GSAP Tendril Animation
+// GSAP Tendril Animation (keep as is)
 const tendrils = document.querySelectorAll(".tendril");
 
 function parsePath(path) {
@@ -383,24 +374,18 @@ tendrils.forEach((path, i) => {
   const points = parsePath(path);
   if (!points) return;
 
-  // Keep base control points
   const baseC1 = [...points.control1];
   const baseC2 = [...points.control2];
 
-  // Animate growth first
   gsap.to(path, {
     strokeDashoffset: 0,
-    duration: 1 + Math.random(), // 1–2s fast growth
+    duration: 1 + Math.random(),
     ease: "power1.inOut",
-    delay: i * 0.2, // stagger start times
+    delay: i * 0.2,
     onComplete: () => {
-      // Start subtle wriggle for this path
-
-      // Separate offsets for control1 and control2
       let c1Offset = { x: 0, y: 0 };
       let c2Offset = { x: 0, y: 0 };
 
-      // Animate control1
       gsap.to(c1Offset, {
         x: () => Math.random() * 14 - 7,
         y: () => Math.random() * 14 - 7,
@@ -417,7 +402,6 @@ tendrils.forEach((path, i) => {
         }
       });
 
-      // Animate control2 independently
       gsap.to(c2Offset, {
         x: () => Math.random() * 14 - 7,
         y: () => Math.random() * 14 - 7,
@@ -430,7 +414,7 @@ tendrils.forEach((path, i) => {
   });
 });
 
-// DOM element management
+// DOM element management and dark mode
 document.addEventListener('DOMContentLoaded', () => {
   const collapse = document.getElementById('collapseBtn');
   const socials = document.getElementById('social-icons');
@@ -448,25 +432,19 @@ document.addEventListener('DOMContentLoaded', () => {
   // Dark Mode Toggle
   const darkModeToggle = document.getElementById('darkModeSwitch');
   const body = document.body;
-
-  // Check for saved theme preference
   const savedTheme = localStorage.getItem('theme');
 
-  // Default to LIGHT mode
   if (savedTheme === 'dark') {
     body.classList.add('dark-mode');
     darkModeToggle.checked = true;
   } else {
-    // Ensure light mode is default
     body.classList.remove('dark-mode');
     darkModeToggle.checked = false;
-    // Only set localStorage if it doesn't exist
     if (!savedTheme) {
       localStorage.setItem('theme', 'light');
     }
   }
 
-  // Toggle dark mode
   darkModeToggle.addEventListener('change', () => {
     if (darkModeToggle.checked) {
       body.classList.add('dark-mode');
