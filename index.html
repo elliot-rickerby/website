@@ -262,16 +262,16 @@ collapseBtn.addEventListener('click', (e) => {
   }
 });
 
-// Portfolio Carousel - SIMPLIFIED
+// Portfolio Carousel - SMOOTH ANIMATION
 const titleTrack = document.querySelector('.title-track');
 const arrowUp = document.querySelector('.arrow-up');
 const arrowDown = document.querySelector('.arrow-down');
 let currentIndex = 0;
 const totalProjects = 5;
 
-// Bracket frame height management (explicit pixel heights for smooth reversible transitions)
+// Bracket frame element
 const bracketFrame = document.querySelector('.bracket-frame');
-const COLLAPSED_HEIGHT = 80; // keep in sync with CSS collapsed height
+const COLLAPSED_HEIGHT = 80;
 const EXPANDED_VH = 0.7;
 const EXPANDED_MAX_PX = 600;
 
@@ -279,12 +279,7 @@ window.bracketFrameEl = bracketFrame;
 window.COLLAPSED_HEIGHT = COLLAPSED_HEIGHT;
 
 function getExpandedHeight() {
-  return Math.round(Math.min(window.innerHeight * EXPANDED_VH, EXPANDED_MAX_PX));
-}
-
-// Initialize explicit collapsed height so pseudo-elements have a defined height
-if (bracketFrame) {
-  bracketFrame.style.height = `${COLLAPSED_HEIGHT}px`;
+  return Math.min(window.innerHeight * EXPANDED_VH, EXPANDED_MAX_PX);
 }
 
 // Function to update carousel
@@ -330,7 +325,7 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// Add click event to project titles
+// Add click event to project titles - SMOOTH EXPANSION
 const projectTitles = document.querySelectorAll('.project-title');
 
 projectTitles.forEach(title => {
@@ -346,19 +341,28 @@ projectTitles.forEach(title => {
     const isExpanding = !isCurrentlyExpanded;
 
     if (isExpanding) {
-      // Compute explicit expanded height and apply it for smooth animation
-      const expandedPx = getExpandedHeight();
-      bracketFrame.style.height = `${expandedPx}px`;
-
-      // Add expanded class (CSS will hide non-active titles)
-      portfolioSection.classList.add('expanded');
-
+      // Expand smoothly
+      portfolioSection.classList.add('expanding');
+      setTimeout(() => {
+        portfolioSection.classList.add('expanded');
+        portfolioSection.classList.remove('expanding');
+      }, 10);
+      
       // Show the clicked project
       updateCarousel(projectNum - 1);
+      
+      // Prevent scrolling during animation
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => {
+        document.body.style.overflow = '';
+      }, 600);
     } else {
-      // Collapse: return to explicit collapsed height
-      bracketFrame.style.height = `${COLLAPSED_HEIGHT}px`;
+      // Collapse smoothly
+      portfolioSection.classList.add('collapsing');
       portfolioSection.classList.remove('expanded');
+      setTimeout(() => {
+        portfolioSection.classList.remove('collapsing');
+      }, 600);
     }
   });
 });
@@ -369,16 +373,20 @@ document.addEventListener('click', (e) => {
       !e.target.closest('.bracket-frame') &&
       !e.target.closest('.carousel-arrow') &&
       !e.target.closest('.project-title')) {
-    // collapse visually & logically
-    bracketFrame.style.height = `${COLLAPSED_HEIGHT}px`;
+    
+    // Collapse smoothly
+    portfolioSection.classList.add('collapsing');
     portfolioSection.classList.remove('expanded');
+    setTimeout(() => {
+      portfolioSection.classList.remove('collapsing');
+    }, 600);
   }
 });
 
-// Recompute expanded height on resize when expanded
+// Recompute on resize when expanded
 window.addEventListener('resize', () => {
   if (portfolioSection.classList.contains('expanded')) {
-    bracketFrame.style.height = `${getExpandedHeight()}px`;
+    // No need to manually set height - CSS handles it
   }
 });
 
