@@ -450,7 +450,6 @@ body.dark-mode .title-number {
 .portfolio-section.expanded .bracket-frame {
   align-items: stretch;
   height: min(70vh, 600px);
-  transition: height 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 
 /* Hide all titles except active one when expanded */
