@@ -182,7 +182,7 @@ body {
   visibility: visible;
 }
 
-/* About Photo Styling - Now scales with viewport */
+/* About Photo Styling */
 #about-photo {
   width: clamp(60px, 10vw, 100px);
   height: auto;
@@ -191,7 +191,7 @@ body {
   transition: width 0.3s ease, margin 0.3s ease;
 }
 
-/* Contact form wrapper inside contact section */
+/* Contact form */
 #contact-form-wrapper {
   position: static;
   width: 100%;
@@ -273,7 +273,7 @@ body {
   position: relative;
 }
 
-/* Fade in animation for carousel children */
+/* Fade in animation */
 .portfolio-carousel > *:not(.carousel-arrow) {
   opacity: 0;
   transform: translateY(8px);
@@ -286,7 +286,7 @@ body {
 }
 
 /* -------------------------------
-   Bracket Frame - SMOOTH CSS-ONLY ANIMATION
+   Bracket Frame - FIXED SMOOTH ANIMATION
 --------------------------------*/
 .bracket-frame {
   display: flex;
@@ -296,19 +296,13 @@ body {
   width: min(85vw, 750px);
   margin: 70px auto;
   position: relative;
-  
-  /* Start with collapsed height */
   height: 80px;
-  min-height: 80px;
-  max-height: 80px;
-  
-  /* SMOOTH transition */
-  transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-  overflow: visible; /* Changed from hidden to visible so brackets show */
+  overflow: visible;
+  transition: height 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 
 /* -------------------------------
-   CSS BRACKETS - FIXED with transitions
+   CSS BRACKETS
 --------------------------------*/
 .bracket-left,
 .bracket-right {
@@ -318,7 +312,7 @@ body {
   flex-shrink: 0;
 }
 
-/* Create bracket shape with CSS */
+/* Create bracket shape */
 .bracket-left::before,
 .bracket-right::before,
 .bracket-left::after,
@@ -326,10 +320,9 @@ body {
   content: '';
   position: absolute;
   background-color: var(--text-color);
-  transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* Vertical parts (stretch with animation) */
+/* Vertical parts */
 .bracket-left::before,
 .bracket-right::before {
   width: 3px;
@@ -337,15 +330,8 @@ body {
   bottom: 0;
 }
 
-/* Left bracket vertical line */
-.bracket-left::before { 
-  left: 0; 
-}
-
-/* Right bracket vertical line */
-.bracket-right::before { 
-  right: 0; 
-}
+.bracket-left::before { left: 0; }
+.bracket-right::before { right: 0; }
 
 /* Top horizontal arms */
 .bracket-left::after,
@@ -355,13 +341,8 @@ body {
   top: 0;
 }
 
-.bracket-left::after { 
-  left: 0; 
-}
-
-.bracket-right::after { 
-  right: 0; 
-}
+.bracket-left::after { left: 0; }
+.bracket-right::after { right: 0; }
 
 /* Bottom horizontal arms */
 .bracket-left .bottom-arm,
@@ -371,49 +352,30 @@ body {
   width: 12px;
   bottom: 0;
   background-color: var(--text-color);
-  transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.bracket-left .bottom-arm { 
-  left: 0; 
-}
-
-.bracket-right .bottom-arm { 
-  right: 0; 
-}
+.bracket-left .bottom-arm { left: 0; }
+.bracket-right .bottom-arm { right: 0; }
 
 /* -------------------------------
-   Expanded State
+   Title Viewport & Track - FIXED
 --------------------------------*/
-.portfolio-section.expanded .bracket-frame {
-  align-items: stretch;
-  height: min(70vh, 600px);
-  min-height: 400px;
-  max-height: 600px;
-}
-
-.portfolio-section.expanded .bracket-left,
-.portfolio-section.expanded .bracket-right {
-  height: 100%;
-}
-
-/* Title viewport */
 .title-viewport {
   width: 100%;
   height: 100%;
   overflow: hidden;
   position: relative;
-  display: flex;
-  align-items: center;
-  transition: height 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.portfolio-section.expanded .title-viewport {
+.title-track {
+  position: relative;
+  width: 100%;
   height: 100%;
+  transition: transform 0.5s ease;
 }
 
 /* -------------------------------
-   Project Titles - UPPERCASE
+   Project Titles - FIXED POSITIONING
 --------------------------------*/
 .project-title {
   position: absolute;
@@ -428,7 +390,23 @@ body {
   padding: 0;
   white-space: nowrap;
   text-transform: uppercase !important;
+  top: 0;
+  left: 0;
 }
+
+/* Stack titles vertically */
+.project-title:nth-child(1) { transform: translateY(0%); }
+.project-title:nth-child(2) { transform: translateY(100%); }
+.project-title:nth-child(3) { transform: translateY(200%); }
+.project-title:nth-child(4) { transform: translateY(300%); }
+.project-title:nth-child(5) { transform: translateY(400%); }
+
+/* Track positions */
+.title-track.active-1 { transform: translateY(0); }
+.title-track.active-2 { transform: translateY(-100%); }
+.title-track.active-3 { transform: translateY(-200%); }
+.title-track.active-4 { transform: translateY(-300%); }
+.title-track.active-5 { transform: translateY(-400%); }
 
 /* Faded project numbers */
 .title-number {
@@ -444,22 +422,16 @@ body.dark-mode .title-number {
   font-weight: 700;
 }
 
-/* stacking for the vertical track in collapsed state */
-.project-title:nth-child(1) { top: 0; }
-.project-title:nth-child(2) { top: 100%; }
-.project-title:nth-child(3) { top: 200%; }
-.project-title:nth-child(4) { top: 300%; }
-.project-title:nth-child(5) { top: 400%; }
-
-.title-track.active-1 { transform: translateY(0); }
-.title-track.active-2 { transform: translateY(-100%); }
-.title-track.active-3 { transform: translateY(-200%); }
-.title-track.active-4 { transform: translateY(-300%); }
-.title-track.active-5 { transform: translateY(-400%); }
-
 /* -------------------------------
-   Expanded State - Show only active project
+   Expanded State - SMOOTH
 --------------------------------*/
+.portfolio-section.expanded .bracket-frame {
+  align-items: stretch;
+  height: min(70vh, 600px);
+  transition: height 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+/* Hide all titles except active one when expanded */
 .portfolio-section.expanded .title-track .project-title {
   display: none;
 }
@@ -472,11 +444,10 @@ body.dark-mode .title-number {
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 1;
-  position: relative;
+  position: absolute;
   width: 100%;
   height: 100%;
-  text-transform: uppercase !important;
+  transform: translateY(0) !important;
 }
 
 /* -------------------------------
@@ -522,6 +493,19 @@ body.dark-mode .title-number {
   cursor: not-allowed;
 }
 
+/* Arrow States */
+.portfolio-section.expanded .carousel-arrow {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.portfolio-section.active:not(.expanded) .carousel-arrow {
+  opacity: 0.7;
+  pointer-events: auto;
+  transition: opacity 0.4s ease 0.3s;
+}
+
 /* -------------------------------
    Project Links
 --------------------------------*/
@@ -555,21 +539,6 @@ body.dark-mode .title-number {
 
 body.dark-mode .project-link:hover {
   color: #999;
-}
-
-/* -------------------------------
-   Arrow States
---------------------------------*/
-.portfolio-section.expanded .carousel-arrow {
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.2s ease;
-}
-
-.portfolio-section.active:not(.expanded) .carousel-arrow {
-  opacity: 0.7;
-  pointer-events: auto;
-  transition: opacity 0.4s ease 0.3s;
 }
 
 /*--------------------------------
@@ -799,7 +768,7 @@ body.dark-mode .landing-nav a:hover {
 }
 
 /* -------------------------------
-   Responsive Text Scaling for About/Contact Sections Only
+   Responsive
 --------------------------------*/
 @media (max-width: 1024px) {
   #about-photo {
