@@ -279,8 +279,7 @@ body {
 }
 
 /* -------------------------------
-   Bracket Frame (fixed-height animation — collapsed -> expanded)
-   Replaces the earlier max-height approach which caused zero-height rendering
+   Bracket Frame 
 --------------------------------*/
 .bracket-frame {
   display: flex;
@@ -292,7 +291,7 @@ body {
   position: relative;
 
   /* Collapsed explicit height so children (::before) have a defined height */
-  height: 80px;                 /* COLLAPSED HEIGHT (explicit) */
+  height: 80px;                
   min-height: 80px;
   max-height: 80px;
 
@@ -304,8 +303,7 @@ body {
 }
 
 /* -------------------------------
-   CSS BRACKETS - vertical stretching
-   Children follow parent's height: explicit collapsed height prevents dashes
+   CSS BRACKETS
 --------------------------------*/
 .bracket-left,
 .bracket-right {
@@ -367,7 +365,6 @@ body {
 
 /* -------------------------------
    Title Viewport & Track
-   Ensure viewport has a usable height in collapsed state too
 --------------------------------*/
 .title-viewport {
   width: 100%;
@@ -390,13 +387,12 @@ body {
 
 /* -------------------------------
    Project Titles
-   Titles are visible in collapsed state; when expanded only the active one shows
 --------------------------------*/
 .project-title {
   position: absolute;
   width: 100%;
   height: 100%;
-  display: flex;               /* visible in collapsed state */
+  display: flex;              
   align-items: center;
   justify-content: center;
   font-size: clamp(1.2rem, 3vw, 2rem);
@@ -404,6 +400,7 @@ body {
   margin: 0;
   padding: 0;
   white-space: nowrap;
+  text-transform: uppercase !important; 
 }
 
 /* stacking for the vertical track in collapsed state */
