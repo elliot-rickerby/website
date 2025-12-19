@@ -15,7 +15,6 @@
 
 body, h1, h2, h4, h5, h6, p, a, section {
   font-family: 'Roboto Mono', monospace;
-  /* intentional site style: lowercase headings & links */
   text-transform: lowercase;
   margin: 0;
   padding: 0;
@@ -27,7 +26,7 @@ h3 {
   margin: 0;
   padding: 0;
   color: var(--text-color);
-  text-transform: uppercase; /* Make ALL h3 elements uppercase */
+  text-transform: uppercase;
 }
 
 p {
@@ -185,9 +184,9 @@ body {
 
 /* About Photo Styling - Now scales with viewport */
 #about-photo {
-  width: clamp(60px, 10vw, 100px); /* Scales between 60px and 100px based on viewport */
+  width: clamp(60px, 10vw, 100px);
   height: auto;
-  margin: 0 auto clamp(1rem, 2vh, 1.5rem); /* Margin also scales */
+  margin: 0 auto clamp(1rem, 2vh, 1.5rem);
   display: block;
   transition: width 0.3s ease, margin 0.3s ease;
 }
@@ -297,13 +296,9 @@ body {
   width: min(85vw, 750px);
   margin: 70px auto;
   position: relative;
-
-  /* Collapsed explicit height so children (::before) have a defined height */
-  height: 80px;                
+  height: 80px;
   min-height: 80px;
   max-height: 80px;
-
-  /* Animate height between explicit values (no 'auto') */
   transition: height 0.6s cubic-bezier(0.22, 0.12, 0.08, 1), 
               max-height 0.6s cubic-bezier(0.22, 0.12, 0.08, 1);
   will-change: height, max-height;
@@ -317,9 +312,9 @@ body {
 .bracket-right {
   position: relative;
   width: 15px;
-  height: 100%; /* follow parent's explicit height */
+  height: 100%;
   flex-shrink: 0;
-  transition: none; /* parent drives the animation */
+  transition: none;
   will-change: transform;
 }
 
@@ -333,10 +328,10 @@ body {
   background-color: var(--text-color);
 }
 
-/* Vertical part (stretches because parent has a definite height) */
+/* Vertical part */
 .bracket-left::before,
 .bracket-right::before {
-  width: 3px; /* Stroke weight - stays constant */
+  width: 3px;
   top: 0;
   bottom: 0;
 }
@@ -347,23 +342,23 @@ body {
 /* Right bracket vertical line */
 .bracket-right::before { right: 0; }
 
-/* Top horizontal arms (fixed size) */
+/* Top horizontal arms */
 .bracket-left::after,
 .bracket-right::after {
-  height: 3px; /* Stroke weight */
-  width: 12px; /* Arm length - stays constant */
+  height: 3px;
+  width: 12px;
   top: 0;
 }
 
 .bracket-left::after { left: 0; }
 .bracket-right::after { right: 0; }
 
-/* Bottom horizontal arms (fixed size) */
+/* Bottom horizontal arms */
 .bracket-left .bottom-arm,
 .bracket-right .bottom-arm {
   position: absolute;
-  height: 3px; /* Stroke weight */
-  width: 12px; /* Arm length - stays constant */
+  height: 3px;
+  width: 12px;
   bottom: 0;
   background-color: var(--text-color);
 }
@@ -376,14 +371,13 @@ body {
 --------------------------------*/
 .title-viewport {
   width: 100%;
-  height: 100%; /* will match bracket-frame's explicit height */
+  height: 100%;
   overflow: hidden;
   position: relative;
   display: flex;
   align-items: center;
 }
 
-/* Keep the title-track transition for sliding titles */
 .title-track {
   position: absolute;
   width: 100%;
@@ -394,13 +388,13 @@ body {
 }
 
 /* -------------------------------
-   Project Titles
+   Project Titles - UPPERCASE
 --------------------------------*/
 .project-title {
   position: absolute;
   width: 100%;
   height: 100%;
-  display: flex;              
+  display: flex;
   align-items: center;
   justify-content: center;
   font-size: clamp(1.2rem, 3vw, 2rem);
@@ -408,7 +402,21 @@ body {
   margin: 0;
   padding: 0;
   white-space: nowrap;
-  text-transform: uppercase !important; 
+  text-transform: uppercase !important;
+}
+
+/* Faded project numbers */
+.title-number {
+  opacity: 0.6;
+  font-weight: 500;
+}
+
+body.dark-mode .title-number {
+  opacity: 0.7;
+}
+
+.title-text {
+  font-weight: 700;
 }
 
 /* stacking for the vertical track in collapsed state */
@@ -425,26 +433,21 @@ body {
 .title-track.active-5 { transform: translateY(-400%); }
 
 /* -------------------------------
-   Expanded State - bracket-frame gets explicit expanded height
-   Animates height between explicit values — reversible & smooth
+   Expanded State
 --------------------------------*/
 .portfolio-section.expanded .bracket-frame {
   align-items: stretch;
-
-  /* Explicit expanded size — use min of viewport and pixel cap */
-  height: min(70vh, 600px);   /* EXPANDED HEIGHT (explicit, not 'auto') */
+  height: min(70vh, 600px);
   min-height: 400px;
   max-height: 600px;
 }
 
-/* Brackets now fill the frame height reliably */
 .portfolio-section.expanded .bracket-left,
 .portfolio-section.expanded .bracket-right {
   height: 100%;
   width: 15px;
 }
 
-/* When expanded only show the active project title (improves accessibility / layout) */
 .portfolio-section.expanded .title-track .project-title {
   display: none;
 }
@@ -461,9 +464,11 @@ body {
   position: relative;
   width: 100%;
   height: 100%;
+  text-transform: uppercase !important;
 }
+
 /* -------------------------------
-   Arrows - FIXED POSITION
+   Arrows
 --------------------------------*/
 .carousel-arrow {
   background: none;
@@ -482,17 +487,14 @@ body {
   transform: translateX(-50%);
 }
 
-/* Up arrow positioned above bracket frame */
 .arrow-up {
   top: 0;
 }
 
-/* Down arrow positioned below bracket frame */
 .arrow-down {
   bottom: 0;
 }
 
-/* Arrow icons - ORIGINAL SIZE */
 .arrow-icon {
   width: 20px;
   height: 12px;
@@ -503,7 +505,6 @@ body {
   opacity: 1;
 }
 
-/* Disabled state for first/last project - FADED */
 .carousel-arrow:disabled {
   opacity: 0.2;
   cursor: not-allowed;
@@ -518,6 +519,7 @@ body {
   position: relative;
   display: inline-block;
   padding-bottom: 2px;
+  text-transform: uppercase;
 }
 
 .project-link:hover {
@@ -544,80 +546,20 @@ body.dark-mode .project-link:hover {
 }
 
 /* -------------------------------
-   Expanded State - CSS BRACKETS
-   Changed: rely on parent's max-height so expansion/collapse reverses smoothly
---------------------------------*/
-.portfolio-section.expanded .bracket-frame {
-  /* Use max-height so animation is reversible & smooth */
-  /* increase the max-height to allow full expansion */
-  max-height: 70vh;
-  min-height: 400px;
-  /* cap absolute max to keep motion reasonable */
-  max-height: 600px;
-  align-items: stretch;
-}
-
-/* Brackets fill the frame height (no abrupt height transitions on children) */
-.portfolio-section.expanded .bracket-left,
-.portfolio-section.expanded .bracket-right {
-  height: 100%;
-  width: 15px;
-}
-
-/* The ::before (vertical part) automatically stretches 
-   because it's positioned top: 0; bottom: 0; */
-/* The ::after and .bottom-arm (horizontal arms) stay 
-   at top: 0 and bottom: 0 respectively */
-
-.portfolio-section.expanded .title-viewport {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-}
-
-.portfolio-section.expanded .title-track {
-  transform: translateY(0);
-  height: 100%;
-  display: flex;
-  align-items: center;
-}
-
-/* Hide all titles except active one when expanded */
-.portfolio-section.expanded .title-track .project-title {
-  display: none;
-}
-
-.portfolio-section.expanded .title-track.active-1 .project-title:nth-child(1),
-.portfolio-section.expanded .title-track.active-2 .project-title:nth-child(2),
-.portfolio-section.expanded .title-track.active-3 .project-title:nth-child(3),
-.portfolio-section.expanded .title-track.active-4 .project-title:nth-child(4),
-.portfolio-section.expanded .title-track.active-5 .project-title:nth-child(5) {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 1;
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-/* -------------------------------
    Arrow States
 --------------------------------*/
-/* Arrows fade out when expanded */
 .portfolio-section.expanded .carousel-arrow {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.2s ease;
 }
 
-/* Arrows fade in when not expanded */
 .portfolio-section.active:not(.expanded) .carousel-arrow {
   opacity: 0.7;
   pointer-events: auto;
   transition: opacity 0.4s ease 0.3s;
 }
+
 /*--------------------------------
    Collapse Button
 --------------------------------*/
@@ -768,10 +710,9 @@ body.dark-mode .project-link:hover {
 body.dark-mode {
   --text-color: #fff;
   --bg-color: #111;
-  --muted-stroke: #666; 
+  --muted-stroke: #666;
 }
 
-/* Dark mode form styling */
 body.dark-mode #contact-form input,
 body.dark-mode #contact-form textarea {
   background-color: #222;
@@ -849,13 +790,11 @@ body.dark-mode .landing-nav a:hover {
    Responsive Text Scaling for About/Contact Sections Only
 --------------------------------*/
 @media (max-width: 1024px) {
-  /* For small laptops (1024px and below) */
   #about-photo {
     width: clamp(50px, 8vw, 80px);
     margin: 0 auto clamp(0.8rem, 1.5vh, 1.2rem);
   }
   
-  /* Adjust fixed name position for smaller screens */
   .landing-name.fixed {
     top: 30px;
   }
@@ -866,27 +805,23 @@ body.dark-mode .landing-nav a:hover {
 }
 
 @media (max-width: 768px) {
-  /* Scale down text in about and contact sections only */
   .about-section p,
   .contact-section p {
     font-size: 0.9rem;
     line-height: 1.5;
   }
   
-  /* Scale down form elements on mobile */
   #contact-form input,
   #contact-form textarea,
   #contact-form button[type="submit"] {
     font-size: 0.9rem;
   }
   
-  /* Scale down about photo on mobile */
   #about-photo {
     width: clamp(40px, 10vw, 70px);
     margin: 0 auto clamp(0.6rem, 1vh, 1rem);
   }
   
-  /* Adjust fixed positions further for mobile */
   .landing-name.fixed {
     top: 25px;
   }
@@ -895,7 +830,6 @@ body.dark-mode .landing-nav a:hover {
     top: calc(100% - 25px);
   }
   
-  /* Portfolio adjustments for mobile */
   .bracket-frame {
     width: 500px;
   }
@@ -916,20 +850,17 @@ body.dark-mode .landing-nav a:hover {
 }
 
 @media (max-width: 480px) {
-  /* Further scale down for very small screens */
   .about-section p,
   .contact-section p {
     font-size: 0.85rem;
     line-height: 1.4;
   }
   
-  /* Adjust spacing for very small screens */
   .about-section,
   .contact-section {
     gap: 1rem;
   }
   
-  /* Scale down form elements further */
   #contact-form input,
   #contact-form textarea,
   #contact-form button[type="submit"] {
@@ -937,7 +868,6 @@ body.dark-mode .landing-nav a:hover {
     padding: 0.6rem;
   }
   
-  /* Even smaller portrait on very small screens */
   #about-photo {
     width: 60px;
     margin: 0 auto 0.8rem;
