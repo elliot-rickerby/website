@@ -279,8 +279,8 @@ body {
 }
 
 /* -------------------------------
-   Bracket Frame
-   Changed: animate max-height instead of hard height to avoid snapping
+   Bracket Frame (fixed-height animation — collapsed -> expanded)
+   Replaces the earlier max-height approach which caused zero-height rendering
 --------------------------------*/
 .bracket-frame {
   display: flex;
@@ -290,27 +290,31 @@ body {
   width: min(85vw, 750px);
   margin: 70px auto;
   position: relative;
-  /* Use max-height animation to avoid transitions to/from 'auto' */
-  height: auto;
-  max-height: 80px; /* collapsed size */
-  transition: max-height 0.65s cubic-bezier(0.25, 0.1, 0.25, 1);
-  will-change: max-height;
+
+  /* Collapsed explicit height so children (::before) have a defined height */
+  height: 80px;                 /* COLLAPSED HEIGHT (explicit) */
+  min-height: 80px;
+  max-height: 80px;
+
+  /* Animate height between explicit values (no 'auto') */
+  transition: height 0.6s cubic-bezier(0.22, 0.12, 0.08, 1), 
+              max-height 0.6s cubic-bezier(0.22, 0.12, 0.08, 1);
+  will-change: height, max-height;
   overflow: visible;
 }
 
 /* -------------------------------
-   CSS BRACKETS - Perfect vertical stretching
-   Child brackets use height:100% so they follow the frame's max-height smoothly
+   CSS BRACKETS - vertical stretching
+   Children follow parent's height: explicit collapsed height prevents dashes
 --------------------------------*/
 .bracket-left,
 .bracket-right {
   position: relative;
   width: 15px;
-  height: 100%; /* follow parent's max-height */
+  height: 100%; /* follow parent's explicit height */
   flex-shrink: 0;
-  /* avoid competing height transitions — parent drives the animation */
-  transition: none;
-  will-change: height;
+  transition: none; /* parent drives the animation */
+  will-change: transform;
 }
 
 /* Create bracket shape with CSS - consistent 3px stroke */
@@ -323,7 +327,7 @@ body {
   background-color: var(--text-color);
 }
 
-/* Vertical part (this will stretch because parent height changes) */
+/* Vertical part (stretches because parent has a definite height) */
 .bracket-left::before,
 .bracket-right::before {
   width: 3px; /* Stroke weight - stays constant */
@@ -332,14 +336,10 @@ body {
 }
 
 /* Left bracket vertical line */
-.bracket-left::before {
-  left: 0;
-}
+.bracket-left::before { left: 0; }
 
 /* Right bracket vertical line */
-.bracket-right::before {
-  right: 0;
-}
+.bracket-right::before { right: 0; }
 
 /* Top horizontal arms (fixed size) */
 .bracket-left::after,
@@ -349,15 +349,8 @@ body {
   top: 0;
 }
 
-/* Left bracket top arm */
-.bracket-left::after {
-  left: 0;
-}
-
-/* Right bracket top arm */
-.bracket-right::after {
-  right: 0;
-}
+.bracket-left::after { left: 0; }
+.bracket-right::after { right: 0; }
 
 /* Bottom horizontal arms (fixed size) */
 .bracket-left .bottom-arm,
@@ -369,45 +362,41 @@ body {
   background-color: var(--text-color);
 }
 
-/* Left bracket bottom arm */
-.bracket-left .bottom-arm {
-  left: 0;
-}
-
-/* Right bracket bottom arm */
-.bracket-right .bottom-arm {
-  right: 0;
-}
+.bracket-left .bottom-arm { left: 0; }
+.bracket-right .bottom-arm { right: 0; }
 
 /* -------------------------------
    Title Viewport & Track
+   Ensure viewport has a usable height in collapsed state too
 --------------------------------*/
 .title-viewport {
   width: 100%;
-  height: 100%;
+  height: 100%; /* will match bracket-frame's explicit height */
   overflow: hidden;
   position: relative;
   display: flex;
   align-items: center;
 }
 
+/* Keep the title-track transition for sliding titles */
 .title-track {
   position: absolute;
   width: 100%;
   height: 100%;
-  transition: transform 0.5s ease;
+  transition: transform 0.45s ease;
   display: flex;
   align-items: center;
 }
 
 /* -------------------------------
    Project Titles
+   Titles are visible in collapsed state; when expanded only the active one shows
 --------------------------------*/
 .project-title {
   position: absolute;
   width: 100%;
   height: 100%;
-  display: flex;
+  display: flex;               /* visible in collapsed state */
   align-items: center;
   justify-content: center;
   font-size: clamp(1.2rem, 3vw, 2rem);
@@ -417,6 +406,7 @@ body {
   white-space: nowrap;
 }
 
+/* stacking for the vertical track in collapsed state */
 .project-title:nth-child(1) { top: 0; }
 .project-title:nth-child(2) { top: 100%; }
 .project-title:nth-child(3) { top: 200%; }
@@ -429,22 +419,44 @@ body {
 .title-track.active-4 { transform: translateY(-300%); }
 .title-track.active-5 { transform: translateY(-400%); }
 
-.title-number {
-  color: rgba(34, 34, 34, 0.6);
-  font-weight: 400;
-  margin-right: 10px;
-  text-transform: none !important;
+/* -------------------------------
+   Expanded State - bracket-frame gets explicit expanded height
+   Animates height between explicit values — reversible & smooth
+--------------------------------*/
+.portfolio-section.expanded .bracket-frame {
+  align-items: stretch;
+
+  /* Explicit expanded size — use min of viewport and pixel cap */
+  height: min(70vh, 600px);   /* EXPANDED HEIGHT (explicit, not 'auto') */
+  min-height: 400px;
+  max-height: 600px;
 }
 
-body.dark-mode .title-number {
-  color: rgba(255, 255, 255, 0.6);
+/* Brackets now fill the frame height reliably */
+.portfolio-section.expanded .bracket-left,
+.portfolio-section.expanded .bracket-right {
+  height: 100%;
+  width: 15px;
 }
 
-.title-text {
+/* When expanded only show the active project title (improves accessibility / layout) */
+.portfolio-section.expanded .title-track .project-title {
+  display: none;
+}
+
+.portfolio-section.expanded .title-track.active-1 .project-title:nth-child(1),
+.portfolio-section.expanded .title-track.active-2 .project-title:nth-child(2),
+.portfolio-section.expanded .title-track.active-3 .project-title:nth-child(3),
+.portfolio-section.expanded .title-track.active-4 .project-title:nth-child(4),
+.portfolio-section.expanded .title-track.active-5 .project-title:nth-child(5) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   opacity: 1;
-  text-transform: uppercase !important;
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
-
 /* -------------------------------
    Arrows - FIXED POSITION
 --------------------------------*/
