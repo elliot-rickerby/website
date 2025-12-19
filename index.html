@@ -262,25 +262,12 @@ collapseBtn.addEventListener('click', (e) => {
   }
 });
 
-// Portfolio Carousel - SMOOTH ANIMATION
+// Portfolio Carousel - SIMPLIFIED (no height manipulation)
 const titleTrack = document.querySelector('.title-track');
 const arrowUp = document.querySelector('.arrow-up');
 const arrowDown = document.querySelector('.arrow-down');
 let currentIndex = 0;
 const totalProjects = 5;
-
-// Bracket frame element
-const bracketFrame = document.querySelector('.bracket-frame');
-const COLLAPSED_HEIGHT = 80;
-const EXPANDED_VH = 0.7;
-const EXPANDED_MAX_PX = 600;
-
-window.bracketFrameEl = bracketFrame;
-window.COLLAPSED_HEIGHT = COLLAPSED_HEIGHT;
-
-function getExpandedHeight() {
-  return Math.min(window.innerHeight * EXPANDED_VH, EXPANDED_MAX_PX);
-}
 
 // Function to update carousel
 function updateCarousel(newIndex) {
@@ -325,7 +312,7 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// Add click event to project titles - SMOOTH EXPANSION
+// Add click event to project titles - TOGGLE expanded class only
 const projectTitles = document.querySelectorAll('.project-title');
 
 projectTitles.forEach(title => {
@@ -336,33 +323,20 @@ projectTitles.forEach(title => {
     // Get the project number
     const projectNum = parseInt(title.getAttribute('data-project'));
     
-    // Determine current action
-    const isCurrentlyExpanded = portfolioSection.classList.contains('expanded');
-    const isExpanding = !isCurrentlyExpanded;
-
-    if (isExpanding) {
-      // Expand smoothly
-      portfolioSection.classList.add('expanding');
-      setTimeout(() => {
-        portfolioSection.classList.add('expanded');
-        portfolioSection.classList.remove('expanding');
-      }, 10);
-      
-      // Show the clicked project
-      updateCarousel(projectNum - 1);
-      
-      // Prevent scrolling during animation
-      document.body.style.overflow = 'hidden';
-      setTimeout(() => {
-        document.body.style.overflow = '';
-      }, 600);
+    // Toggle expanded class - CSS will handle the animation
+    if (portfolioSection.classList.contains('expanded')) {
+      // Already expanded, check if clicking same project
+      if (currentIndex === projectNum - 1) {
+        // Clicking current project - collapse
+        portfolioSection.classList.remove('expanded');
+      } else {
+        // Switching to different project - update carousel but stay expanded
+        updateCarousel(projectNum - 1);
+      }
     } else {
-      // Collapse smoothly
-      portfolioSection.classList.add('collapsing');
-      portfolioSection.classList.remove('expanded');
-      setTimeout(() => {
-        portfolioSection.classList.remove('collapsing');
-      }, 600);
+      // Not expanded - expand and show this project
+      updateCarousel(projectNum - 1);
+      portfolioSection.classList.add('expanded');
     }
   });
 });
@@ -373,25 +347,19 @@ document.addEventListener('click', (e) => {
       !e.target.closest('.bracket-frame') &&
       !e.target.closest('.carousel-arrow') &&
       !e.target.closest('.project-title')) {
-    
-    // Collapse smoothly
-    portfolioSection.classList.add('collapsing');
+    // Just remove expanded class - CSS handles the collapse animation
     portfolioSection.classList.remove('expanded');
-    setTimeout(() => {
-      portfolioSection.classList.remove('collapsing');
-    }, 600);
   }
 });
 
-// Recompute on resize when expanded
-window.addEventListener('resize', () => {
-  if (portfolioSection.classList.contains('expanded')) {
-    // No need to manually set height - CSS handles it
-  }
-});
-
+// Remove the resize handler completely - CSS handles it
 // Initialize
 updateCarousel(0);
+
+// Remove any leftover height manipulation from earlier
+if (window.bracketFrameEl) {
+  window.bracketFrameEl.style.height = '';
+}
 
 // GSAP Tendril Animation
 const tendrils = document.querySelectorAll(".tendril");
