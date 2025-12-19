@@ -352,14 +352,8 @@ document.addEventListener('click', (e) => {
   }
 });
 
-// Remove the resize handler completely - CSS handles it
 // Initialize
 updateCarousel(0);
-
-// Remove any leftover height manipulation from earlier
-if (window.bracketFrameEl) {
-  window.bracketFrameEl.style.height = '';
-}
 
 // GSAP Tendril Animation
 const tendrils = document.querySelectorAll(".tendril");
