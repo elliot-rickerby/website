@@ -13,13 +13,21 @@
   box-sizing: border-box;
 }
 
-body, h1, h2, h3, h4, h5, h6, p, a, section {
+body, h1, h2, h4, h5, h6, p, a, section {
   font-family: 'Roboto Mono', monospace;
   /* intentional site style: lowercase headings & links */
   text-transform: lowercase;
   margin: 0;
   padding: 0;
   color: var(--text-color);
+}
+
+h3 {
+  font-family: 'Roboto Mono', monospace;
+  margin: 0;
+  padding: 0;
+  color: var(--text-color);
+  text-transform: uppercase; /* Make ALL h3 elements uppercase */
 }
 
 p {
