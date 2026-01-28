@@ -347,7 +347,7 @@ body {
 }
 
 .project-title:hover::after {
-  width: 80%; /* Adjust this percentage as needed */
+  width: 70%; /* Adjust this percentage as needed */
 }
 
 /* -------------------------------
@@ -389,11 +389,11 @@ body {
 }
 
 .arrow-up {
-  top: 20px; /* KEEP: Distance from top of carousel */
+  top: 10px; /* KEEP: Distance from top of carousel */
 }
 
 .arrow-down {
-  bottom: 20px; /* KEEP: Distance from bottom of carousel */
+  bottom: 10px; /* KEEP: Distance from bottom of carousel */
 }
 
 .carousel-arrow:hover:not(:disabled) {
