@@ -270,6 +270,8 @@ body {
   flex-direction: column;
   align-items: center;
   position: relative;
+  height: 300px; /* Fixed height for the carousel */
+  justify-content: center; /* Center vertically */
 }
 
 /* -------------------------------
@@ -277,10 +279,10 @@ body {
 --------------------------------*/
 .title-viewport {
   width: 100%;
-  height: 80px;
+  height: 60px; /* Height for ONE title */
   overflow: hidden;
   position: relative;
-  margin: 60px 0 30px;
+  margin: 0; /* Remove top/bottom margins */
 }
 
 .title-track {
@@ -294,7 +296,9 @@ body {
    Project Titles
 --------------------------------*/
 .project-title {
-  /* REMOVE: position, width, height, top, left */
+  position: absolute;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -303,51 +307,17 @@ body {
   margin: 0;
   white-space: nowrap;
   text-transform: uppercase;
-  height: 80px; /* Match the title-viewport height */
   cursor: pointer;
-  position: relative; /* For the hover underline */
-}
-
-.project-title::after {
-  content: '';
-  position: absolute;
+  top: 0;
   left: 0;
-  bottom: 10px; /* Adjust as needed */
-  width: 0%;
-  height: 2px;
-  background-color: var(--text-color);
-  transition: width 0.3s ease;
 }
 
-.project-title:hover::after {
-  width: 100%;
-}
-
-/* Track positions */
-.title-track.active-1 { transform: translateY(0); }
-.title-track.active-2 { transform: translateY(-100%); }
-.title-track.active-3 { transform: translateY(-200%); }
-.title-track.active-4 { transform: translateY(-300%); }
-.title-track.active-5 { transform: translateY(-400%); }
-
-/* -------------------------------
-   Expanding Details Panel
---------------------------------*/
-.project-details {
-  width: 100%;
-  max-width: 750px;
-  overflow: hidden;
-  max-height: 0;
-  opacity: 0;
-  transition:
-    max-height 0.7s cubic-bezier(0.4, 0, 0.2, 1),
-    opacity 0.4s ease;
-}
-
-.portfolio-section.expanded .project-details {
-  max-height: 600px;
-  opacity: 1;
-}
+/* Stack titles vertically */
+.project-title:nth-child(1) { transform: translateY(0%); }
+.project-title:nth-child(2) { transform: translateY(100%); }
+.project-title:nth-child(3) { transform: translateY(200%); }
+.project-title:nth-child(4) { transform: translateY(300%); }
+.project-title:nth-child(5) { transform: translateY(400%); }
 
 /* -------------------------------
    Arrows (fixed fade behaviour)
@@ -365,14 +335,15 @@ body {
   left: 50%;
   transform: translateX(-50%);
   transition: opacity 0.3s ease;
+  z-index: 4;
 }
 
 .arrow-up {
-  top: 0;
+  top: 50px; /* Position above the centered title */
 }
 
 .arrow-down {
-  bottom: 0;
+  bottom: 50px; /* Position below the centered title */
 }
 
 .carousel-arrow:hover:not(:disabled) {
@@ -382,11 +353,6 @@ body {
 .carousel-arrow:disabled {
   opacity: 0.2;
   cursor: not-allowed;
-}
-
-.portfolio-section.expanded .carousel-arrow {
-  opacity: 0;
-  pointer-events: none;
 }
 
 /* -------------------------------
