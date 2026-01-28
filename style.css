@@ -254,6 +254,10 @@ body {
   transition: opacity 0.8s ease;
   z-index: 3;
   visibility: hidden;
+  height: 400px; /* ADD: Give the section a height */
+  display: flex; /* ADD: Use flexbox */
+  align-items: center; /* ADD: Center vertically */
+  justify-content: center; /* ADD: Center horizontally */
 }
 
 .portfolio-section.active {
@@ -270,31 +274,9 @@ body {
   flex-direction: column;
   align-items: center;
   position: relative;
-  height: 300px; /* Fixed height for centering */
-  justify-content: center; /* Center vertically */
-}
-
-.project-title:nth-child(1) { transform: translateY(0%); }
-.project-title:nth-child(2) { transform: translateY(100%); }
-.project-title:nth-child(3) { transform: translateY(200%); }
-.project-title:nth-child(4) { transform: translateY(300%); }
-.project-title:nth-child(5) { transform: translateY(400%); }
-
-/* Simple centered underline */
-.project-title::after {
-  content: '';
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0%;
-  height: 2px;
-  background-color: var(--text-color);
-  transition: width 0.3s ease;
-}
-
-.project-title:hover::after {
-  width: 70%;
+  height: 300px; /* KEEP: Fixed height for centering */
+  width: 100%; /* ADD: Full width */
+  justify-content: center; /* KEEP: Center vertically */
 }
 
 /* -------------------------------
@@ -305,7 +287,7 @@ body {
   height: 80px; /* Height for ONE visible title */
   overflow: hidden;
   position: relative;
-  margin: 0; /* No margins - centered by parent */
+  margin: 0; /* CHANGE: Remove margins - centered by parent */
 }
 
 .title-track {
@@ -313,6 +295,59 @@ body {
   width: 100%;
   height: 100%;
   transition: transform 0.5s ease;
+}
+
+/* -------------------------------
+   Project Titles - ORIGINAL WORKING VERSION
+--------------------------------*/
+.project-title {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(1.2rem, 3vw, 2rem);
+  font-weight: 700;
+  margin: 0;
+  white-space: nowrap;
+  text-transform: uppercase;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+}
+
+/* Stack titles vertically - THIS MAKES CAROUSEL WORK */
+.project-title:nth-child(1) { transform: translateY(0%); }
+.project-title:nth-child(2) { transform: translateY(100%); }
+.project-title:nth-child(3) { transform: translateY(200%); }
+.project-title:nth-child(4) { transform: translateY(300%); }
+.project-title:nth-child(5) { transform: translateY(400%); }
+
+/* Track positions - THIS MAKES CAROUSEL WORK */
+.title-track.active-1 { transform: translateY(0); }
+.title-track.active-2 { transform: translateY(-100%); }
+.title-track.active-3 { transform: translateY(-200%); }
+.title-track.active-4 { transform: translateY(-300%); }
+.title-track.active-5 { transform: translateY(-400%); }
+
+/* -------------------------------
+   Simple Title Underline
+--------------------------------*/
+.project-title::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background-color: var(--text-color);
+  transition: width 0.3s ease;
+}
+
+.project-title:hover::after {
+  width: 80%; /* Adjust this percentage as needed */
 }
 
 /* -------------------------------
@@ -335,7 +370,7 @@ body {
 }
 
 /* -------------------------------
-   Arrows - Positioned relative to carousel
+   Arrows - Positioned with centering
 --------------------------------*/
 .carousel-arrow {
   background: none;
@@ -354,11 +389,11 @@ body {
 }
 
 .arrow-up {
-  top: 20px; /* Distance from top of carousel */
+  top: 20px; /* KEEP: Distance from top of carousel */
 }
 
 .arrow-down {
-  bottom: 20px; /* Distance from bottom of carousel */
+  bottom: 20px; /* KEEP: Distance from bottom of carousel */
 }
 
 .carousel-arrow:hover:not(:disabled) {
