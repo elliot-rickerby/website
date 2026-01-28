@@ -270,7 +270,7 @@ body {
   flex-direction: column;
   align-items: center;
   position: relative;
-  height: 300px; /* Fixed height for the carousel */
+  height: 300px; /* Fixed height for centering */
   justify-content: center; /* Center vertically */
 }
 
@@ -279,10 +279,10 @@ body {
 --------------------------------*/
 .title-viewport {
   width: 100%;
-  height: 60px; /* Height for ONE title */
+  height: 80px; /* Height for ONE visible title */
   overflow: hidden;
   position: relative;
-  margin: 0; /* Remove top/bottom margins */
+  margin: 0; /* No margins - centered by parent */
 }
 
 .title-track {
@@ -293,10 +293,10 @@ body {
 }
 
 /* -------------------------------
-   Project Titles
+   Project Titles - FIXED
 --------------------------------*/
 .project-title {
-  position: absolute;
+  position: absolute; /* CRITICAL: Must be absolute */
   width: 100%;
   height: 100%;
   display: flex;
@@ -312,15 +312,59 @@ body {
   left: 0;
 }
 
-/* Stack titles vertically */
+/* CRITICAL: Stack titles vertically - This was missing! */
 .project-title:nth-child(1) { transform: translateY(0%); }
 .project-title:nth-child(2) { transform: translateY(100%); }
 .project-title:nth-child(3) { transform: translateY(200%); }
 .project-title:nth-child(4) { transform: translateY(300%); }
 .project-title:nth-child(5) { transform: translateY(400%); }
 
+/* Track positions - FIXED: These match your JavaScript */
+.title-track.active-1 { transform: translateY(0); }
+.title-track.active-2 { transform: translateY(-100%); }
+.title-track.active-3 { transform: translateY(-200%); }
+.title-track.active-4 { transform: translateY(-300%); }
+.title-track.active-5 { transform: translateY(-400%); }
+
 /* -------------------------------
-   Arrows (fixed fade behaviour)
+   Project Title Hover Effect
+--------------------------------*/
+.project-title::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 10px;
+  width: 0%;
+  height: 2px;
+  background-color: var(--text-color);
+  transition: width 0.3s ease;
+}
+
+.project-title:hover::after {
+  width: 100%;
+}
+
+/* -------------------------------
+   Expanding Details Panel
+--------------------------------*/
+.project-details {
+  width: 100%;
+  max-width: 750px;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition:
+    max-height 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.4s ease;
+}
+
+.portfolio-section.expanded .project-details {
+  max-height: 600px;
+  opacity: 1;
+}
+
+/* -------------------------------
+   Arrows - Positioned relative to carousel
 --------------------------------*/
 .carousel-arrow {
   background: none;
@@ -339,11 +383,11 @@ body {
 }
 
 .arrow-up {
-  top: 50px; /* Position above the centered title */
+  top: 20px; /* Distance from top of carousel */
 }
 
 .arrow-down {
-  bottom: 50px; /* Position below the centered title */
+  bottom: 20px; /* Distance from bottom of carousel */
 }
 
 .carousel-arrow:hover:not(:disabled) {
@@ -353,6 +397,11 @@ body {
 .carousel-arrow:disabled {
   opacity: 0.2;
   cursor: not-allowed;
+}
+
+.portfolio-section.expanded .carousel-arrow {
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* -------------------------------
