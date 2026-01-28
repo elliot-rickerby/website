@@ -293,10 +293,10 @@ body {
 }
 
 /* -------------------------------
-   Project Titles - FIXED
+   Project Titles
 --------------------------------*/
 .project-title {
-  position: absolute; /* CRITICAL: Must be absolute */
+  position: absolute;
   width: 100%;
   height: 100%;
   display: flex;
@@ -312,35 +312,50 @@ body {
   left: 0;
 }
 
-/* CRITICAL: Stack titles vertically - This was missing! */
-.project-title:nth-child(1) { transform: translateY(0%); }
-.project-title:nth-child(2) { transform: translateY(100%); }
-.project-title:nth-child(3) { transform: translateY(200%); }
-.project-title:nth-child(4) { transform: translateY(300%); }
-.project-title:nth-child(5) { transform: translateY(400%); }
-
-/* Track positions - FIXED: These match your JavaScript */
-.title-track.active-1 { transform: translateY(0); }
-.title-track.active-2 { transform: translateY(-100%); }
-.title-track.active-3 { transform: translateY(-200%); }
-.title-track.active-4 { transform: translateY(-300%); }
-.title-track.active-5 { transform: translateY(-400%); }
-
 /* -------------------------------
-   Project Title Hover Effect
+   Title Text Underline (ERROR-PROOF)
 --------------------------------*/
-.project-title::after {
+/* Target the .title-text span that already exists */
+.project-title .title-text {
+  position: relative; /* Create positioning context */
+  display: inline-block; /* Make it a block for width */
+}
+
+/* Create the underline on the .title-text span */
+.project-title .title-text::after {
   content: '';
   position: absolute;
   left: 0;
-  bottom: 10px;
+  bottom: -2px; /* Position just below the text */
   width: 0%;
   height: 2px;
   background-color: var(--text-color);
   transition: width 0.3s ease;
 }
 
-.project-title:hover::after {
+/* Show underline on hover */
+.project-title:hover .title-text::after {
+  width: 100%; /* This will be exactly the text width */
+}
+
+/* Also underline the number for consistency if you want */
+.project-title .title-number {
+  position: relative;
+  display: inline-block;
+}
+
+.project-title .title-number::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0%;
+  height: 2px;
+  background-color: var(--text-color);
+  transition: width 0.3s ease;
+}
+
+.project-title:hover .title-number::after {
   width: 100%;
 }
 
