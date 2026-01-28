@@ -269,124 +269,18 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   position: relative;
-}
-
-/* Fade in animation */
-.portfolio-carousel > *:not(.carousel-arrow) {
-  opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.portfolio-section.active .portfolio-carousel > *:not(.carousel-arrow) {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 /* -------------------------------
-   Bracket Frame - FIXED REVERSE ANIMATION
---------------------------------*/
-.bracket-frame {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 15px;
-  width: min(85vw, 750px);
-  margin: 70px auto;
-  position: relative;
-  height: 80px;
-  overflow: visible;
-  /* SMOOTH IN BOTH DIRECTIONS */
-  transition: height 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Make brackets transition smoothly too */
-.bracket-left,
-.bracket-right {
-  position: relative;
-  width: 15px;
-  height: 100%;
-  flex-shrink: 0;
-  /* ADD TRANSITION FOR BRACKETS TOO */
-  transition: height 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.portfolio-section.expanded .bracket-frame {
-  align-items: stretch;
-  height: min(70vh, 600px);
-}
-
-.portfolio-section.expanded .bracket-left,
-.portfolio-section.expanded .bracket-right {
-  height: 100%;
-}
-
-/* -------------------------------
-   CSS BRACKETS
---------------------------------*/
-.bracket-left,
-.bracket-right {
-  position: relative;
-  width: 15px;
-  height: 100%;
-  flex-shrink: 0;
-}
-
-/* Create bracket shape */
-.bracket-left::before,
-.bracket-right::before,
-.bracket-left::after,
-.bracket-right::after {
-  content: '';
-  position: absolute;
-  background-color: var(--text-color);
-}
-
-/* Vertical parts */
-.bracket-left::before,
-.bracket-right::before {
-  width: 3px;
-  top: 0;
-  bottom: 0;
-}
-
-.bracket-left::before { left: 0; }
-.bracket-right::before { right: 0; }
-
-/* Top horizontal arms */
-.bracket-left::after,
-.bracket-right::after {
-  height: 3px;
-  width: 12px;
-  top: 0;
-}
-
-.bracket-left::after { left: 0; }
-.bracket-right::after { right: 0; }
-
-/* Bottom horizontal arms */
-.bracket-left .bottom-arm,
-.bracket-right .bottom-arm {
-  position: absolute;
-  height: 3px;
-  width: 12px;
-  bottom: 0;
-  background-color: var(--text-color);
-}
-
-.bracket-left .bottom-arm { left: 0; }
-.bracket-right .bottom-arm { right: 0; }
-
-/* -------------------------------
-   Title Viewport & Track - FIXED
+   Title Viewport & Track
 --------------------------------*/
 .title-viewport {
   width: 100%;
-  height: 100%;
+  height: 80px;
   overflow: hidden;
   position: relative;
+  margin: 60px 0 30px;
 }
 
 .title-track {
@@ -397,7 +291,7 @@ body {
 }
 
 /* -------------------------------
-   Project Titles - FIXED POSITIONING
+   Project Titles
 --------------------------------*/
 .project-title {
   position: absolute;
@@ -409,7 +303,6 @@ body {
   font-size: clamp(1.2rem, 3vw, 2rem);
   font-weight: 700;
   margin: 0;
-  padding: 0;
   white-space: nowrap;
   text-transform: uppercase !important;
   top: 0;
@@ -430,49 +323,27 @@ body {
 .title-track.active-4 { transform: translateY(-300%); }
 .title-track.active-5 { transform: translateY(-400%); }
 
-/* Faded project numbers */
-.title-number {
-  opacity: 0.6;
-  font-weight: 500;
-}
-
-body.dark-mode .title-number {
-  opacity: 0.7;
-}
-
-.title-text {
-  font-weight: 700;
-}
-
 /* -------------------------------
-   Expanded State - SMOOTH
+   Expanding Details Panel
 --------------------------------*/
-.portfolio-section.expanded .bracket-frame {
-  align-items: stretch;
-  height: min(70vh, 600px);
-}
-
-/* Hide all titles except active one when expanded */
-.portfolio-section.expanded .title-track .project-title {
-  display: none;
-}
-
-.portfolio-section.expanded .title-track.active-1 .project-title:nth-child(1),
-.portfolio-section.expanded .title-track.active-2 .project-title:nth-child(2),
-.portfolio-section.expanded .title-track.active-3 .project-title:nth-child(3),
-.portfolio-section.expanded .title-track.active-4 .project-title:nth-child(4),
-.portfolio-section.expanded .title-track.active-5 .project-title:nth-child(5) {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
+.project-details {
   width: 100%;
-  height: 100%;
-  transform: translateY(0) !important;
+  max-width: 750px;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition:
+    max-height 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.4s ease;
+}
+
+.portfolio-section.expanded .project-details {
+  max-height: 600px;
+  opacity: 1;
 }
 
 /* -------------------------------
-   Arrows
+   Arrows (fixed fade behaviour)
 --------------------------------*/
 .carousel-arrow {
   background: none;
@@ -480,15 +351,13 @@ body.dark-mode .title-number {
   color: var(--text-color);
   cursor: pointer;
   padding: 10px;
-  transition: opacity 0.3s ease;
   font-family: 'Roboto Mono', monospace;
   opacity: 0.7;
   line-height: 1;
   position: absolute;
-  z-index: 2;
-  margin: 0;
   left: 50%;
   transform: translateX(-50%);
+  transition: opacity 0.3s ease;
 }
 
 .arrow-up {
@@ -497,12 +366,6 @@ body.dark-mode .title-number {
 
 .arrow-down {
   bottom: 0;
-}
-
-.arrow-icon {
-  width: 20px;
-  height: 12px;
-  display: block;
 }
 
 .carousel-arrow:hover:not(:disabled) {
@@ -514,17 +377,9 @@ body.dark-mode .title-number {
   cursor: not-allowed;
 }
 
-/* Arrow States */
 .portfolio-section.expanded .carousel-arrow {
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.2s ease;
-}
-
-.portfolio-section.active:not(.expanded) .carousel-arrow {
-  opacity: 0.7;
-  pointer-events: auto;
-  transition: opacity 0.4s ease 0.3s;
 }
 
 /* -------------------------------
@@ -536,11 +391,6 @@ body.dark-mode .title-number {
   position: relative;
   display: inline-block;
   padding-bottom: 2px;
-  text-transform: uppercase;
-}
-
-.project-link:hover {
-  color: #555;
 }
 
 .project-link::after {
@@ -556,10 +406,6 @@ body.dark-mode .title-number {
 
 .project-link:hover::after {
   width: 100%;
-}
-
-body.dark-mode .project-link:hover {
-  color: #999;
 }
 
 /*--------------------------------
