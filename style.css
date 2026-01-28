@@ -274,6 +274,29 @@ body {
   justify-content: center; /* Center vertically */
 }
 
+.project-title:nth-child(1) { transform: translateY(0%); }
+.project-title:nth-child(2) { transform: translateY(100%); }
+.project-title:nth-child(3) { transform: translateY(200%); }
+.project-title:nth-child(4) { transform: translateY(300%); }
+.project-title:nth-child(5) { transform: translateY(400%); }
+
+/* Simple centered underline */
+.project-title::after {
+  content: '';
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0%;
+  height: 2px;
+  background-color: var(--text-color);
+  transition: width 0.3s ease;
+}
+
+.project-title:hover::after {
+  width: 70%;
+}
+
 /* -------------------------------
    Title Viewport & Track
 --------------------------------*/
@@ -290,73 +313,6 @@ body {
   width: 100%;
   height: 100%;
   transition: transform 0.5s ease;
-}
-
-/* -------------------------------
-   Project Titles
---------------------------------*/
-.project-title {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: clamp(1.2rem, 3vw, 2rem);
-  font-weight: 700;
-  margin: 0;
-  white-space: nowrap;
-  text-transform: uppercase;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-}
-
-/* -------------------------------
-   Title Text Underline (ERROR-PROOF)
---------------------------------*/
-/* Target the .title-text span that already exists */
-.project-title .title-text {
-  position: relative; /* Create positioning context */
-  display: inline-block; /* Make it a block for width */
-}
-
-/* Create the underline on the .title-text span */
-.project-title .title-text::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -2px; /* Position just below the text */
-  width: 0%;
-  height: 2px;
-  background-color: var(--text-color);
-  transition: width 0.3s ease;
-}
-
-/* Show underline on hover */
-.project-title:hover .title-text::after {
-  width: 100%; /* This will be exactly the text width */
-}
-
-/* Also underline the number for consistency if you want */
-.project-title .title-number {
-  position: relative;
-  display: inline-block;
-}
-
-.project-title .title-number::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -2px;
-  width: 0%;
-  height: 2px;
-  background-color: var(--text-color);
-  transition: width 0.3s ease;
-}
-
-.project-title:hover .title-number::after {
-  width: 100%;
 }
 
 /* -------------------------------
