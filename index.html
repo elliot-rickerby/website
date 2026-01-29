@@ -352,7 +352,7 @@ collapseBtn.addEventListener('click', (e) => {
   collapseBtn.classList.remove('active');
 });
 
-// Portfolio Carousel - SIMPLE AND WORKING
+// Portfolio Carousel
 const titleTrack = document.querySelector('.title-track');
 const arrowUp = document.querySelector('.arrow-up');
 const arrowDown = document.querySelector('.arrow-down');
@@ -458,6 +458,24 @@ document.addEventListener('click', (e) => {
     hideAllProjectDetails();
   }
 });
+// Add close button functionality
+function setupCloseButtons() {
+  const closeButtons = document.querySelectorAll('.details-close');
+  
+  closeButtons.forEach(button => {
+    button.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      // Collapse the portfolio section
+      portfolioSection.classList.remove('expanded');
+      hideAllProjectDetails();
+    });
+  });
+}
+
+// Call this function after your existing code
+setupCloseButtons();
 
 // Initialize
 updateCarousel(0);
