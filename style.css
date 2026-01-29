@@ -324,12 +324,20 @@ body {
 .project-title:nth-child(4) { transform: translateY(300%); }
 .project-title:nth-child(5) { transform: translateY(400%); }
 
-/* Track positions - THIS MAKES CAROUSEL WORK */
+/* Track positions */
 .title-track.active-1 { transform: translateY(0); }
 .title-track.active-2 { transform: translateY(-100%); }
 .title-track.active-3 { transform: translateY(-200%); }
 .title-track.active-4 { transform: translateY(-300%); }
 .title-track.active-5 { transform: translateY(-400%); }
+
+.project-title .title-number {
+  opacity: 0.7;
+  font-weight: 600; 
+
+.project-title .title-text {
+  opacity: 1; 
+}
 
 /* -------------------------------
    Simple Title Underline
