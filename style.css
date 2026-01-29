@@ -298,7 +298,9 @@ body {
 }
 .portfolio-section.expanded .project-details-container {
   margin-top: -80px !important;
+  transition: margin-top 0.5s ease 0.3s !important;
 }
+
 /* -------------------------------
    Project Titles
 --------------------------------*/
