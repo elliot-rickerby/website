@@ -576,11 +576,46 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-// Contact form reset after successful submission
+// Contact form reset with success message
 document.getElementById('contact-form').addEventListener('submit', function() {
-  // Reset the form after 1 second (when Formspree processes it)
+  const form = this;
+  
   setTimeout(() => {
-    this.reset(); // This clears all form fields
+    // 1. Reset the form (clear all fields)
+    form.reset();
+    
+    // 2. Create and show success message
+    const successMessage = document.createElement('p');
+    successMessage.textContent = 'message sent!';
+    successMessage.style.cssText = `
+      font-family: 'Roboto Mono', monospace;
+      text-transform: lowercase;
+      color: var(--text-color);
+      margin-top: 15px;
+      margin-bottom: 0;
+      font-size: 0.9rem;
+      opacity: 0.7;
+      text-align: center;
+      animation: fadeIn 0.3s ease;
+    `;
+    
+    // 3. Insert message after the submit button
+    const submitButton = form.querySelector('button[type="submit"]');
+    submitButton.parentNode.insertBefore(successMessage, submitButton.nextSibling);
+    
+    // 4. Remove message after 5 seconds
+    setTimeout(() => {
+      if (successMessage.parentNode) {
+        successMessage.style.opacity = '0';
+        successMessage.style.transition = 'opacity 0.5s ease';
+        setTimeout(() => {
+          if (successMessage.parentNode) {
+            successMessage.parentNode.removeChild(successMessage);
+          }
+        }, 500);
+      }
+    }, 5000);
+    
   }, 1000);
 });
 
