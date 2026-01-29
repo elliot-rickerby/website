@@ -367,7 +367,6 @@ opacity: 0.6; /* Your existing number styling */
 }
 
 /* -------------------------------
-   Expanding Details Panel - ENHANCED
    Expanding Details Panel 
 --------------------------------*/
 .project-details-container {
@@ -398,6 +397,9 @@ padding: 40px;
 background-color: rgba(0, 0, 0, 0.03);
 border-radius: 12px;
 border: 1px solid var(--muted-stroke);
+max-width: 90vw; /* Limit to viewport */
+margin: 0 auto; /* Center it */
+box-sizing: border-box; /* Include padding in width */
 }
 
 /* Detail Title */
