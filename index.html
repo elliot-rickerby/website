@@ -273,6 +273,14 @@
 <span class="toggle-icon">☀️</span>
 </label>
 </div>
+  
+  <!-- Mobile Warning Popup -->
+<div class="mobile-warning-overlay" id="mobileWarning">
+    <div class="mobile-warning-popup">
+        <h3>apologies</h3>
+        <p>I have not optimised this website for mobile devices yet, for the best experience, please view on a computer :)</p>
+        <button class="mobile-warning-close" id="mobileWarningClose">close</button>
+    </div>
 
 <!-- GSAP Library -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
@@ -624,48 +632,51 @@ document.getElementById('contact-form').addEventListener('submit', function() {
     }, 5000);
     
   }, 1000);
+
+});
   // Mobile Warning Popup
-const mobileWarning = document.getElementById('mobileWarning');
-const mobileWarningClose = document.getElementById('mobileWarningClose');
+  const mobileWarning = document.getElementById('mobileWarning');
+  const mobileWarningClose = document.getElementById('mobileWarningClose');
 
-// Check if user is on mobile and hasn't dismissed the warning before
-function showMobileWarning() {
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    const hasDismissed = localStorage.getItem('mobileWarningDismissed');
-    
-    if (isMobile && !hasDismissed) {
-        // Show after 3 seconds
-        setTimeout(() => {
-            mobileWarning.classList.add('active');
-            // Prevent body scrolling when popup is visible
-            document.body.style.overflow = 'hidden';
-        }, 3000);
-    }
-}
+  // Check if user is on mobile and hasn't dismissed the warning before
+  function showMobileWarning() {
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      const hasDismissed = sessionStorage.getItem('mobileWarningDismissed');
+      
+      console.log('Mobile check:', { isMobile, hasDismissed }); // Debug log
+      
+      if (isMobile && !hasDismissed) {
+          // Show after 3 seconds
+          setTimeout(() => {
+              mobileWarning.classList.add('active');
+              // Prevent body scrolling when popup is visible
+              document.body.style.overflow = 'hidden';
+          }, 3000);
+      }
+  }
 
-// Close popup
-mobileWarningClose.addEventListener('click', () => {
-    mobileWarning.classList.remove('active');
-    document.body.style.overflow = ''; // Restore scrolling
-    
-    // Remember that user dismissed the warning for this session
-    // (using sessionStorage so it shows again on next visit)
-    // Change to localStorage if you want it to remember permanently
-    sessionStorage.setItem('mobileWarningDismissed', 'true');
-});
+  // Close popup
+  if (mobileWarningClose) {
+      mobileWarningClose.addEventListener('click', () => {
+          mobileWarning.classList.remove('active');
+          document.body.style.overflow = ''; // Restore scrolling
+          sessionStorage.setItem('mobileWarningDismissed', 'true');
+      });
+  }
 
-// Also close if clicking outside the popup
-mobileWarning.addEventListener('click', (e) => {
-    if (e.target === mobileWarning) {
-        mobileWarning.classList.remove('active');
-        document.body.style.overflow = '';
-        sessionStorage.setItem('mobileWarningDismissed', 'true');
-    }
-});
-
-// Call the function when DOM is loaded
-showMobileWarning();
-});
+  // Also close if clicking outside the popup
+  if (mobileWarning) {
+      mobileWarning.addEventListener('click', (e) => {
+          if (e.target === mobileWarning) {
+              mobileWarning.classList.remove('active');
+              document.body.style.overflow = '';
+              sessionStorage.setItem('mobileWarningDismissed', 'true');
+          }
+      });
+      
+      // Call the function when DOM is loaded
+      showMobileWarning();
+  }
 
   darkModeToggle.addEventListener('change', () => {
     if (darkModeToggle.checked) {
@@ -678,13 +689,7 @@ showMobileWarning();
   });
 });
 </script>
-<!-- Mobile Warning Popup -->
-<div class="mobile-warning-overlay" id="mobileWarning">
-    <div class="mobile-warning-popup">
-        <h3>apologies</h3>
-        <p>I have not optimised this website for mobile devices yet, for the best experience, please view on a computer :)</p>
-        <button class="mobile-warning-close" id="mobileWarningClose">close</button>
-    </div>
+
 </div>
 </body>
 </html>
