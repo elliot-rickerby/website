@@ -576,6 +576,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+// Contact form reset after successful submission
+document.getElementById('contact-form').addEventListener('submit', function() {
+  // Reset the form after 1 second (when Formspree processes it)
+  setTimeout(() => {
+    this.reset(); // This clears all form fields
+  }, 1000);
+});
+
   darkModeToggle.addEventListener('change', () => {
     if (darkModeToggle.checked) {
       body.classList.add('dark-mode');
