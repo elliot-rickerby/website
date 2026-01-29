@@ -1,5 +1,5 @@
 /* -------------------------------
-  Global font, box-sizing & lowercase
+ Global font, box-sizing & lowercase
 --------------------------------*/
 :root {
 --text-color: #222;
@@ -34,7 +34,7 @@ margin-bottom: 1.3rem;
 }
 
 /* -------------------------------
-  Full page setup
+ Full page setup
 --------------------------------*/
 body {
 min-height: 100vh;
@@ -62,7 +62,7 @@ transform: none !important;
 }
 
 /* -------------------------------
-  Name styling
+ Name styling
 --------------------------------*/
 .landing-name {
 position: absolute;
@@ -93,7 +93,7 @@ width: 1.3rem;
 }
 
 /* -------------------------------
-  Navigation links
+ Navigation links
 --------------------------------*/
 .landing-nav {
 position: absolute;
@@ -141,7 +141,7 @@ width: 100%;
 }
 
 /* -------------------------------
-  Fixed positions for About view
+ Fixed positions for About view
 --------------------------------*/
 .landing-name.fixed {
 top: 40px;
@@ -154,7 +154,7 @@ bottom: auto;
 }
 
 /* -------------------------------
-  About & Contact sections
+ About & Contact sections
 --------------------------------*/
 .about-section,
 .contact-section {
@@ -239,114 +239,81 @@ align-self: center;
 }
 
 /* -------------------------------
-   Portfolio Section - WITH RIGID BOUNDARIES
+ Portfolio Section
 --------------------------------*/
 .portfolio-section {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  width: 100%;
-  max-width: min(95vw, 900px);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.8s ease;
-  z-index: 20; /* Above navigation */
-  visibility: hidden;
-  max-height: 80vh; /* Rigid boundary */
-  overflow: visible;
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+text-align: center;
+width: 100%;
+max-width: min(95vw, 900px);
+opacity: 0;
+pointer-events: none;
+transition: opacity 0.8s ease;
+z-index: 3;
+visibility: hidden;
 }
 
 .portfolio-section.active {
-  opacity: 1;
-  pointer-events: auto;
-  visibility: visible;
-}
-
-/* When expanded, shift up slightly to avoid nav */
-.portfolio-section.expanded {
-  top: 45%;
+opacity: 1;
+pointer-events: auto;
+visibility: visible;
 }
 
 /* -------------------------------
-   Portfolio Section
---------------------------------*/
-.portfolio-section {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  width: 100%;
-  max-width: min(95vw, 900px);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.8s ease;
-  z-index: 3;
-  visibility: hidden;
-}
-
-.portfolio-section.active {
-  opacity: 1;
-  pointer-events: auto;
-  visibility: visible;
-}
-
-/* REMOVE THIS - it's shifting the position */
-/* .portfolio-section.expanded {
-  top: 45%;
-} */
-
-/* -------------------------------
-   Portfolio Carousel
+ Portfolio Carousel
 --------------------------------*/
 .portfolio-carousel {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
+display: flex;
+flex-direction: column;
+align-items: center;
+position: relative;
+height: 300px; /* KEEP: Fixed height for centering */
+width: 100%; /* ADD: Full width */
+justify-content: center; /* KEEP: Center vertically */
 }
 
 /* -------------------------------
-   Title Viewport & Track
+ Title Viewport & Track
 --------------------------------*/
 .title-viewport {
-  width: 100%;
-  height: 80px;
-  overflow: hidden;
-  position: relative;
-  margin: 60px 0 30px;
+width: 100%;
+height: 80px; /* Height for ONE visible title */
+overflow: hidden;
+position: relative;
+margin: 0;
 }
 
 .title-track {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transition: transform 0.5s ease;
+position: relative;
+width: 100%;
+height: 100%;
+transition: transform 0.5s ease;
 }
 
 /* -------------------------------
-   Project Titles
+ Project Titles
 --------------------------------*/
 .project-title {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: clamp(1.2rem, 3vw, 2rem);
-  font-weight: 700;
-  margin: 0;
-  white-space: nowrap;
-  text-transform: uppercase;
-  cursor: pointer;
-  top: 0;
-  left: 0;
+position: absolute;
+width: 100%;
+height: 100%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: clamp(1.2rem, 3vw, 2rem);
+font-weight: 700;
+margin: 0;
+white-space: nowrap;
+text-transform: uppercase;
+cursor: pointer;
+top: 0;
+left: 0;
 }
 
-/* Stack titles vertically */
+/* Stack titles vertically - THIS MAKES CAROUSEL WORK */
 .project-title:nth-child(1) { transform: translateY(0%); }
 .project-title:nth-child(2) { transform: translateY(100%); }
 .project-title:nth-child(3) { transform: translateY(200%); }
@@ -360,213 +327,214 @@ align-self: center;
 .title-track.active-4 { transform: translateY(-300%); }
 .title-track.active-5 { transform: translateY(-400%); }
 
-/* Project number styling */
 .project-title .title-number {
-  opacity: 0.6;
+opacity: 0.7;
+font-weight: 600; 
 }
 
-/* Project Title Underline */
 .project-title .title-text {
-  position: relative;
-  display: inline-block;
-}
-
-.project-title .title-text::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -5px;
-  width: 0%;
-  height: 2px;
-  background-color: var(--text-color);
-  transition: width 0.3s ease;
-}
-
-.project-title:hover .title-text::after {
-  width: 100%;
+opacity: 1; 
 }
 
 /* -------------------------------
-   Expanding Details Panel - SIMPLE
+ Project Title Underline - TEXT ONLY
+--------------------------------*/
+
+.project-title .title-text {
+position: relative; /* Create positioning context */
+display: inline-block; /* Make it block-level for width */
+}
+
+.project-title .title-text::after {
+content: '';
+position: absolute;
+left: 0;
+bottom: -5px; /* Adjust distance from text */
+width: 0%;
+height: 2px;
+background-color: var(--text-color);
+transition: width 0.3s ease;
+transform-origin: left center;
+}
+
+.project-title:hover .title-text::after {
+width: 100%; /* This will be exactly the text width */
+}
+
+/* Optional: Keep number styling separate */
+.project-title .title-number {
+opacity: 0.6; /* Your existing number styling */
+}
+
+/* -------------------------------
+  Expanding Details Panel - ENHANCED
+  Expanding Details Panel 
 --------------------------------*/
 .project-details-container {
-  width: 100%;
-  max-width: 750px; /* Fixed on large screens */
-  margin-top: 30px;
+width: 100%;
+max-width: 750px;
+
 }
 
 .project-details {
-  width: 100%;
-  overflow: hidden;
-  max-height: 0;
-  opacity: 0;
-  transition:
-    max-height 0.7s cubic-bezier(0.4, 0, 0.2, 1),
-    opacity 0.4s ease;
+width: 100%;
+overflow: hidden;
+max-height: 0;
+opacity: 0;
+transition:
+max-height 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+opacity 0.4s ease;
 }
 
+/* Show only the active project details */
 .project-details.active {
-  max-height: 800px; /* Fixed height */
-  opacity: 1;
+max-height: 800px; /* Increased for more content */
+opacity: 1;
 }
 
+/* Style for the content inside */
 .details-content {
-  position: relative;
-  padding: 40px;
-  background-color: rgba(0, 0, 0, 0.03);
-  border-radius: 12px;
-  border: 1px solid var(--muted-stroke);
-}
-
-/* Fix keyword overlapping */
-.detail-keywords {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 25px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--muted-stroke);
-}
-
-.keyword {
-  font-family: 'Roboto Mono', monospace;
-  font-size: 0.85rem;
-  padding: 6px 12px;
-  background-color: rgba(0, 0, 0, 0.05);
-  border-radius: 20px;
-  text-transform: lowercase;
-  color: var(--text-color);
+padding: 40px;
+background-color: rgba(0, 0, 0, 0.03);
+border-radius: 12px;
+border: 1px solid var(--muted-stroke);
 }
 
 /* Detail Title */
 .detail-title {
-  font-family: 'Roboto Mono', monospace;
-  font-size: 1.8rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  margin: 0 0 20px 0;
-  color: var(--text-color);
+font-family: 'Roboto Mono', monospace;
+font-size: 1.8rem;
+font-weight: 700;
+text-transform: uppercase;
+margin: 0 0 20px 0;
+color: var(--text-color);
+}
+
+/* Keywords Section */
+.detail-keywords {
+display: flex;
+flex-wrap: wrap;
+gap: 10px;
+margin-bottom: 25px;
+padding-bottom: 20px;
+border-bottom: 1px solid var(--muted-stroke);
+}
+
+.keyword {
+font-family: 'Roboto Mono', monospace;
+font-size: 0.85rem;
+padding: 6px 12px;
+background-color: rgba(0, 0, 0, 0.05);
+border-radius: 20px;
+text-transform: lowercase;
+color: var(--text-color);
 }
 
 /* Synopsis Section */
 .detail-synopsis {
-  font-family: 'Roboto Mono', monospace;
-  line-height: 1.6;
+font-family: 'Roboto Mono', monospace;
 }
 
 .detail-synopsis p {
-  margin-bottom: 15px;
-  font-size: 1rem;
+margin-bottom: 15px;
+font-size: 1rem;
 }
 
 .detail-synopsis p:last-child {
-  margin-bottom: 0;
+margin-bottom: 0;
 }
-
-/* Details Close Button */
+/* -------------------------------
+ Details Close Button
+--------------------------------*/
 .details-close {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 8px;
-  opacity: 0.5;
-  transition: opacity 0.3s ease;
-  z-index: 5;
+position: absolute;
+top: 15px;
+right: 15px;
+background: none;
+border: none;
+cursor: pointer;
+padding: 8px;
+opacity: 0.5;
+transition: opacity 0.3s ease;
+z-index: 5;
 }
 
 .details-close:hover {
-  opacity: 1;
+opacity: 1;
 }
 
 .close-icon {
-  width: 16px;
-  height: 16px;
-  display: block;
+width: 16px;
+height: 16px;
+display: block;
 }
 
-/* Dark mode support */
+/* Make sure details-content has relative positioning for the absolute close button */
+.details-content {
+position: relative; /* ADD THIS */
+padding: 40px;
+background-color: rgba(0, 0, 0, 0.03);
+border-radius: 12px;
+border: 1px solid var(--muted-stroke);
+}
+/*-----------------------------
+Dark mode support
+-----------------------------*/
 body.dark-mode .details-content {
-  background-color: rgba(255, 255, 255, 0.05);
-  border-color: #333;
+background-color: rgba(255, 255, 255, 0.05);
+border-color: #333;
 }
 
 body.dark-mode .keyword {
-  background-color: rgba(255, 255, 255, 0.1);
+background-color: rgba(255, 255, 255, 0.1);
 }
 
 body.dark-mode .detail-keywords {
-  border-bottom-color: #333;
+border-bottom-color: #333;
 }
-
 /* -------------------------------
-   Arrows
+ Arrows - Positioned with centering
 --------------------------------*/
 .carousel-arrow {
-  background: none;
-  border: none;
-  color: var(--text-color);
-  cursor: pointer;
-  padding: 10px;
-  font-family: 'Roboto Mono', monospace;
-  opacity: 0.7;
-  line-height: 1;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  transition: opacity 0.3s ease;
-  z-index: 4;
+background: none;
+border: none;
+color: var(--text-color);
+cursor: pointer;
+padding: 10px;
+font-family: 'Roboto Mono', monospace;
+opacity: 0.7;
+line-height: 1;
+position: absolute;
+left: 50%;
+transform: translateX(-50%);
+transition: opacity 0.3s ease;
+z-index: 4;
 }
 
 .arrow-up {
-  top: 0;
+top: 5px; /* KEEP: Distance from top of carousel */
 }
 
 .arrow-down {
-  bottom: 0;
+bottom: 5px; /* KEEP: Distance from bottom of carousel */
 }
 
 .carousel-arrow:hover:not(:disabled) {
-  opacity: 1;
+opacity: 1;
 }
 
 .carousel-arrow:disabled {
-  opacity: 0.2;
-  cursor: not-allowed;
+opacity: 0.2;
+cursor: not-allowed;
 }
 
 .portfolio-section.expanded .carousel-arrow {
-  opacity: 0;
-  pointer-events: none;
+opacity: 0;
+pointer-events: none;
 }
 
 /* -------------------------------
-   MOBILE MEDIA QUERIES (ADD THESE)
---------------------------------*/
-@media (max-width: 768px) {
-  .project-details-container {
-    max-width: 90vw; /* Stretch to 90% of screen */
-  }
-  
-  .details-content {
-    padding: 30px; /* Slightly less padding */
-  }
-}
-
-@media (max-width: 480px) {
-  .project-details-container {
-    max-width: 95vw; /* Stretch even more */
-  }
-  
-  .details-content {
-    padding: 20px;
-  }
-}
-
-/* -------------------------------
-  Project Links
+ Project Links
 --------------------------------*/
 .project-link {
 text-decoration: none;
@@ -592,7 +560,7 @@ width: 100%;
 }
 
 /*--------------------------------
-  Collapse Button
+ Collapse Button
 --------------------------------*/
 .collapse-btn {
 position: fixed;
@@ -630,7 +598,7 @@ pointer-events: auto;
 }
 
 /*--------------------------------
-  Socials
+ Socials
 --------------------------------*/
 #social-icons {
 position: fixed;
@@ -669,7 +637,7 @@ transform: scale(1.1);
 }
 
 /* -------------------------------
-  Dark Mode Toggle
+ Dark Mode Toggle
 --------------------------------*/
 #dark-mode-toggle {
 position: fixed;
@@ -736,7 +704,7 @@ opacity: 0;
 }
 
 /* -------------------------------
-  Dark Mode Styles
+ Dark Mode Styles
 --------------------------------*/
 body.dark-mode {
 --text-color: #fff;
@@ -767,7 +735,7 @@ color: #bbb;
 }
 
 /* -------------------------------
-  Tendril background
+ Tendril background
 --------------------------------*/
 .tendril-bg {
 position: fixed;
@@ -787,7 +755,7 @@ stroke-linecap: round;
 }
 
 /* -------------------------------
-  Animations
+ Animations
 --------------------------------*/
 @keyframes landingNavFade {
 from {
@@ -801,7 +769,7 @@ transform: translateY(0);
 }
 
 /* -------------------------------
-  Accessibility: reduce motion
+ Accessibility: reduce motion
 --------------------------------*/
 @media (prefers-reduced-motion: reduce) {
 .tendril-bg path {
@@ -818,7 +786,7 @@ animation: none !important;
 }
 
 /* -------------------------------
-  Responsive
+ Responsive
 --------------------------------*/
 @media (max-width: 1024px) {
 #about-photo {
@@ -903,4 +871,14 @@ padding: 0.6rem;
 width: 60px;
 margin: 0 auto 0.8rem;
 }
+}
+.portfolio-carousel {
+padding-top: 30px !important;
+}
+.arrow-up {
+top: 35px !important; /* 5px original + 30px padding */
+}
+
+.arrow-down {
+bottom: 35px !important; /* Match the up arrow distance */
 }
