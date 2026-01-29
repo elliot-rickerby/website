@@ -367,83 +367,70 @@ opacity: 0.6; /* Your existing number styling */
 }
 
 /* -------------------------------
-   Expanding Details Panel 
+   Expanding Details Panel - RESPONSIVE
 --------------------------------*/
 .project-details-container {
-width: 100%;
-max-width: 750px;
-
+  width: 100%;
+  max-width: min(90vw, 750px); /* CHANGED: Limits to 90% of viewport or 750px */
+  margin-top: 30px;
 }
 
 .project-details {
-width: 100%;
-overflow: hidden;
-max-height: 0;
-opacity: 0;
-transition:
-max-height 0.7s cubic-bezier(0.4, 0, 0.2, 1),
-opacity 0.4s ease;
+  width: 100%;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition:
+    max-height 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.4s ease;
 }
 
 /* Show only the active project details */
 .project-details.active {
-max-height: 800px; /* Increased for more content */
-opacity: 1;
+  max-height: min(800px, 80vh); /* CHANGED: Limits height to 80% of viewport */
+  opacity: 1;
+  overflow-y: auto; /* ADDED: Allows scrolling if content is too tall */
 }
 
 /* Style for the content inside */
 .details-content {
-padding: 40px;
-background-color: rgba(0, 0, 0, 0.03);
-border-radius: 12px;
-border: 1px solid var(--muted-stroke);
-max-width: 90vw; /* Limit to viewport */
-margin: 0 auto; /* Center it */
-box-sizing: border-box; /* Include padding in width */
+  position: relative;
+  padding: clamp(20px, 4vw, 40px); /* CHANGED: Responsive padding */
+  background-color: rgba(0, 0, 0, 0.03);
+  border-radius: 12px;
+  border: 1px solid var(--muted-stroke);
+  width: 100%; /* ADDED: Ensures it fills container */
+  box-sizing: border-box; /* ADDED: Includes padding in width */
 }
 
-/* Detail Title */
+/* Responsive typography */
 .detail-title {
-font-family: 'Roboto Mono', monospace;
-font-size: 1.8rem;
-font-weight: 700;
-text-transform: uppercase;
-margin: 0 0 20px 0;
-color: var(--text-color);
+  font-family: 'Roboto Mono', monospace;
+  font-size: clamp(1.2rem, 4vw, 1.8rem); /* CHANGED: Responsive font size */
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 0 0 clamp(15px, 3vw, 20px) 0;
+  color: var(--text-color);
+  line-height: 1.3;
+  word-break: break-word; /* ADDED: Prevents overflow */
 }
 
-/* Keywords Section */
-.detail-keywords {
-display: flex;
-flex-wrap: wrap;
-gap: 10px;
-margin-bottom: 25px;
-padding-bottom: 20px;
-border-bottom: 1px solid var(--muted-stroke);
-}
-
+/* Responsive keywords */
 .keyword {
-font-family: 'Roboto Mono', monospace;
-font-size: 0.85rem;
-padding: 6px 12px;
-background-color: rgba(0, 0, 0, 0.05);
-border-radius: 20px;
-text-transform: lowercase;
-color: var(--text-color);
+  font-family: 'Roboto Mono', monospace;
+  font-size: clamp(0.75rem, 2vw, 0.85rem); /* CHANGED: Responsive font size */
+  padding: clamp(4px, 1vw, 6px) clamp(8px, 2vw, 12px);
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 20px;
+  text-transform: lowercase;
+  color: var(--text-color);
 }
 
-/* Synopsis Section */
-.detail-synopsis {
-font-family: 'Roboto Mono', monospace;
-}
-
+/* Responsive synopsis */
 .detail-synopsis p {
-margin-bottom: 15px;
-font-size: 1rem;
-}
-
-.detail-synopsis p:last-child {
-margin-bottom: 0;
+  margin-bottom: clamp(10px, 2vw, 15px);
+  font-size: clamp(0.85rem, 2.5vw, 1rem); /* CHANGED: Responsive font size */
+  line-height: 1.6;
 }
 /* -------------------------------
   Details Close Button
@@ -880,4 +867,53 @@ top: 35px !important; /* 5px original + 30px padding */
 
 .arrow-down {
 bottom: 35px !important; /* Match the up arrow distance */
+}
+
+/* Mobile-specific fixes */
+@media (max-width: 768px) {
+  .project-details-container {
+    max-width: 95vw; /* Even wider use of viewport on mobile */
+  }
+  
+  .project-details.active {
+    max-height: 70vh; /* Shorter on mobile */
+  }
+  
+  .details-content {
+    padding: 20px; /* Less padding on mobile */
+  }
+  
+  /* Stack navigation when portfolio is expanded */
+  .portfolio-section.expanded ~ .landing-nav.fixed {
+    display: none; /* Hide nav when details are open on mobile */
+  }
+}
+
+/* Very small screens */
+@media (max-width: 480px) {
+  .project-details-container {
+    max-width: 98vw; /* Almost full width on tiny screens */
+    margin-top: 15px; /* Less margin on small screens */
+  }
+  
+  .details-content {
+    padding: 15px;
+    border-radius: 8px; /* Smaller radius on mobile */
+  }
+  
+  .detail-title {
+    font-size: 1.1rem; /* Smaller title */
+    margin-bottom: 12px;
+  }
+  
+  .detail-keywords {
+    gap: 5px; /* Tighter spacing */
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+  }
+  
+  .keyword {
+    font-size: 0.7rem;
+    padding: 3px 6px;
+  }
 }
