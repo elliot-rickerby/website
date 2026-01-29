@@ -298,7 +298,7 @@ body {
 }
 
 /* -------------------------------
-   Project Titles - ORIGINAL WORKING VERSION
+   Project Titles
 --------------------------------*/
 .project-title {
   position: absolute;
@@ -360,11 +360,16 @@ body {
 }
 
 /* -------------------------------
-   Expanding Details Panel
+   Expanding Details Panel - ENHANCED
 --------------------------------*/
-.project-details {
+.project-details-container {
   width: 100%;
   max-width: 750px;
+  margin-top: 30px;
+}
+
+.project-details {
+  width: 100%;
   overflow: hidden;
   max-height: 0;
   opacity: 0;
@@ -373,11 +378,78 @@ body {
     opacity 0.4s ease;
 }
 
-.portfolio-section.expanded .project-details {
-  max-height: 600px;
+/* Show only the active project details */
+.project-details.active {
+  max-height: 800px; /* Increased for more content */
   opacity: 1;
 }
 
+/* Style for the content inside */
+.details-content {
+  padding: 40px;
+  background-color: rgba(0, 0, 0, 0.03);
+  border-radius: 12px;
+  border: 1px solid var(--muted-stroke);
+}
+
+/* Detail Title */
+.detail-title {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 0 0 20px 0;
+  color: var(--text-color);
+}
+
+/* Keywords Section */
+.detail-keywords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--muted-stroke);
+}
+
+.keyword {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.85rem;
+  padding: 6px 12px;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 20px;
+  text-transform: lowercase;
+  color: var(--text-color);
+}
+
+/* Synopsis Section */
+.detail-synopsis {
+  font-family: 'Roboto Mono', monospace;
+  line-height: 1.6;
+}
+
+.detail-synopsis p {
+  margin-bottom: 15px;
+  font-size: 1rem;
+}
+
+.detail-synopsis p:last-child {
+  margin-bottom: 0;
+}
+
+/* Dark mode support */
+body.dark-mode .details-content {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: #333;
+}
+
+body.dark-mode .keyword {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .detail-keywords {
+  border-bottom-color: #333;
+}
 /* -------------------------------
    Arrows - Positioned with centering
 --------------------------------*/
