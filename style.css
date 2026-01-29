@@ -254,10 +254,6 @@ pointer-events: none;
 transition: opacity 0.8s ease;
 z-index: 3;
 visibility: hidden;
-height: 400px; /* ADD: Give the section a height */
-display: flex; /* ADD: Use flexbox */
-align-items: center; /* ADD: Center vertically */
-justify-content: center; /* ADD: Center horizontally */
 }
 
 .portfolio-section.active {
@@ -287,7 +283,7 @@ width: 100%;
 height: 80px; /* Height for ONE visible title */
 overflow: hidden;
 position: relative;
-margin: 0; /* CHANGE: Remove margins - centered by parent */
+margin: 0;
 }
 
 .title-track {
@@ -297,9 +293,6 @@ height: 100%;
 transition: transform 0.5s ease;
 }
 
-.portfolio-section.expanded .project-details-container {
-  margin-top: -80px !important;
-}
 /* -------------------------------
   Project Titles
 --------------------------------*/
