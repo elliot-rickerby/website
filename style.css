@@ -389,11 +389,11 @@ body {
 }
 
 .arrow-up {
-  top: 10px; /* KEEP: Distance from top of carousel */
+  top: 5px; /* KEEP: Distance from top of carousel */
 }
 
 .arrow-down {
-  bottom: 10px; /* KEEP: Distance from bottom of carousel */
+  bottom: 5px; /* KEEP: Distance from bottom of carousel */
 }
 
 .carousel-arrow:hover:not(:disabled) {
