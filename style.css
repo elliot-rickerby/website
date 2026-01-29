@@ -436,8 +436,43 @@ body {
 .detail-synopsis p:last-child {
   margin-bottom: 0;
 }
+/* -------------------------------
+   Details Close Button
+--------------------------------*/
+.details-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+  z-index: 5;
+}
 
-/* Dark mode support */
+.details-close:hover {
+  opacity: 1;
+}
+
+.close-icon {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+
+/* Make sure details-content has relative positioning for the absolute close button */
+.details-content {
+  position: relative; /* ADD THIS */
+  padding: 40px;
+  background-color: rgba(0, 0, 0, 0.03);
+  border-radius: 12px;
+  border: 1px solid var(--muted-stroke);
+}
+/*-----------------------------
+Dark mode support
+-----------------------------*/
 body.dark-mode .details-content {
   background-color: rgba(255, 255, 255, 0.05);
   border-color: #333;
