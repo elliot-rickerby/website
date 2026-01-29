@@ -341,22 +341,33 @@ body {
 }
 
 /* -------------------------------
-   Simple Title Underline
+   Project Title Underline - TEXT ONLY
 --------------------------------*/
-.project-title::after {
+
+.project-title .title-text {
+  position: relative; /* Create positioning context */
+  display: inline-block; /* Make it block-level for width */
+}
+
+.project-title .title-text::after {
   content: '';
   position: absolute;
-  left: 50%;
-  bottom: 10px;
-  transform: translateX(-50%);
-  width: 0;
+  left: 0;
+  bottom: -5px; /* Adjust distance from text */
+  width: 0%;
   height: 2px;
   background-color: var(--text-color);
   transition: width 0.3s ease;
+  transform-origin: left center;
 }
 
-.project-title:hover::after {
-  width: 70%; /* Adjust this percentage as needed */
+.project-title:hover .title-text::after {
+  width: 100%; /* This will be exactly the text width */
+}
+
+/* Optional: Keep number styling separate */
+.project-title .title-number {
+  opacity: 0.6; /* Your existing number styling */
 }
 
 /* -------------------------------
