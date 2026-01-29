@@ -278,6 +278,18 @@ body {
   width: 100%; /* ADD: Full width */
   justify-content: center; /* KEEP: Center vertically */
 }
+.portfolio-section.expanded .portfolio-carousel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center everything */
+  align-items: center;
+  min-height: 500px; /* Give enough space */
+}
+
+.portfolio-section.expanded .project-details-container {
+  align-self: center; /* Center within flex container */
+  margin-top: 0; /* Reset any margins */
+}
 
 /* -------------------------------
    Title Viewport & Track
@@ -295,10 +307,6 @@ body {
   width: 100%;
   height: 100%;
   transition: transform 0.5s ease;
-}
-.portfolio-section.expanded .project-details-container {
-  margin-top: -80px !important;
-  transition: margin-top 0.5s ease 0.3s !important;
 }
 
 /* -------------------------------
