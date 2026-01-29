@@ -833,3 +833,10 @@ body.dark-mode .landing-nav a:hover {
 .portfolio-carousel {
   padding-top: 30px !important;
 }
+.arrow-up {
+  top: 35px !important; /* 5px original + 30px padding */
+}
+
+.arrow-down {
+  bottom: 35px !important; /* Match the up arrow distance */
+}
