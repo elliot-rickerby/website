@@ -270,6 +270,35 @@ align-self: center;
 }
 
 /* -------------------------------
+   Portfolio Section
+--------------------------------*/
+.portfolio-section {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 100%;
+  max-width: min(95vw, 900px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s ease;
+  z-index: 3;
+  visibility: hidden;
+}
+
+.portfolio-section.active {
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
+}
+
+/* REMOVE THIS - it's shifting the position */
+/* .portfolio-section.expanded {
+  top: 45%;
+} */
+
+/* -------------------------------
    Portfolio Carousel
 --------------------------------*/
 .portfolio-carousel {
@@ -277,7 +306,6 @@ align-self: center;
   flex-direction: column;
   align-items: center;
   position: relative;
-  max-height: 70vh; /* Rigid boundary */
 }
 
 /* -------------------------------
@@ -359,13 +387,12 @@ align-self: center;
 }
 
 /* -------------------------------
-   Expanding Details Panel - WITH BOUNDARIES
+   Expanding Details Panel - SIMPLE
 --------------------------------*/
 .project-details-container {
   width: 100%;
-  max-width: min(90vw, 750px); /* Horizontal squish on small screens */
-  margin-top: 20px;
-  max-height: 50vh; /* Rigid vertical boundary */
+  max-width: 750px; /* Fixed on large screens */
+  margin-top: 30px;
 }
 
 .project-details {
@@ -379,48 +406,42 @@ align-self: center;
 }
 
 .project-details.active {
-  max-height: 50vh; /* Rigid max height */
+  max-height: 800px; /* Fixed height */
   opacity: 1;
-  overflow-y: auto; /* Scroll only if needed */
 }
 
 .details-content {
   position: relative;
-  padding: 30px;
+  padding: 40px;
   background-color: rgba(0, 0, 0, 0.03);
   border-radius: 12px;
   border: 1px solid var(--muted-stroke);
-  max-height: 48vh; /* Slightly less than container */
-  overflow-y: auto; /* Scroll inside */
 }
 
 /* Fix keyword overlapping */
 .detail-keywords {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 20px;
-  padding-bottom: 15px;
+  gap: 10px;
+  margin-bottom: 25px;
+  padding-bottom: 20px;
   border-bottom: 1px solid var(--muted-stroke);
-  align-items: center;
 }
 
 .keyword {
   font-family: 'Roboto Mono', monospace;
   font-size: 0.85rem;
-  padding: 5px 10px;
+  padding: 6px 12px;
   background-color: rgba(0, 0, 0, 0.05);
   border-radius: 20px;
   text-transform: lowercase;
   color: var(--text-color);
-  line-height: 1.2;
-  flex-shrink: 0;
 }
 
 /* Detail Title */
 .detail-title {
   font-family: 'Roboto Mono', monospace;
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   font-weight: 700;
   text-transform: uppercase;
   margin: 0 0 20px 0;
@@ -519,6 +540,29 @@ body.dark-mode .detail-keywords {
 .portfolio-section.expanded .carousel-arrow {
   opacity: 0;
   pointer-events: none;
+}
+
+/* -------------------------------
+   MOBILE MEDIA QUERIES (ADD THESE)
+--------------------------------*/
+@media (max-width: 768px) {
+  .project-details-container {
+    max-width: 90vw; /* Stretch to 90% of screen */
+  }
+  
+  .details-content {
+    padding: 30px; /* Slightly less padding */
+  }
+}
+
+@media (max-width: 480px) {
+  .project-details-container {
+    max-width: 95vw; /* Stretch even more */
+  }
+  
+  .details-content {
+    padding: 20px;
+  }
 }
 
 /* -------------------------------
@@ -859,60 +903,4 @@ padding: 0.6rem;
 width: 60px;
 margin: 0 auto 0.8rem;
 }
-}
-.arrow-up {
-top: 35px !important; /* 5px original + 30px padding */
-}
-
-.arrow-down {
-bottom: 35px !important; /* Match the up arrow distance */
-}
-
-/* Mobile-specific fixes */
-@media (max-width: 768px) {
-  .project-details-container {
-    max-width: 95vw; /* Even wider use of viewport on mobile */
-  }
-  
-  .project-details.active {
-    max-height: 70vh; /* Shorter on mobile */
-  }
-  
-  .details-content {
-    padding: 20px; /* Less padding on mobile */
-  }
-  
-  /* Stack navigation when portfolio is expanded */
-  .portfolio-section.expanded ~ .landing-nav.fixed {
-    display: none; /* Hide nav when details are open on mobile */
-  }
-}
-
-/* Very small screens */
-@media (max-width: 480px) {
-  .project-details-container {
-    max-width: 98vw; /* Almost full width on tiny screens */
-    margin-top: 15px; /* Less margin on small screens */
-  }
-  
-  .details-content {
-    padding: 15px;
-    border-radius: 8px; /* Smaller radius on mobile */
-  }
-  
-  .detail-title {
-    font-size: 1.1rem; /* Smaller title */
-    margin-bottom: 12px;
-  }
-  
-  .detail-keywords {
-    gap: 5px; /* Tighter spacing */
-    margin-bottom: 15px;
-    padding-bottom: 15px;
-  }
-  
-  .keyword {
-    font-size: 0.7rem;
-    padding: 3px 6px;
-  }
 }
