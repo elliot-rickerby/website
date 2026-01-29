@@ -872,9 +872,7 @@ width: 60px;
 margin: 0 auto 0.8rem;
 }
 }
-.portfolio-carousel {
-padding-top: 30px !important;
-}
+
 .arrow-up {
 top: 35px !important; /* 5px original + 30px padding */
 }
