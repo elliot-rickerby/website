@@ -433,7 +433,6 @@ color: var(--text-color);
 /* Synopsis Section */
 .detail-synopsis {
 font-family: 'Roboto Mono', monospace;
-line-height: 1.6;
 }
 
 .detail-synopsis p {
