@@ -830,3 +830,6 @@ body.dark-mode .landing-nav a:hover {
     margin: 0 auto 0.8rem;
   }
 }
+.portfolio-carousel {
+  padding-top: 30px !important;
+}
