@@ -375,8 +375,29 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// Project title click - SIMPLE TOGGLE
+// Project title click - UPDATED VERSION
 const projectTitles = document.querySelectorAll('.project-title');
+const projectDetails = document.querySelectorAll('.project-details');
+
+// Helper functions
+function showProjectDetails(projectNum) {
+  // Hide all project details
+  projectDetails.forEach(detail => {
+    detail.classList.remove('active');
+  });
+  
+  // Show the selected project details
+  const activeDetail = document.querySelector(`.project-details[data-project="${projectNum}"]`);
+  if (activeDetail) {
+    activeDetail.classList.add('active');
+  }
+}
+
+function hideAllProjectDetails() {
+  projectDetails.forEach(detail => {
+    detail.classList.remove('active');
+  });
+}
 
 projectTitles.forEach(title => {
   title.addEventListener('click', (e) => {
@@ -388,26 +409,28 @@ projectTitles.forEach(title => {
     // If already expanded and clicking same project, collapse
     if (portfolioSection.classList.contains('expanded') && currentIndex === projectNum - 1) {
       portfolioSection.classList.remove('expanded');
+      hideAllProjectDetails();
     } 
     // If already expanded but clicking different project, switch
     else if (portfolioSection.classList.contains('expanded')) {
       updateCarousel(projectNum - 1);
+      showProjectDetails(projectNum);
     }
     // If not expanded, expand and show this project
     else {
       updateCarousel(projectNum - 1);
+      showProjectDetails(projectNum);
       portfolioSection.classList.add('expanded');
     }
   });
 });
 
-// Close when clicking outside
+// Update the close when clicking outside function
 document.addEventListener('click', (e) => {
   if (portfolioSection.classList.contains('expanded') && 
-      !e.target.closest('.bracket-frame') &&
-      !e.target.closest('.carousel-arrow') &&
-      !e.target.closest('.project-title')) {
+      !e.target.closest('.portfolio-carousel')) {
     portfolioSection.classList.remove('expanded');
+    hideAllProjectDetails();
   }
 });
 
