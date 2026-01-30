@@ -1,5 +1,5 @@
 /* -------------------------------
- Global font, box-sizing & lowercase
+Global font, box-sizing & lowercase
 --------------------------------*/
 :root {
 --text-color: #222;
@@ -34,7 +34,7 @@ margin-bottom: 1.3rem;
 }
 
 /* -------------------------------
- Full page setup
+Full page setup
 --------------------------------*/
 body {
 min-height: 100vh;
@@ -62,7 +62,7 @@ transform: none !important;
 }
 
 /* -------------------------------
- Name styling
+Name styling
 --------------------------------*/
 .landing-name {
 position: absolute;
@@ -93,7 +93,7 @@ width: 1.3rem;
 }
 
 /* -------------------------------
- Navigation links
+Navigation links
 --------------------------------*/
 .landing-nav {
 position: absolute;
@@ -141,7 +141,7 @@ width: 100%;
 }
 
 /* -------------------------------
- Fixed positions for About view
+Fixed positions for About view
 --------------------------------*/
 .landing-name.fixed {
 top: 40px;
@@ -154,171 +154,129 @@ bottom: auto;
 }
 
 /* -------------------------------
- About & Contact sections
+About & Contact sections
 --------------------------------*/
 .about-section,
 .contact-section {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  max-width: min(90vw, 750px);
-  width: 90%;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.8s ease;
-  z-index: 1;
-  visibility: hidden;
-  overflow: hidden; /* ADD: Prevent overflow during slide */
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+text-align: center;
+max-width: min(90vw, 750px);
+width: 90%;
+opacity: 0;
+pointer-events: none;
+transition: opacity 0.8s ease;
+z-index: 1;
+visibility: hidden;
+overflow: hidden; /* ADD: Prevent overflow during slide */
 }
 
 .about-section.active,
 .contact-section.active {
-  opacity: 1;
-  pointer-events: auto;
-  visibility: visible;
+opacity: 1;
+pointer-events: auto;
+visibility: visible;
 }
 
 /* About Pages Wrapper */
 .about-pages-wrapper {
-  position: relative;
-  width: 100%;
-  display: flex;
-  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+position: relative;
+width: 100%;
+display: flex;
+transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Individual About Pages */
 .about-page {
-  min-width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  position: relative;
+min-width: 100%;
+display: flex;
+flex-direction: column;
+gap: 1.5rem;
+position: relative;
 }
 
 /* Slide Animation */
 .about-pages-wrapper.show-cv {
-  transform: translateX(-100%);
+transform: translateX(-100%);
 }
 
 /* About Photo Styling */
 #about-photo {
-  width: clamp(60px, 10vw, 100px);
-  height: auto;
-  margin: 0 auto clamp(1rem, 2vh, 1.5rem);
-  display: block;
-  transition: width 0.3s ease, margin 0.3s ease;
+width: clamp(60px, 10vw, 100px);
+height: auto;
+margin: 0 auto clamp(1rem, 2vh, 1.5rem);
+display: block;
+transition: width 0.3s ease, margin 0.3s ease;
 }
 
 /* CV Content Styling */
 .cv-content h3 {
-  margin-top: 1.5rem;
-  margin-bottom: 0.8rem;
-  font-size: 1.1rem;
+margin-top: 1.5rem;
+margin-bottom: 0.8rem;
+font-size: 1.1rem;
 }
 
 .cv-content h3:first-child {
-  margin-top: 0;
+margin-top: 0;
 }
 
 .cv-content p {
-  text-align: left;
-  margin-bottom: 1rem;
+text-align: left;
+margin-bottom: 1rem;
 }
 
-/* About Navigation Arrows - UPDATED */
+/* About Navigation Arrows */
 .about-nav-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  color: var(--text-color);
-  cursor: pointer;
-  padding: 12px;
-  opacity: 0.5;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  z-index: 50;
+position: absolute;
+top: 50%;
+transform: translateY(-50%);
+background: none;
+border: none;
+color: var(--text-color);
+cursor: pointer;
+padding: 12px;
+opacity: 0.5;
+transition: opacity 0.3s ease, transform 0.3s ease;
+z-index: 5;
 }
 
 .about-nav-arrow:hover {
-  opacity: 1;
-  transform: translateY(-50%) scale(1.1);
+opacity: 1;
+transform: translateY(-50%) scale(1.1);
 }
 
 .arrow-right {
-  right: -40px;
+right: -40px; /* Position outside the content */
 }
 
 .arrow-left {
-  left: -40px;
+left: -40px; /* Position outside the content */
 }
 
-/* Hide left arrow on first page */
-.about-pages-wrapper:not(.show-cv) .arrow-left {
-  opacity: 0;
-  pointer-events: none;
+/* Cursor Tooltip */
+.cursor-tooltip {
+position: fixed;
+font-family: 'Roboto Mono', monospace;
+font-size: 0.85rem;
+text-transform: lowercase;
+color: var(--text-color);
+background-color: var(--bg-color);
+border: 1px solid var(--text-color);
+padding: 6px 12px;
+border-radius: 4px;
+pointer-events: none;
+opacity: 0;
+transition: opacity 0.2s ease;
+z-index: 10000;
+white-space: nowrap;
 }
 
-/* Hide right arrow on second page */
-.about-pages-wrapper.show-cv .arrow-right {
-  opacity: 0;
-  pointer-events: none;
+.cursor-tooltip.active {
+opacity: 1;
 }
 
-/* Ensure about-section doesn't clip arrows */
-.about-section {
-  overflow: visible !important;
-}
-
-.about-pages-wrapper {
-  overflow: hidden;
-}
-
-/* SVG styling for arrows */
-.about-nav-arrow svg {
-  width: 24px;
-  height: 24px;
-  display: block;
-}
-
-/* Disabled state */
-.about-nav-arrow.disabled {
-  opacity: 0.2;
-  cursor: not-allowed;
-  pointer-events: none;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .arrow-right {
-    right: -30px;
-  }
-  
-  .arrow-left {
-    left: -30px;
-  }
-}
-
-@media (max-width: 480px) {
-  .arrow-right {
-    right: 10px;
-    background-color: rgba(0, 0, 0, 0.1);
-    border-radius: 50%;
-  }
-  
-  .arrow-left {
-    left: 10px;
-    background-color: rgba(0, 0, 0, 0.1);
-    border-radius: 50%;
-  }
-  
-  .about-nav-arrow svg {
-    width: 20px;
-    height: 20px;
-  }
-}
 /* Contact form */
 #contact-form-wrapper {
 width: 100%;
@@ -366,7 +324,7 @@ align-self: center;
 }
 
 /* -------------------------------
- Portfolio Section
+Portfolio Section
 --------------------------------*/
 .portfolio-section {
 position: absolute;
@@ -390,7 +348,7 @@ visibility: visible;
 }
 
 /* -------------------------------
- Portfolio Carousel
+Portfolio Carousel
 --------------------------------*/
 .portfolio-carousel {
 display: flex;
@@ -403,7 +361,7 @@ justify-content: center; /* KEEP: Center vertically */
 }
 
 /* -------------------------------
- Title Viewport & Track
+Title Viewport & Track
 --------------------------------*/
 .title-viewport {
 width: 100%;
@@ -421,7 +379,7 @@ transition: transform 0.5s ease;
 }
 
 /* -------------------------------
- Project Titles
+Project Titles
 --------------------------------*/
 .project-title {
 position: absolute;
@@ -464,7 +422,7 @@ opacity: 1;
 }
 
 /* -------------------------------
- Project Title Underline - TEXT ONLY
+Project Title Underline - TEXT ONLY
 --------------------------------*/
 
 .project-title .title-text {
@@ -494,38 +452,38 @@ opacity: 0.6; /* Your existing number styling */
 }
 
 /* -------------------------------
-  Expanding Details Panel - DYNAMIC
+ Expanding Details Panel - DYNAMIC
 --------------------------------*/
 .project-details-container {
-  width: 100%;
-  max-width: 750px;
+width: 100%;
+max-width: 750px;
 }
 
 .project-details {
-  width: 100%;
-  overflow: hidden;
-  max-height: 0;
-  opacity: 0;
-  transition:
-    max-height 0.7s cubic-bezier(0.4, 0, 0.2, 1),
-    opacity 0.4s ease;
+width: 100%;
+overflow: hidden;
+max-height: 0;
+opacity: 0;
+transition:
+max-height 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+opacity 0.4s ease;
 }
 
 /* Show only the active project details - DYNAMIC HEIGHT */
 .project-details.active {
-  max-height: calc(100vh - 200px); /* Viewport height minus buffer for name/nav */
-  opacity: 1;
+max-height: calc(100vh - 200px); /* Viewport height minus buffer for name/nav */
+opacity: 1;
 }
 
 /* Style for the content inside - ADD SCROLL */
 .details-content {
-  position: relative;
-  padding: 40px;
-  background-color: rgba(0, 0, 0, 0.03);
-  border-radius: 12px;
-  border: 1px solid var(--muted-stroke);
-  max-height: calc(100vh - 200px); /* Match parent */
-  overflow-y: auto; /* Enable scrolling if content exceeds */
+position: relative;
+padding: 40px;
+background-color: rgba(0, 0, 0, 0.03);
+border-radius: 12px;
+border: 1px solid var(--muted-stroke);
+max-height: calc(100vh - 200px); /* Match parent */
+overflow-y: auto; /* Enable scrolling if content exceeds */
 }
 
 /* Detail Title */
@@ -572,7 +530,7 @@ font-size: 1rem;
 margin-bottom: 0;
 }
 /* -------------------------------
- Details Close Button
+Details Close Button
 --------------------------------*/
 .details-close {
 position: absolute;
@@ -613,7 +571,7 @@ body.dark-mode .detail-keywords {
 border-bottom-color: #333;
 }
 /* -------------------------------
- Arrows - Positioned with centering
+Arrows - Positioned with centering
 --------------------------------*/
 .carousel-arrow {
 background: none;
@@ -654,7 +612,7 @@ pointer-events: none;
 }
 
 /* -------------------------------
- Project Links
+Project Links
 --------------------------------*/
 .project-link {
 text-decoration: none;
@@ -679,34 +637,34 @@ transition: width 0.3s ease;
 width: 100%;
 }
 /* -------------------------------
- Article Button
+Article Button
 --------------------------------*/
 .article-btn {
-  display: inline-block;
-  margin-top: 20px;
-  padding: 10px 24px;
-  font-family: 'Roboto Mono', monospace;
-  font-size: 0.9rem;
-  text-transform: lowercase;
-  text-decoration: none;
-  color: var(--text-color);
-  border: 1px solid var(--text-color);
-  border-radius: 4px;
-  transition: all 0.3s ease;
-  background-color: transparent;
+display: inline-block;
+margin-top: 20px;
+padding: 10px 24px;
+font-family: 'Roboto Mono', monospace;
+font-size: 0.9rem;
+text-transform: lowercase;
+text-decoration: none;
+color: var(--text-color);
+border: 1px solid var(--text-color);
+border-radius: 4px;
+transition: all 0.3s ease;
+background-color: transparent;
 }
 
 .article-btn:hover {
-  background-color: var(--text-color);
-  color: var(--bg-color);
+background-color: var(--text-color);
+color: var(--bg-color);
 }
 
 /* Dark mode support */
 body.dark-mode .article-btn:hover {
-  color: var(--bg-color);
+color: var(--bg-color);
 }
 /*--------------------------------
- Collapse Button
+Collapse Button
 --------------------------------*/
 .collapse-btn {
 position: fixed;
@@ -744,7 +702,7 @@ pointer-events: auto;
 }
 
 /*--------------------------------
- Socials
+Socials
 --------------------------------*/
 #social-icons {
 position: fixed;
@@ -783,7 +741,7 @@ transform: scale(1.1);
 }
 
 /* -------------------------------
- Dark Mode Toggle
+Dark Mode Toggle
 --------------------------------*/
 #dark-mode-toggle {
 position: fixed;
@@ -850,7 +808,7 @@ opacity: 0;
 }
 
 /* -------------------------------
- Dark Mode Styles
+Dark Mode Styles
 --------------------------------*/
 body.dark-mode {
 --text-color: #fff;
@@ -881,7 +839,7 @@ color: #bbb;
 }
 
 /* -------------------------------
- Tendril background
+Tendril background
 --------------------------------*/
 .tendril-bg {
 position: fixed;
@@ -901,7 +859,7 @@ stroke-linecap: round;
 }
 
 /* -------------------------------
- Animations
+Animations
 --------------------------------*/
 @keyframes landingNavFade {
 from {
@@ -915,7 +873,7 @@ transform: translateY(0);
 }
 
 /* -------------------------------
- Accessibility: reduce motion
+Accessibility: reduce motion
 --------------------------------*/
 @media (prefers-reduced-motion: reduce) {
 .tendril-bg path {
@@ -932,7 +890,7 @@ animation: none !important;
 }
 
 /* -------------------------------
- Responsive
+Responsive
 --------------------------------*/
 @media (max-width: 1024px) {
 #about-photo {
@@ -1020,117 +978,127 @@ margin: 0 auto 0.8rem;
 }
 
 /* -------------------------------
- Mobile Warning Popup
+Mobile Warning Popup
 --------------------------------*/
 .mobile-warning-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 10000;
-    opacity: 0;
-    transition: opacity 0.5s ease;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.7);
+display: none;
+justify-content: center;
+align-items: center;
+z-index: 10000;
+opacity: 0;
+transition: opacity 0.5s ease;
 }
 
 .mobile-warning-overlay.active {
-    display: flex;
-    opacity: 1;
+display: flex;
+opacity: 1;
 }
 
 .mobile-warning-popup {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    padding: 2rem;
-    border-radius: 8px;
-    max-width: 90%;
-    width: 400px;
-    text-align: center;
-    font-family: 'Roboto Mono', monospace;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-    transform: translateY(-20px);
-    transition: transform 0.5s ease;
+background-color: var(--bg-color);
+color: var(--text-color);
+padding: 2rem;
+border-radius: 8px;
+max-width: 90%;
+width: 400px;
+text-align: center;
+font-family: 'Roboto Mono', monospace;
+box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+transform: translateY(-20px);
+transition: transform 0.5s ease;
 }
 
 .mobile-warning-overlay.active .mobile-warning-popup {
-    transform: translateY(0);
+transform: translateY(0);
 }
 
 .mobile-warning-popup h3 {
-    margin-bottom: 1rem;
-    text-transform: lowercase;
-    font-size: 1.3rem;
+margin-bottom: 1rem;
+text-transform: lowercase;
+font-size: 1.3rem;
 }
 
 .mobile-warning-popup p {
-    margin-bottom: 1.5rem;
-    font-size: 0.9rem;
-    line-height: 1.5;
+margin-bottom: 1.5rem;
+font-size: 0.9rem;
+line-height: 1.5;
 }
 
 .mobile-warning-close {
-    background: none;
-    border: 1px solid var(--text-color);
-    color: var(--text-color);
-    padding: 0.5rem 1.5rem;
-    font-family: 'Roboto Mono', monospace;
-    text-transform: lowercase;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
+background: none;
+border: 1px solid var(--text-color);
+color: var(--text-color);
+padding: 0.5rem 1.5rem;
+font-family: 'Roboto Mono', monospace;
+text-transform: lowercase;
+cursor: pointer;
+font-size: 0.9rem;
+transition: all 0.3s ease;
 }
 
 .mobile-warning-close:hover {
-    background-color: var(--text-color);
-    color: var(--bg-color);
+background-color: var(--text-color);
+color: var(--bg-color);
 }
 
 /* Dark mode support */
 body.dark-mode .mobile-warning-popup {
-    background-color: #222;
-    border: 1px solid #444;
+background-color: #222;
+border: 1px solid #444;
 }
 
 body.dark-mode .mobile-warning-close:hover {
-    background-color: var(--text-color);
-    color: #222;
+background-color: var(--text-color);
+color: #222;
 }
 @media (max-height: 700px) {
-  .project-details.active,
-  .details-content {
+.project-details.active,
+.details-content {
+    max-height: calc(100vh - 150px); /* Smaller buffer for short screens */
     max-height: calc(100vh - 150px);
-  }
+}
 }
 
 @media (max-height: 500px) {
-  .project-details.active,
-  .details-content {
+.project-details.active,
+.details-content {
+    max-height: calc(100vh - 120px); /* Even smaller for very short screens */
     max-height: calc(100vh - 120px);
-  }
+}
+ @media (max-width: 768px) {
+  /* Existing code... */
+  
+  /* ADD: Adjust arrow positioning for smaller screens */
 } /* ← ADD THIS CLOSING BRACE */
 
 @media (max-width: 768px) {
   /* Adjust arrow positioning for smaller screens */
-  .arrow-right {
-    right: -30px;
-  }
-  
-  .arrow-left {
-    left: -30px;
-  }
+.arrow-right {
+right: -30px;
+}
+
+.arrow-left {
+left: -30px;
+}
 }
 
 @media (max-width: 480px) {
-  /* Move arrows inside on very small screens */
-  .arrow-right {
-    right: 10px;
-  }
+  /* Existing code... */
   
-  .arrow-left {
-    left: 10px;
-  }
+  /* ADD: Move arrows inside on very small screens */
+  /* Move arrows inside on very small screens */
+.arrow-right {
+right: 10px;
+}
+
+.arrow-left {
+left: 10px;
+}
+}
 }
