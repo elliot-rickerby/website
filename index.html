@@ -57,13 +57,52 @@
 
 <!-- About Section -->
 <div class="about-section" id="aboutSection">
-<img id="about-photo" src="portrait.jpg" alt="Portrait of Elliot">
-<div class="text-block">
-<p><b>elliot rickerby</b> is a cultural researcher and psychologist. blending empirical academic grounding with a passion for fashion, elliot aims to use quality research and scientific understanding to solve problems within the fashion industry. he believes understanding human behaviour is crucial to catalysing progression across all industry areas. </p>
-<p>elliot has carried out research for Uniqlo as well as a range of independent designers, alongside contributing to academic papers. his master’s thesis - scheduled for publication in 2026 - marks an early step in addressing the mental health pressures within the fashion industry. he also writes regularly, with a small collection of published articles and a blog where he crtitically analyses modern culture.</p>
-<p>elliot is open to collaborations and freelance work and is best contacted via the contact page, <a href="https://www.linkedin.com/in/elliotrickerby/">LinkedIn</a> or <a href="https://www.instagram.com/elliotrickerby_/">Instagram</a>.</p>
+  <!-- About Pages Container -->
+  <div class="about-pages-wrapper">
+    
+    <!-- Page 1: Intro -->
+    <div class="about-page about-intro active">
+      <img id="about-photo" src="portrait.jpg" alt="Portrait of Elliot">
+      <div class="text-block">
+        <p><b>elliot rickerby</b> is a cultural researcher and psychologist. blending empirical academic grounding with a passion for fashion, elliot aims to use quality research and scientific understanding to solve problems within the fashion industry. he believes understanding human behaviour is crucial to catalysing progression across all industry areas.</p>
+        <p>elliot has carried out research for Uniqlo as well as a range of independent designers, alongside contributing to academic papers. his master's thesis - scheduled for publication in 2026 - marks an early step in addressing the mental health pressures within the fashion industry. he also writes regularly, with a small collection of published articles and a blog where he crtitically analyses modern culture.</p>
+        <p>elliot is open to collaborations and freelance work and is best contacted via the contact page, <a href="https://www.linkedin.com/in/elliotrickerby/">LinkedIn</a> or <a href="https://www.instagram.com/elliotrickerby_/">Instagram</a>.</p>
+      </div>
+      
+      <!-- Right Arrow (to CV) -->
+      <button class="about-nav-arrow arrow-right" id="aboutArrowRight">
+        <svg width="20" height="20" viewBox="0 0 20 20">
+          <path d="M8 4L14 10L8 16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+    
+    <!-- Page 2: CV -->
+    <div class="about-page about-cv">
+      <!-- Left Arrow (back to Intro) -->
+      <button class="about-nav-arrow arrow-left" id="aboutArrowLeft">
+        <svg width="20" height="20" viewBox="0 0 20 20">
+          <path d="M12 4L6 10L12 16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      
+      <div class="cv-content">
+        <h3>EDUCATION</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+        
+        <h3>PUBLICATIONS & PRESS RELEASES</h3>
+        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        
+        <h3>OTHER COURSES AND QUALIFICATIONS</h3>
+        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+      </div>
+    </div>
+    
+  </div>
 </div>
-</div>
+
+<!-- Cursor Tooltip -->
+<div class="cursor-tooltip" id="cursorTooltip">more info</div>
 
 <!-- Portfolio Section -->
 <div class="portfolio-section" id="portfolioSection">
@@ -684,6 +723,41 @@ document.getElementById('contact-form').addEventListener('submit', function() {
     }
   });
 });
+  // About Section Navigation
+const aboutArrowRight = document.getElementById('aboutArrowRight');
+const aboutArrowLeft = document.getElementById('aboutArrowLeft');
+const aboutPagesWrapper = document.querySelector('.about-pages-wrapper');
+const cursorTooltip = document.getElementById('cursorTooltip');
+
+// Navigate to CV page
+if (aboutArrowRight) {
+  aboutArrowRight.addEventListener('click', () => {
+    aboutPagesWrapper.classList.add('show-cv');
+  });
+}
+
+// Navigate back to intro page
+if (aboutArrowLeft) {
+  aboutArrowLeft.addEventListener('click', () => {
+    aboutPagesWrapper.classList.remove('show-cv');
+  });
+}
+
+// Cursor tooltip for right arrow
+if (aboutArrowRight && cursorTooltip) {
+  aboutArrowRight.addEventListener('mouseenter', () => {
+    cursorTooltip.classList.add('active');
+  });
+  
+  aboutArrowRight.addEventListener('mouseleave', () => {
+    cursorTooltip.classList.remove('active');
+  });
+  
+  aboutArrowRight.addEventListener('mousemove', (e) => {
+    cursorTooltip.style.left = (e.clientX + 15) + 'px';
+    cursorTooltip.style.top = (e.clientY + 15) + 'px';
+  });
+}
 </script>
 </body>
 </html>
