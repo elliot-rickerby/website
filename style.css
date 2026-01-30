@@ -550,7 +550,33 @@ transition: width 0.3s ease;
 .project-link:hover::after {
 width: 100%;
 }
+/* -------------------------------
+ Article Button
+--------------------------------*/
+.article-btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 24px;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.9rem;
+  text-transform: lowercase;
+  text-decoration: none;
+  color: var(--text-color);
+  border: 1px solid var(--text-color);
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  background-color: transparent;
+}
 
+.article-btn:hover {
+  background-color: var(--text-color);
+  color: var(--bg-color);
+}
+
+/* Dark mode support */
+body.dark-mode .article-btn:hover {
+  color: var(--bg-color);
+}
 /*--------------------------------
  Collapse Button
 --------------------------------*/
