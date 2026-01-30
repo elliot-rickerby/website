@@ -1060,19 +1060,19 @@ body.dark-mode .mobile-warning-close:hover {
 @media (max-height: 700px) {
   .project-details.active,
   .details-content {
-    max-height: calc(100vh - 150px); /* Smaller buffer for short screens */
+    max-height: calc(100vh - 150px);
   }
 }
 
 @media (max-height: 500px) {
   .project-details.active,
   .details-content {
-    max-height: calc(100vh - 120px); /* Even smaller for very short screens */
+    max-height: calc(100vh - 120px);
   }
- @media (max-width: 768px) {
-  /* Existing code... */
-  
-  /* ADD: Adjust arrow positioning for smaller screens */
+} /* ← ADD THIS CLOSING BRACE */
+
+@media (max-width: 768px) {
+  /* Adjust arrow positioning for smaller screens */
   .arrow-right {
     right: -30px;
   }
@@ -1083,9 +1083,7 @@ body.dark-mode .mobile-warning-close:hover {
 }
 
 @media (max-width: 480px) {
-  /* Existing code... */
-  
-  /* ADD: Move arrows inside on very small screens */
+  /* Move arrows inside on very small screens */
   .arrow-right {
     right: 10px;
   }
@@ -1093,5 +1091,4 @@ body.dark-mode .mobile-warning-close:hover {
   .arrow-left {
     left: 10px;
   }
-}
 }
