@@ -57,20 +57,6 @@
   
 <!-- About Section -->
 <div class="about-section" id="aboutSection">
-  <!-- Left Arrow (always visible, positioned outside) -->
-  <button class="about-nav-arrow arrow-left" id="aboutArrowLeft">
-    <svg width="20" height="20" viewBox="0 0 20 20">
-      <path d="M12 4L6 10L12 16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-  </button>
-  
-  <!-- Right Arrow (always visible, positioned outside) -->
-  <button class="about-nav-arrow arrow-right" id="aboutArrowRight">
-    <svg width="20" height="20" viewBox="0 0 20 20">
-      <path d="M8 4L14 10L8 16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-  </button>
-  
   <!-- About Pages Container -->
   <div class="about-pages-wrapper">
     
@@ -88,17 +74,41 @@
     <div class="about-page about-cv">
       <div class="cv-content">
         <h3>EDUCATION</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+        <p>Master of Science in Applied Psychology in Fashion - London College of Fashion, University of the Arts London (2023-2024). Dissertation focused on mental health pressures within the fashion design industry, employing qualitative analysis of 15 semi-structured interviews with fashion designers to explore workplace culture, educational pressures, and systemic mental health challenges.</p>
+        
+        <p>Bachelor of Science in Psychology - University of Bath (2019-2022). Graduated with First Class Honours. Research project investigated cognitive biases in decision-making processes within creative industries, with particular focus on confirmation bias in fashion trend forecasting.</p>
         
         <h3>PUBLICATIONS & PRESS RELEASES</h3>
-        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p>Rickerby, E. (2024). "To Wear or Not to Wear? Cultural Perspectives on AIRism Innerwear Consumption in European Markets." Collaborative study with UNIQLO and Toray Industries, presented at London College of Fashion's Annual Research Symposium. Recipient of Best Presenter and Innovative Research Awards.</p>
+        
+        <p>University of the Arts London Press Release (2024). "MSc Applied Psychology in Fashion Students Explore Cultural Differences in the Way We Wear Our Pants." Featured research on cross-cultural consumption patterns of innerwear between Asian and European markets.</p>
+        
+        <p>Rickerby, E. (2024). "Behind the Seams: The Fashion Design Mental Health Crisis." Blog article analyzing preliminary findings from master's thesis research, published on FashionIsPsychology.com.</p>
         
         <h3>OTHER COURSES AND QUALIFICATIONS</h3>
-        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+        <p>Qualitative Research Methods Certification - London School of Economics (2023). Comprehensive training in semi-structured interviewing, thematic analysis, and interpretative phenomenological analysis (IPA) methodologies.</p>
+        
+        <p>Fashion Business Strategy - Business of Fashion (2022). Specialized course covering fashion industry economics, brand development, and sustainable business models within the contemporary fashion landscape.</p>
+        
+        <p>Mental Health First Aid England Certification (2021). Accredited training in recognizing and responding to mental health crises in workplace and educational settings.</p>
       </div>
     </div>
     
   </div>
+  
+  <!-- Right Arrow (only visible on Intro page) -->
+  <button class="about-nav-arrow arrow-right" id="aboutArrowRight" data-tooltip="More info">
+    <svg width="20" height="20" viewBox="0 0 20 20">
+      <path d="M8 4L14 10L8 16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+  
+  <!-- Left Arrow (only visible on CV page) -->
+  <button class="about-nav-arrow arrow-left" id="aboutArrowLeft">
+    <svg width="20" height="20" viewBox="0 0 20 20">
+      <path d="M12 4L6 10L12 16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
 </div>
 
 <!-- Cursor Tooltip -->
@@ -403,6 +413,50 @@ collapseBtn.addEventListener('click', (e) => {
   socialIcons.classList.remove('active');
   collapseBtn.classList.remove('active');
 });
+
+// About Section Navigation
+const aboutArrowRight = document.getElementById('aboutArrowRight');
+const aboutArrowLeft = document.getElementById('aboutArrowLeft');
+const aboutPagesWrapper = document.querySelector('.about-pages-wrapper');
+const cursorTooltip = document.getElementById('cursorTooltip');
+
+// Navigate to CV page
+if (aboutArrowRight) {
+  aboutArrowRight.addEventListener('click', () => {
+    aboutPagesWrapper.classList.add('show-cv');
+  });
+}
+
+// Navigate back to intro page
+if (aboutArrowLeft) {
+  aboutArrowLeft.addEventListener('click', () => {
+    aboutPagesWrapper.classList.remove('show-cv');
+  });
+}
+
+// Cursor tooltip for right arrow
+if (aboutArrowRight && cursorTooltip) {
+  aboutArrowRight.addEventListener('mouseenter', () => {
+    cursorTooltip.textContent = 'more info';
+    cursorTooltip.classList.add('active');
+  });
+  
+  aboutArrowRight.addEventListener('mouseleave', () => {
+    cursorTooltip.classList.remove('active');
+  });
+  
+  aboutArrowRight.addEventListener('mousemove', (e) => {
+    cursorTooltip.style.left = (e.clientX + 15) + 'px';
+    cursorTooltip.style.top = (e.clientY + 15) + 'px';
+  });
+}
+
+// Hide tooltip when clicking arrow
+if (aboutArrowRight && cursorTooltip) {
+  aboutArrowRight.addEventListener('click', () => {
+    cursorTooltip.classList.remove('active');
+  });
+}
 
 // Portfolio Carousel
 const titleTrack = document.querySelector('.title-track');
