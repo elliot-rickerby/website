@@ -367,37 +367,38 @@ opacity: 0.6; /* Your existing number styling */
 }
 
 /* -------------------------------
-  Expanding Details Panel - ENHANCED
-  Expanding Details Panel 
+  Expanding Details Panel - DYNAMIC
 --------------------------------*/
 .project-details-container {
-width: 100%;
-max-width: 750px;
-
+  width: 100%;
+  max-width: 750px;
 }
 
 .project-details {
-width: 100%;
-overflow: hidden;
-max-height: 0;
-opacity: 0;
-transition:
-max-height 0.7s cubic-bezier(0.4, 0, 0.2, 1),
-opacity 0.4s ease;
+  width: 100%;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition:
+    max-height 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.4s ease;
 }
 
-/* Show only the active project details */
+/* Show only the active project details - DYNAMIC HEIGHT */
 .project-details.active {
-max-height: 800px; /* Increased for more content */
-opacity: 1;
+  max-height: calc(100vh - 200px); /* Viewport height minus buffer for name/nav */
+  opacity: 1;
 }
 
-/* Style for the content inside */
+/* Style for the content inside - ADD SCROLL */
 .details-content {
-padding: 40px;
-background-color: rgba(0, 0, 0, 0.03);
-border-radius: 12px;
-border: 1px solid var(--muted-stroke);
+  position: relative;
+  padding: 40px;
+  background-color: rgba(0, 0, 0, 0.03);
+  border-radius: 12px;
+  border: 1px solid var(--muted-stroke);
+  max-height: calc(100vh - 200px); /* Match parent */
+  overflow-y: auto; /* Enable scrolling if content exceeds */
 }
 
 /* Detail Title */
@@ -959,4 +960,17 @@ body.dark-mode .mobile-warning-popup {
 body.dark-mode .mobile-warning-close:hover {
     background-color: var(--text-color);
     color: #222;
+}
+@media (max-height: 700px) {
+  .project-details.active,
+  .details-content {
+    max-height: calc(100vh - 150px); /* Smaller buffer for short screens */
+  }
+}
+
+@media (max-height: 500px) {
+  .project-details.active,
+  .details-content {
+    max-height: calc(100vh - 120px); /* Even smaller for very short screens */
+  }
 }
