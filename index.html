@@ -300,46 +300,50 @@ const portfolioBtn = document.getElementById('portfolioBtn');
 const portfolioSection = document.getElementById('portfolioSection');
 
 // Navigation
-aboutBtn.addEventListener('click', (e) => {
-  e.preventDefault();
+function showSection(sectionName) {
+  const sections = {
+    about: aboutSection,
+    contact: contactSection,
+    portfolio: portfolioSection
+  };
+  
+  const buttons = {
+    about: aboutBtn,
+    contact: contactBtn,
+    portfolio: portfolioBtn
+  };
+  
+  // Add fixed positioning
   landingName.classList.add('fixed');
   landingNav.classList.add('fixed');
-  aboutSection.classList.add('active');
   collapseBtn.classList.add('active');
-  aboutBtn.classList.add('active');
-  contactBtn.classList.remove('active');
-  contactSection.classList.remove('active');
-  portfolioBtn.classList.remove('active');
-  portfolioSection.classList.remove('active');
-  socialIcons.classList.remove('active');
+  
+  // Hide all sections and deactivate all buttons
+  Object.values(sections).forEach(s => s.classList.remove('active'));
+  Object.values(buttons).forEach(b => b.classList.remove('active'));
+  portfolioSection.classList.remove('expanded');
+  
+  // Show selected section
+  sections[sectionName].classList.add('active');
+  buttons[sectionName].classList.add('active');
+  
+  // Handle social icons visibility
+  socialIcons.classList.toggle('active', sectionName === 'contact');
+}
+
+aboutBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+  showSection('about');
 });
 
 contactBtn.addEventListener('click', (e) => {
   e.preventDefault();
-  landingName.classList.add('fixed');
-  landingNav.classList.add('fixed');
-  contactSection.classList.add('active');
-  collapseBtn.classList.add('active');
-  contactBtn.classList.add('active');
-  aboutSection.classList.remove('active');
-  aboutBtn.classList.remove('active');
-  portfolioBtn.classList.remove('active');
-  portfolioSection.classList.remove('active');
-  socialIcons.classList.add('active');
+  showSection('contact');
 });
 
 portfolioBtn.addEventListener('click', (e) => {
   e.preventDefault();
-  landingName.classList.add('fixed');
-  landingNav.classList.add('fixed');
-  portfolioSection.classList.add('active');
-  collapseBtn.classList.add('active');
-  portfolioBtn.classList.add('active');
-  aboutSection.classList.remove('active');
-  aboutBtn.classList.remove('active');
-  contactSection.classList.remove('active');
-  contactBtn.classList.remove('active');
-  socialIcons.classList.remove('active');
+  showSection('portfolio');
 });
 
 // Collapse all sections
@@ -559,16 +563,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const collapse = document.getElementById('collapseBtn');
   const socials = document.getElementById('social-icons');
 
-  if (collapse && collapse.parentElement !== document.body) {
-    document.body.appendChild(collapse);
-  }
-  if (socials && socials.parentElement !== document.body) {
-    document.body.appendChild(socials);
-  }
-
-  collapse && (collapse.style.zIndex = 9999);
-  socials && (socials.style.zIndex = 9999);
-
   // Dark Mode Toggle
   const darkModeToggle = document.getElementById('darkModeSwitch');
   const body = document.body;
@@ -643,8 +637,6 @@ document.getElementById('contact-form').addEventListener('submit', function() {
   function showMobileWarning() {
       const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
       const hasDismissed = sessionStorage.getItem('mobileWarningDismissed');
-      
-      console.log('Mobile check:', { isMobile, hasDismissed }); // Debug log
       
       if (isMobile && !hasDismissed) {
           // Show after 3 seconds
