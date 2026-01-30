@@ -193,7 +193,6 @@ transition: width 0.3s ease, margin 0.3s ease;
 
 /* Contact form */
 #contact-form-wrapper {
-position: static;
 width: 100%;
 pointer-events: none;
 }
@@ -470,14 +469,6 @@ height: 16px;
 display: block;
 }
 
-/* Make sure details-content has relative positioning for the absolute close button */
-.details-content {
-position: relative; /* ADD THIS */
-padding: 40px;
-background-color: rgba(0, 0, 0, 0.03);
-border-radius: 12px;
-border: 1px solid var(--muted-stroke);
-}
 /*-----------------------------
 Dark mode support
 -----------------------------*/
@@ -874,13 +865,6 @@ margin: 0 auto 0.8rem;
 }
 }
 
-.arrow-up {
-top: 35px !important; /* 5px original + 30px padding */
-}
-
-.arrow-down {
-bottom: 35px !important; /* Match the up arrow distance */
-}
 /* -------------------------------
  Mobile Warning Popup
 --------------------------------*/
