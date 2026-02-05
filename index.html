@@ -773,18 +773,10 @@ updateAboutArrows();
 aboutBtn.addEventListener('click', (e) => {
   e.preventDefault();
   showSection('about');
-  // Reset to first page with animation
+  // Reset to first page
   aboutPagesWrapper.classList.remove('show-cv');
   aboutCurrentPage = 0;
-  setTimeout(() => updateAboutArrows(), 10); // Small delay for smooth transition
-});
-
-collapseBtn.addEventListener('click', (e) => {
-  e.preventDefault();
-  // Reset About section when collapsing
-  aboutPagesWrapper.classList.remove('show-cv');
-  aboutCurrentPage = 0;
-  updateAboutArrows();
+  setTimeout(() => updateAboutArrows(), 10);
 });
 </script>
 </body>
