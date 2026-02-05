@@ -244,7 +244,7 @@ About Section - Horizontal Carousel
 About Navigation Arrows - Fixed outside
 --------------------------------*/
 .about-nav-arrow {
-  position: fixed; /* CHANGED from absolute to fixed */
+  position: fixed;
   top: 50%;
   transform: translateY(-50%);
   background: none;
@@ -252,31 +252,38 @@ About Navigation Arrows - Fixed outside
   color: var(--text-color);
   cursor: pointer;
   padding: 15px;
-  opacity: 0.7;
+  opacity: 0;
   transition: all 0.3s ease;
   z-index: 10;
-  visibility: visible;
+  visibility: hidden;
+  pointer-events: none;
 }
 
-.about-nav-arrow:hover:not(.hidden) {
+.arrow-right {
+  right: -30px; /* Keep your positioning */
+}
+
+.arrow-left {
+  left: -30px; /* Keep your positioning */
+}
+
+/* Show arrows when About section is active (arrows come AFTER .about-section) */
+.about-section.active ~ .about-nav-arrow {
+  opacity: 0.7;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Hover effect when visible and not hidden */
+.about-section.active ~ .about-nav-arrow:hover:not(.hidden) {
   opacity: 1;
   transform: translateY(-50%) scale(1.2);
 }
 
-.arrow-right {
-  right: -30px; /* Simple positioning - adjust as needed */
-}
-
-.arrow-left {
-  left: -30px; /* Simple positioning - adjust as needed */
-  visibility: visible; /* Always visible when not hidden */
-  opacity: 0.7;
-}
-
-/* Hide arrows when not usable */
-.about-nav-arrow.hidden {
-  visibility: hidden;
+/* Hide arrows when hidden class is applied */
+.about-section.active ~ .about-nav-arrow.hidden {
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
   transform: translateY(-50%) scale(0.8);
 }
