@@ -193,7 +193,7 @@ About Section - Horizontal Carousel
   transition: opacity 0.8s ease;
   z-index: 1;
   visibility: hidden;
-  overflow: visible;
+  overflow: hidden;
 }
 
 .about-section.active {
