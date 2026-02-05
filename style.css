@@ -299,12 +299,52 @@ About Navigation Arrows - Fixed outside
 .cv-content {
   text-align: left;
   height: 100%;
-  overflow-y: auto;
+  overflow-y: auto;  /* This enables scrolling */
   padding-right: 10px;
   display: flex;
   flex-direction: column;
-  justify-content: center; 
+  /* Remove justify-content: center to allow natural scrolling */
   min-height: 100%; 
+  /* Add scrollbar styling */
+  scrollbar-width: thin;
+  scrollbar-color: var(--text-color) transparent;
+}
+/* Custom scrollbar for Webkit browsers (Chrome, Safari) */
+.cv-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.cv-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.cv-content::-webkit-scrollbar-thumb {
+  background-color: var(--text-color);
+  border-radius: 3px;
+  opacity: 0.3;
+}
+
+.cv-content::-webkit-scrollbar-thumb:hover {
+  opacity: 0.5;
+}
+
+/* Keep the intro page without scrolling */
+.about-page:first-child .text-block {
+  overflow: visible;
+  height: auto;
+}
+
+/* Make sure the CV page container has proper height */
+.about-page:nth-child(2) {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Adjust padding for better spacing with scrollbar */
+.about-page:nth-child(2) {
+  padding-left: 40px;
+  padding-right: 20px; /* Add right padding for scrollbar */
 }
 
 .cv-content h3 {
