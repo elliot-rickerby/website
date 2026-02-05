@@ -193,20 +193,7 @@ About Section - Horizontal Carousel
   transition: opacity 0.8s ease;
   z-index: 1;
   visibility: hidden;
-  overflow: visible; /* CHANGED: visible instead of hidden */
-}
-
-/* Hide text content when not in view */
-.about-page {
-  position: relative;
-}
-
-.about-page:not(.active) {
-  /* Hide content visually but maintain accessibility */
-  clip-path: inset(100%);
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
+  overflow: hidden; /* ADD THIS */
 }
 
 .about-section.active {
@@ -220,12 +207,12 @@ About Section - Horizontal Carousel
   display: flex;
   width: 200%; /* 2 pages = 200% */
   height: 100%;
-  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth slide */
 }
 
 /* Individual About Pages */
 .about-page {
-  flex: 0 0 50%; /* Each page takes 50% of wrapper */
+  flex: 0 0 50%; /* Each page takes 50% of wrapper (100% of viewport) */
   width: 50%;
   padding: 20px;
   box-sizing: border-box;
@@ -234,16 +221,9 @@ About Section - Horizontal Carousel
   gap: 1.5rem;
 }
 
-/* Center text in first page (intro) */
-.about-page:first-child {
-  text-align: center;
-  align-items: center;
-}
-
-/* Left align in second page (CV) */
+/* Second page (CV) */
 .about-page:nth-child(2) {
-  text-align: left;
-  padding-left: 40px;
+  padding-left: 40px; /* Add some spacing from edge */
 }
 
 /* Slide to second page */
@@ -257,17 +237,7 @@ About Section - Horizontal Carousel
   height: auto;
   margin: 0 auto clamp(1rem, 2vh, 1.5rem);
   display: block;
-}
-
-/* Text Block in first page */
-.text-block {
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.text-block p {
-  margin-bottom: 1rem;
-  line-height: 1.5;
+  transition: width 0.3s ease, margin 0.3s ease;
 }
 
 /* CV Content Styling */
@@ -295,17 +265,17 @@ About Section - Horizontal Carousel
 }
 
 /* -------------------------------
-About Navigation Arrows - SIMPLIFIED
+About Navigation Arrows - Fixed outside
 --------------------------------*/
 .about-nav-arrow {
-  position: absolute; /* Changed from fixed to absolute */
+  position: fixed; /* CHANGED from absolute to fixed */
   top: 50%;
   transform: translateY(-50%);
   background: none;
   border: none;
   color: var(--text-color);
   cursor: pointer;
-  padding: 20px;
+  padding: 15px;
   opacity: 0.7;
   transition: all 0.3s ease;
   z-index: 10;
@@ -318,12 +288,12 @@ About Navigation Arrows - SIMPLIFIED
 }
 
 .arrow-right {
-  right: 50px; /* Fixed distance from right edge */
+  right: calc(50% - min(90vw, 750px) / 2 - 60px); /* Position outside content area */
 }
 
 .arrow-left {
-  left: 50px; /* Fixed distance from left edge */
-  visibility: visible;
+  left: calc(50% - min(90vw, 750px) / 2 - 60px); /* Position outside content area */
+  visibility: visible; /* Always visible when not hidden */
   opacity: 0.7;
 }
 
@@ -343,21 +313,7 @@ About Navigation Arrows - SIMPLIFIED
 }
 
 /* Responsive arrow positioning */
-@media (max-width: 1024px) {
-  .arrow-right {
-    right: 30px;
-  }
-  
-  .arrow-left {
-    left: 30px;
-  }
-}
-
-@media (max-width: 768px) {
-  .about-nav-arrow {
-    padding: 15px;
-  }
-  
+@media (max-width: 900px) {
   .arrow-right {
     right: 20px;
   }
@@ -367,11 +323,21 @@ About Navigation Arrows - SIMPLIFIED
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .about-nav-arrow {
-    padding: 10px;
+    padding: 12px;
   }
   
+  .arrow-right {
+    right: 15px;
+  }
+  
+  .arrow-left {
+    left: 15px;
+  }
+}
+
+@media (max-width: 480px) {
   .arrow-right {
     right: 10px;
   }
