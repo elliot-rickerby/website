@@ -264,11 +264,11 @@ About Navigation Arrows - Fixed outside
 }
 
 .arrow-right {
-  right: 50px; /* Simple positioning - adjust as needed */
+  right: 20px; /* Simple positioning - adjust as needed */
 }
 
 .arrow-left {
-  left: 50px; /* Simple positioning - adjust as needed */
+  left: 20px; /* Simple positioning - adjust as needed */
   visibility: visible; /* Always visible when not hidden */
   opacity: 0.7;
 }
