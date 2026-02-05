@@ -193,7 +193,7 @@ About Section - Horizontal Carousel
   transition: opacity 0.8s ease;
   z-index: 1;
   visibility: hidden;
-  overflow: hidden; /* ADD THIS */
+  overflow: hidden;
 }
 
 .about-section.active {
@@ -242,7 +242,7 @@ About Section - Horizontal Carousel
 
 /* CV Content Styling */
 .cv-content {
-  text-align: left;
+  text-align: center;
   height: 100%;
   overflow-y: auto;
   padding-right: 10px;
