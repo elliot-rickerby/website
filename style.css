@@ -236,8 +236,8 @@ About Section - Horizontal Carousel
 /* First page text block - Limit width and center */
 .about-page:first-child .text-block {
   width: 100%;
-  max-width: 600px; /* Limit width for better readability */
-  margin: 0 auto; /* Center horizontally */
+  max-width: 50vw; 
+  margin: 0 auto; 
 }
 
 /* Second page (CV) - Make it scrollable */
