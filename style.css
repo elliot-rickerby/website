@@ -170,7 +170,7 @@ pointer-events: none;
 transition: opacity 0.8s ease;
 z-index: 1;
 visibility: hidden;
-overflow: hidden; /* ADD: Prevent overflow during slide */
+overflow: visible;
 }
 
 .about-section.active,
@@ -186,6 +186,7 @@ position: relative;
 width: 100%;
 display: flex;
 transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+overflow: hidden; 
 }
 
 /* Individual About Pages */
