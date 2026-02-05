@@ -240,6 +240,53 @@ About Section - Horizontal Carousel
   display: block;
   transition: width 0.3s ease, margin 0.3s ease;
 }
+/* -------------------------------
+About Navigation Arrows - Fixed outside
+--------------------------------*/
+.about-nav-arrow {
+  position: fixed; /* CHANGED from absolute to fixed */
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--text-color);
+  cursor: pointer;
+  padding: 15px;
+  opacity: 0.7;
+  transition: all 0.3s ease;
+  z-index: 10;
+  visibility: visible;
+}
+
+.about-nav-arrow:hover:not(.hidden) {
+  opacity: 1;
+  transform: translateY(-50%) scale(1.2);
+}
+
+.arrow-right {
+  right: 50px; /* Simple positioning - adjust as needed */
+}
+
+.arrow-left {
+  left: 50px; /* Simple positioning - adjust as needed */
+  visibility: visible; /* Always visible when not hidden */
+  opacity: 0.7;
+}
+
+/* Hide arrows when not usable */
+.about-nav-arrow.hidden {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-50%) scale(0.8);
+}
+
+/* Arrow icons */
+.arrow-icon {
+  width: 16px;
+  height: 24px;
+  display: block;
+}
 
 /* CV Content Styling */
 .cv-content {
@@ -265,56 +312,6 @@ About Section - Horizontal Carousel
   line-height: 1.5;
 }
 
-/* Base arrow styles */
-.about-nav-arrow {
-  position: fixed;
-  /* ... other styles */
-  visibility: visible; /* This should make them visible */
-}
-
-.arrow-right {
-  right: calc(50% - min(90vw, 750px) / 2 - 60px);
-}
-
-.arrow-left {
-  left: calc(50% - min(90vw, 750px) / 2 - 60px);
-  visibility: visible; /* This line is redundant but could cause issues */
-}
-
-/* RESPONSIVE STYLES - THESE MIGHT BE OVERRIDING DESKTOP */
-@media (max-width: 900px) {
-  .arrow-right {
-    right: 20px; /* This overrides desktop positioning */
-  }
-  
-  .arrow-left {
-    left: 20px; /* This overrides desktop positioning */
-  }
-}
-
-@media (max-width: 768px) {
-  .about-nav-arrow {
-    padding: 12px;
-  }
-  
-  .arrow-right {
-    right: 15px;
-  }
-  
-  .arrow-left {
-    left: 15px;
-  }
-}
-
-@media (max-width: 480px) {
-  .arrow-right {
-    right: 10px;
-  }
-  
-  .arrow-left {
-    left: 10px;
-  }
-}
 
 /* Cursor Tooltip */
 .cursor-tooltip {
