@@ -1153,7 +1153,7 @@ color: #222;
 @media (max-height: 700px) {
 .project-details.active,
 .details-content {
-    max-height: calc(100vh - 150px); /* Smaller buffer for short screens */
+    max-height: calc(100vh - 150px); 
     max-height: calc(100vh - 150px);
 }
 }
@@ -1161,14 +1161,9 @@ color: #222;
 @media (max-height: 500px) {
 .project-details.active,
 .details-content {
-    max-height: calc(100vh - 120px); /* Even smaller for very short screens */
-    max-height: calc(100vh - 120px);
+    max-height: calc(100vh - 120px); 
 }
- @media (max-width: 768px) {
-  /* Existing code... */
-  
-  /* ADD: Adjust arrow positioning for smaller screens */
-} /* ← ADD THIS CLOSING BRACE */
+} 
 
 @media (max-width: 768px) {
   /* Adjust arrow positioning for smaller screens */
@@ -1192,6 +1187,5 @@ right: 10px;
 
 .arrow-left {
 left: 10px;
-}
-}
+ }
 }
