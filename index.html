@@ -57,13 +57,48 @@
 
 <!-- About Section -->
 <div class="about-section" id="aboutSection">
-<img id="about-photo" src="portrait.jpg" alt="Portrait of Elliot">
-<div class="text-block">
-<p><b>elliot rickerby</b> is a cultural researcher and psychologist. blending empirical academic grounding with a passion for fashion, elliot aims to use quality research and scientific understanding to solve problems within the fashion industry. he believes understanding human behaviour is crucial to catalysing progression across all industry areas. </p>
-<p>elliot has carried out research for Uniqlo as well as a range of independent designers, alongside contributing to academic papers. his master’s thesis - scheduled for publication in 2026 - marks an early step in addressing the mental health pressures within the fashion industry. he also writes regularly, with a small collection of published articles and a blog where he crtitically analyses modern culture.</p>
-<p>elliot is open to collaborations and freelance work and is best contacted via the contact page, <a href="https://www.linkedin.com/in/elliotrickerby/">LinkedIn</a> or <a href="https://www.instagram.com/elliotrickerby_/">Instagram</a>.</p>
-</div>    
+  <!-- About Pages Wrapper (horizontal slider) -->
+  <div class="about-pages-wrapper">
+    
+    <!-- Page 1: Intro (your existing content) -->
+    <div class="about-page">
+      <img id="about-photo" src="portrait.jpg" alt="Portrait of Elliot">
+      <div class="text-block">
+        <p><b>elliot rickerby</b> is a cultural researcher and psychologist. blending empirical academic grounding with a passion for fashion, elliot aims to use quality research and scientific understanding to solve problems within the fashion industry. he believes understanding human behaviour is crucial to catalysing progression across all industry areas.</p>
+        <p>elliot has carried out research for Uniqlo as well as a range of independent designers, alongside contributing to academic papers. his master's thesis - scheduled for publication in 2026 - marks an early step in addressing the mental health pressures within the fashion industry. he also writes regularly, with a small collection of published articles and a blog where he crtitically analyses modern culture.</p>
+        <p>elliot is open to collaborations and freelance work and is best contacted via the contact page, <a href="https://www.linkedin.com/in/elliotrickerby/">LinkedIn</a> or <a href="https://www.instagram.com/elliotrickerby_/">Instagram</a>.</p>
+      </div>
+    </div>
+    
+    <!-- Page 2: CV/Qualifications -->
+    <div class="about-page">
+      <div class="cv-content">
+        <h3>Education</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        
+        <h3>Other Courses & Qualifications</h3>
+        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        
+        <h3>Press & Articles</h3>
+        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+        <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      </div>
+    </div>
+    
   </div>
+  
+  <!-- Navigation Arrows -->
+  <button class="about-nav-arrow arrow-right" id="aboutArrowRight" aria-label="Next page">
+    <svg class="arrow-icon" width="12" height="20" viewBox="0 0 12 20">
+      <path d="M0 0L12 10L0 20V0Z" fill="currentColor"/>
+    </svg>
+  </button>
+  
+  <button class="about-nav-arrow arrow-left" id="aboutArrowLeft" aria-label="Previous page">
+    <svg class="arrow-icon" width="12" height="20" viewBox="0 0 12 20">
+      <path d="M12 0L0 10L12 20V0Z" fill="currentColor"/>
+    </svg>
+  </button>
 </div>
 
 
@@ -723,6 +758,60 @@ if (aboutArrowRight && cursorTooltip) {
     cursorTooltip.style.top = (e.clientY + 15) + 'px';
   });
 }
+  // About Section Navigation
+const aboutArrowRight = document.getElementById('aboutArrowRight');
+const aboutArrowLeft = document.getElementById('aboutArrowLeft');
+const aboutPagesWrapper = document.querySelector('.about-pages-wrapper');
+let aboutCurrentPage = 0; // 0 = intro, 1 = CV
+
+function updateAboutArrows() {
+  // Hide left arrow on first page
+  if (aboutCurrentPage === 0) {
+    aboutArrowLeft.classList.add('hidden');
+  } else {
+    aboutArrowLeft.classList.remove('hidden');
+  }
+  
+  // Hide right arrow on last page
+  if (aboutCurrentPage === 1) {
+    aboutArrowRight.classList.add('hidden');
+  } else {
+    aboutArrowRight.classList.remove('hidden');
+  }
+}
+
+// Navigate to CV page (right arrow)
+if (aboutArrowRight) {
+  aboutArrowRight.addEventListener('click', () => {
+    if (aboutCurrentPage === 0) {
+      aboutPagesWrapper.classList.add('show-cv');
+      aboutCurrentPage = 1;
+      updateAboutArrows();
+    }
+  });
+}
+
+// Navigate back to intro page (left arrow)
+if (aboutArrowLeft) {
+  aboutArrowLeft.addEventListener('click', () => {
+    if (aboutCurrentPage === 1) {
+      aboutPagesWrapper.classList.remove('show-cv');
+      aboutCurrentPage = 0;
+      updateAboutArrows();
+    }
+  });
+}
+
+// Initialize arrow visibility
+updateAboutArrows();
+
+// Optional: Reset to first page when About section is opened
+aboutBtn.addEventListener('click', () => {
+  aboutPagesWrapper.classList.remove('show-cv');
+  aboutCurrentPage = 0;
+  updateAboutArrows();
+});
+  }
 </script>
 </body>
 </html>
