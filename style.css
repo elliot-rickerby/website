@@ -229,38 +229,18 @@ margin-bottom: 1rem;
 
 /* About Navigation Arrows */
 .about-nav-arrow {
-position: absolute;
-top: 50%;
-transform: translateY(-50%);
-background: none;
-border: none;
-color: var(--text-color);
-cursor: pointer;
-padding: 12px;
-opacity: 0.5;
-transition: opacity 0.3s ease, transform 0.3s ease;
-z-index: 5;
-}
-
-.about-nav-arrow:hover {
-opacity: 1;
-transform: translateY(-50%) scale(1.1);
-}
-
-.arrow-right {
-right: -40px; /* Position outside the content */
-}
-
-.arrow-left {
-left: -40px; /* Position outside the content */
-}
-/* -------------------------------
-About Arrow Visibility Control
---------------------------------*/
-.about-nav-arrow {
-  visibility: visible;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--text-color);
+  cursor: pointer;
+  padding: 12px;
   opacity: 0.5;
+  visibility: visible;
   transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+  z-index: 5;
 }
 
 .about-nav-arrow:hover:not(.hidden) {
@@ -268,17 +248,21 @@ About Arrow Visibility Control
   transform: translateY(-50%) scale(1.1);
 }
 
+.arrow-right {
+  right: -40px;
+}
+
+.arrow-left {
+  left: -40px;
+  visibility: hidden;
+  opacity: 0;
+}
+
 /* Hide arrows completely when not usable */
 .about-nav-arrow.hidden {
   visibility: hidden;
   opacity: 0;
   pointer-events: none;
-}
-
-/* Initially hide left arrow */
-.arrow-left {
-  visibility: hidden;
-  opacity: 0;
 }
 
 /* Cursor Tooltip */
