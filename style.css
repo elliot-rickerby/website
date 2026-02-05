@@ -254,6 +254,32 @@ right: -40px; /* Position outside the content */
 .arrow-left {
 left: -40px; /* Position outside the content */
 }
+/* -------------------------------
+About Arrow Visibility Control
+--------------------------------*/
+.about-nav-arrow {
+  visibility: visible;
+  opacity: 0.5;
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+}
+
+.about-nav-arrow:hover:not(.hidden) {
+  opacity: 1;
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* Hide arrows completely when not usable */
+.about-nav-arrow.hidden {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Initially hide left arrow */
+.arrow-left {
+  visibility: hidden;
+  opacity: 0;
+}
 
 /* Cursor Tooltip */
 .cursor-tooltip {
