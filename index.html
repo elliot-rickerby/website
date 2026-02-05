@@ -390,18 +390,23 @@ showSection('portfolio');
 
 // Collapse all sections
 collapseBtn.addEventListener('click', (e) => {
-e.preventDefault();
-landingName.classList.remove('fixed');
-landingNav.classList.remove('fixed');
-aboutSection.classList.remove('active');
-contactSection.classList.remove('active');
-portfolioSection.classList.remove('active');
-portfolioSection.classList.remove('expanded');
-aboutBtn.classList.remove('active');
-contactBtn.classList.remove('active');
-portfolioBtn.classList.remove('active');
-socialIcons.classList.remove('active');
-collapseBtn.classList.remove('active');
+  e.preventDefault();
+  landingName.classList.remove('fixed');
+  landingNav.classList.remove('fixed');
+  aboutSection.classList.remove('active');
+  contactSection.classList.remove('active');
+  portfolioSection.classList.remove('active');
+  portfolioSection.classList.remove('expanded');
+  aboutBtn.classList.remove('active');
+  contactBtn.classList.remove('active');
+  portfolioBtn.classList.remove('active');
+  socialIcons.classList.remove('active');
+  collapseBtn.classList.remove('active');
+  
+  // ADD THIS: Reset about section to first page
+  aboutPagesWrapper.classList.remove('show-cv');
+  aboutCurrentPage = 0;
+  updateAboutArrows();
 });
 
 // Portfolio Carousel
