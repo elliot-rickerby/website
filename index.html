@@ -602,164 +602,123 @@ ease: "sine.inOut"
 
 // DOM element management and dark mode
 document.addEventListener('DOMContentLoaded', () => {
-const collapse = document.getElementById('collapseBtn');
-const socials = document.getElementById('social-icons');
+  const collapse = document.getElementById('collapseBtn');
+  const socials = document.getElementById('social-icons');
 
-// Dark Mode Toggle
-const darkModeToggle = document.getElementById('darkModeSwitch');
-const body = document.body;
-const savedTheme = localStorage.getItem('theme');
+  // Dark Mode Toggle
+  const darkModeToggle = document.getElementById('darkModeSwitch');
+  const body = document.body;
+  const savedTheme = localStorage.getItem('theme');
 
-if (savedTheme === 'dark') {
-body.classList.add('dark-mode');
-darkModeToggle.checked = true;
-} else {
-body.classList.remove('dark-mode');
-darkModeToggle.checked = false;
-if (!savedTheme) {
-localStorage.setItem('theme', 'light');
-}
-}
-
-// Contact form reset with success message (FIXED VERSION)
-document.getElementById('contact-form').addEventListener('submit', function() {
-const form = this;
-
-setTimeout(() => {
-// 1. Reset the form (clear all fields)
-form.reset();
-
-// 2. Create and show success message - ABSOLUTELY POSITIONED
-const successMessage = document.createElement('div');
-successMessage.textContent = 'message sent!';
-successMessage.style.cssText = `
-     position: absolute;
-     left: 50%;
-     transform: translateX(-50%);
-     bottom: -40px; /* Position below the form */
-     font-family: 'Roboto Mono', monospace;
-     text-transform: lowercase;
-     color: var(--text-color);
-     font-size: 0.9rem;
-     opacity: 0;
-     text-align: center;
-     white-space: nowrap;
-     transition: opacity 0.5s ease;
-     pointer-events: none;
-     z-index: 2;
-   `;
-
-// 3. Add message to form (which has position: relative)
-form.style.position = 'relative'; // Ensure form is positioning context
-form.appendChild(successMessage);
-
-// 4. Fade in
-setTimeout(() => {
-successMessage.style.opacity = '0.7';
-}, 10);
-
-// 5. Remove message after 5 seconds with fade out
-setTimeout(() => {
-successMessage.style.opacity = '0';
-setTimeout(() => {
-if (successMessage.parentNode) {
-successMessage.parentNode.removeChild(successMessage);
-}
-}, 500);
-}, 5000);
-
-}, 1000);
-
-});
-// Mobile Warning Popup
-const mobileWarning = document.getElementById('mobileWarning');
-const mobileWarningClose = document.getElementById('mobileWarningClose');
-
-// Check if user is on mobile and hasn't dismissed the warning before
-function showMobileWarning() {
-const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-const hasDismissed = sessionStorage.getItem('mobileWarningDismissed');
-
-if (isMobile && !hasDismissed) {
-// Show after 3 seconds
-setTimeout(() => {
-mobileWarning.classList.add('active');
-// Prevent body scrolling when popup is visible
-document.body.style.overflow = 'hidden';
-}, 3000);
-}
-}
-
-// Close popup
-if (mobileWarningClose) {
-mobileWarningClose.addEventListener('click', () => {
-mobileWarning.classList.remove('active');
-document.body.style.overflow = ''; // Restore scrolling
-sessionStorage.setItem('mobileWarningDismissed', 'true');
-});
-}
-
-// Also close if clicking outside the popup
-if (mobileWarning) {
-mobileWarning.addEventListener('click', (e) => {
-if (e.target === mobileWarning) {
-mobileWarning.classList.remove('active');
-document.body.style.overflow = '';
-sessionStorage.setItem('mobileWarningDismissed', 'true');
-}
-});
-
-// Call the function when DOM is loaded
-showMobileWarning();
-}
-
-darkModeToggle.addEventListener('change', () => {
-if (darkModeToggle.checked) {
-body.classList.add('dark-mode');
-localStorage.setItem('theme', 'dark');
-} else {
-body.classList.remove('dark-mode');
-localStorage.setItem('theme', 'light');
-}
-});
-});
+  if (savedTheme === 'dark') {
+    body.classList.add('dark-mode');
+    darkModeToggle.checked = true;
+  } else {
+    body.classList.remove('dark-mode');
+    darkModeToggle.checked = false;
+    if (!savedTheme) {
+      localStorage.setItem('theme', 'light');
+    }
   }
-  // About Section Navigation
-const aboutArrowRight = document.getElementById('aboutArrowRight');
-const aboutArrowLeft = document.getElementById('aboutArrowLeft');
-const aboutPagesWrapper = document.querySelector('.about-pages-wrapper');
-const cursorTooltip = document.getElementById('cursorTooltip');
 
-// Navigate to CV page
-if (aboutArrowRight) {
-  aboutArrowRight.addEventListener('click', () => {
-    aboutPagesWrapper.classList.add('show-cv');
-  });
-}
+  // Contact form reset with success message
+  document.getElementById('contact-form').addEventListener('submit', function() {
+    const form = this;
 
-// Navigate back to intro page
-if (aboutArrowLeft) {
-  aboutArrowLeft.addEventListener('click', () => {
-    aboutPagesWrapper.classList.remove('show-cv');
-  });
-}
+    setTimeout(() => {
+      // 1. Reset the form (clear all fields)
+      form.reset();
 
-// Cursor tooltip for right arrow
-if (aboutArrowRight && cursorTooltip) {
-  aboutArrowRight.addEventListener('mouseenter', () => {
-    cursorTooltip.classList.add('active');
+      // 2. Create and show success message - ABSOLUTELY POSITIONED
+      const successMessage = document.createElement('div');
+      successMessage.textContent = 'message sent!';
+      successMessage.style.cssText = `
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: -40px;
+        font-family: 'Roboto Mono', monospace;
+        text-transform: lowercase;
+        color: var(--text-color);
+        font-size: 0.9rem;
+        opacity: 0;
+        text-align: center;
+        white-space: nowrap;
+        transition: opacity 0.5s ease;
+        pointer-events: none;
+        z-index: 2;
+      `;
+
+      // 3. Add message to form
+      form.style.position = 'relative';
+      form.appendChild(successMessage);
+
+      // 4. Fade in
+      setTimeout(() => {
+        successMessage.style.opacity = '0.7';
+      }, 10);
+
+      // 5. Remove message after 5 seconds with fade out
+      setTimeout(() => {
+        successMessage.style.opacity = '0';
+        setTimeout(() => {
+          if (successMessage.parentNode) {
+            successMessage.parentNode.removeChild(successMessage);
+          }
+        }, 500);
+      }, 5000);
+
+    }, 1000);
   });
-  
-  aboutArrowRight.addEventListener('mouseleave', () => {
-    cursorTooltip.classList.remove('active');
+
+  // Mobile Warning Popup
+  const mobileWarning = document.getElementById('mobileWarning');
+  const mobileWarningClose = document.getElementById('mobileWarningClose');
+
+  function showMobileWarning() {
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    const hasDismissed = sessionStorage.getItem('mobileWarningDismissed');
+
+    if (isMobile && !hasDismissed) {
+      setTimeout(() => {
+        mobileWarning.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }, 3000);
+    }
+  }
+
+  if (mobileWarningClose) {
+    mobileWarningClose.addEventListener('click', () => {
+      mobileWarning.classList.remove('active');
+      document.body.style.overflow = '';
+      sessionStorage.setItem('mobileWarningDismissed', 'true');
+    });
+  }
+
+  if (mobileWarning) {
+    mobileWarning.addEventListener('click', (e) => {
+      if (e.target === mobileWarning) {
+        mobileWarning.classList.remove('active');
+        document.body.style.overflow = '';
+        sessionStorage.setItem('mobileWarningDismissed', 'true');
+      }
+    });
+
+    showMobileWarning();
+  }
+
+  darkModeToggle.addEventListener('change', () => {
+    if (darkModeToggle.checked) {
+      body.classList.add('dark-mode');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      body.classList.remove('dark-mode');
+      localStorage.setItem('theme', 'light');
+    }
   });
-  
-  aboutArrowRight.addEventListener('mousemove', (e) => {
-    cursorTooltip.style.left = (e.clientX + 15) + 'px';
-    cursorTooltip.style.top = (e.clientY + 15) + 'px';
-  });
-}
-  // About Section Navigation
+}); // <-- THIS CLOSING BRACE WAS MISSING
+
+// About Section Navigation
 const aboutArrowRight = document.getElementById('aboutArrowRight');
 const aboutArrowLeft = document.getElementById('aboutArrowLeft');
 const aboutPagesWrapper = document.querySelector('.about-pages-wrapper');
@@ -806,13 +765,14 @@ if (aboutArrowLeft) {
 // Initialize arrow visibility
 updateAboutArrows();
 
-// Optional: Reset to first page when About section is opened
-aboutBtn.addEventListener('click', () => {
+// Reset to first page when About section is opened
+aboutBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+  showSection('about');
   aboutPagesWrapper.classList.remove('show-cv');
   aboutCurrentPage = 0;
   updateAboutArrows();
 });
-  }
 </script>
 </body>
 </html>
