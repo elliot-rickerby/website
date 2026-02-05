@@ -154,9 +154,8 @@ bottom: auto;
 }
 
 /* -------------------------------
-About & Contact sections
+Contact section
 --------------------------------*/
-.about-section,
 .contact-section {
 position: absolute;
 top: 50%;
@@ -173,97 +172,179 @@ visibility: hidden;
 overflow: visible;
 }
 
-.about-section.active,
 .contact-section.active {
 opacity: 1;
 pointer-events: auto;
 visibility: visible;
 }
 
-/* About Pages Wrapper */
+/* -------------------------------
+About Section - Horizontal Carousel
+--------------------------------*/
+.about-section {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: min(90vw, 750px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s ease;
+  z-index: 1;
+  visibility: hidden;
+  overflow: hidden; /* ADD THIS */
+}
+
+.about-section.active {
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
+}
+
+/* About Pages Wrapper - Horizontal Container */
 .about-pages-wrapper {
-position: relative;
-width: 100%;
-display: flex;
-transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-overflow: hidden; 
+  display: flex;
+  width: 200%; /* 2 pages = 200% */
+  height: 100%;
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth slide */
 }
 
 /* Individual About Pages */
 .about-page {
-min-width: 100%;
-display: flex;
-flex-direction: column;
-gap: 1.5rem;
-position: relative;
+  flex: 0 0 50%; /* Each page takes 50% of wrapper (100% of viewport) */
+  width: 50%;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
-/* Slide Animation */
+/* Second page (CV) */
+.about-page:nth-child(2) {
+  padding-left: 40px; /* Add some spacing from edge */
+}
+
+/* Slide to second page */
 .about-pages-wrapper.show-cv {
-transform: translateX(-100%);
+  transform: translateX(-50%); /* Move left by 50% (one page width) */
 }
 
 /* About Photo Styling */
 #about-photo {
-width: clamp(60px, 10vw, 100px);
-height: auto;
-margin: 0 auto clamp(1rem, 2vh, 1.5rem);
-display: block;
-transition: width 0.3s ease, margin 0.3s ease;
+  width: clamp(60px, 10vw, 100px);
+  height: auto;
+  margin: 0 auto clamp(1rem, 2vh, 1.5rem);
+  display: block;
+  transition: width 0.3s ease, margin 0.3s ease;
 }
 
 /* CV Content Styling */
+.cv-content {
+  text-align: left;
+  height: 100%;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
 .cv-content h3 {
-margin-top: 1.5rem;
-margin-bottom: 0.8rem;
-font-size: 1.1rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.8rem;
+  font-size: 1.1rem;
+  text-transform: uppercase;
 }
 
 .cv-content h3:first-child {
-margin-top: 0;
+  margin-top: 0;
 }
 
 .cv-content p {
-text-align: left;
-margin-bottom: 1rem;
+  margin-bottom: 1rem;
+  line-height: 1.5;
 }
 
-/* About Navigation Arrows */
+/* -------------------------------
+About Navigation Arrows - Fixed outside
+--------------------------------*/
 .about-nav-arrow {
-  position: absolute;
+  position: fixed; /* CHANGED from absolute to fixed */
   top: 50%;
   transform: translateY(-50%);
   background: none;
   border: none;
   color: var(--text-color);
   cursor: pointer;
-  padding: 12px;
-  opacity: 0.5;
+  padding: 15px;
+  opacity: 0.7;
+  transition: all 0.3s ease;
+  z-index: 10;
   visibility: visible;
-  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
-  z-index: 5;
 }
 
 .about-nav-arrow:hover:not(.hidden) {
   opacity: 1;
-  transform: translateY(-50%) scale(1.1);
+  transform: translateY(-50%) scale(1.2);
 }
 
 .arrow-right {
-  right: -40px;
+  right: calc(50% - min(90vw, 750px) / 2 - 60px); /* Position outside content area */
 }
 
 .arrow-left {
-  left: -40px;
-  visibility: hidden;
-  opacity: 0;
+  left: calc(50% - min(90vw, 750px) / 2 - 60px); /* Position outside content area */
+  visibility: visible; /* Always visible when not hidden */
+  opacity: 0.7;
 }
 
-/* Hide arrows completely when not usable */
+/* Hide arrows when not usable */
 .about-nav-arrow.hidden {
   visibility: hidden;
   opacity: 0;
   pointer-events: none;
+  transform: translateY(-50%) scale(0.8);
+}
+
+/* Arrow icons */
+.arrow-icon {
+  width: 16px;
+  height: 24px;
+  display: block;
+}
+
+/* Responsive arrow positioning */
+@media (max-width: 900px) {
+  .arrow-right {
+    right: 20px;
+  }
+  
+  .arrow-left {
+    left: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-nav-arrow {
+    padding: 12px;
+  }
+  
+  .arrow-right {
+    right: 15px;
+  }
+  
+  .arrow-left {
+    left: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .arrow-right {
+    right: 10px;
+  }
+  
+  .arrow-left {
+    left: 10px;
+  }
 }
 
 /* Cursor Tooltip */
