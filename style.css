@@ -196,7 +196,6 @@ About Section - Horizontal Carousel
   z-index: 1;
   visibility: hidden;
   overflow: hidden;
-  overflow-y: auto;
 }
 
 .about-section.active {
