@@ -196,6 +196,7 @@ About Section - Horizontal Carousel
   z-index: 1;
   visibility: hidden;
   overflow: hidden;
+  overflow-y: auto;
 }
 
 .about-section.active {
@@ -595,7 +596,7 @@ background-color: rgba(0, 0, 0, 0.03);
 border-radius: 12px;
 border: 1px solid var(--muted-stroke);
 max-height: calc(100vh - 200px); /* Match parent */
-overflow-y: auto; /* Enable scrolling if content exceeds */
+overflow-y: auto;
 }
 
 /* Detail Title */
