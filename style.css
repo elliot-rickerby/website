@@ -219,6 +219,7 @@ About Section - Horizontal Carousel
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  text-align: center;
 }
 
 /* Second page (CV) */
