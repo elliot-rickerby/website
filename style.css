@@ -188,7 +188,8 @@ About Section - Horizontal Carousel
   transform: translate(-50%, -50%);
   width: 100%;
   max-width: min(90vw, 750px);
-  max-height: 80vh;
+  height: 70vh; 
+  max-height: 70vh; 
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.8s ease;
@@ -206,29 +207,45 @@ About Section - Horizontal Carousel
 /* About Pages Wrapper - Horizontal Container */
 .about-pages-wrapper {
   display: flex;
-  width: 200%; /* 2 pages = 200% */
-  height: 100%;
-  max-height: 80vh;
-  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth slide */
+  width: 200%;
+  height: 100%; /* Take full height of parent */
+  max-height: 70vh; /* Match parent */
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Individual About Pages */
 .about-page {
-  flex: 0 0 50%; /* Each page takes 50% of wrapper (100% of viewport) */
+  flex: 0 0 50%;
   width: 50%;
   padding: 20px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  text-align: center;
-  height: 100%; /* Add this line */
-  max-height: 80vh; /* Add this line */
+  height: 100%; /* Take full height */
+  max-height: 70vh; /* Don't exceed container */
 }
 
-/* Second page (CV) */
+/* First page (Intro) - Force centering */
+.about-page:first-child {
+  justify-content: center; /* Vertical centering */
+  align-items: center; /* Horizontal centering */
+  text-align: center;
+  gap: 1.5rem;
+}
+
+/* First page text block - Limit width and center */
+.about-page:first-child .text-block {
+  width: 100%;
+  max-width: 600px; /* Limit width for better readability */
+  margin: 0 auto; /* Center horizontally */
+}
+
+/* Second page (CV) - Make it scrollable */
 .about-page:nth-child(2) {
-  padding-left: 40px; /* Add some spacing from edge */
+  padding-left: 40px;
+  padding-right: 25px; /* Extra space for scrollbar */
+  justify-content: flex-start; /* Start from top */
+  overflow: hidden; /* Hide overflow from page container */
 }
 
 /* Slide to second page */
@@ -302,20 +319,22 @@ About Navigation Arrows - Fixed outside
 /* CV Content Styling */
 .cv-content {
   text-align: left;
-  height: 100%;
-  overflow-y: auto;  /* This enables scrolling */
-  padding-right: 10px;
-  display: flex;
-  flex-direction: column;
-  /* Remove justify-content: center to allow natural scrolling */
-  min-height: 100%; 
-  /* Add scrollbar styling */
+  width: 100%;
+  height: 100%; /* Take full height of parent */
+  max-height: 100%; /* Don't exceed parent height */
+  overflow-y: auto; /* Enable vertical scrollbar */
+  padding-right: 15px; /* Space for scrollbar */
+  padding-bottom: 20px; /* Bottom padding */
+  display: block; /* Change from flex to block for proper scrolling */
+  
+  /* Custom scrollbar styling */
   scrollbar-width: thin;
   scrollbar-color: var(--text-color) transparent;
 }
+
 /* Custom scrollbar for Webkit browsers (Chrome, Safari) */
 .cv-content::-webkit-scrollbar {
-  width: 6px;
+  width: 8px; /* Slightly wider for better visibility */
 }
 
 .cv-content::-webkit-scrollbar-track {
@@ -324,31 +343,12 @@ About Navigation Arrows - Fixed outside
 
 .cv-content::-webkit-scrollbar-thumb {
   background-color: var(--text-color);
-  border-radius: 3px;
-  opacity: 0.3;
+  border-radius: 4px;
+  opacity: 0.4;
 }
 
 .cv-content::-webkit-scrollbar-thumb:hover {
-  opacity: 0.5;
-}
-
-/* Keep the intro page without scrolling */
-.about-page:first-child .text-block {
-  overflow: visible;
-  height: auto;
-}
-
-/* Make sure the CV page container has proper height */
-.about-page:nth-child(2) {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Adjust padding for better spacing with scrollbar */
-.about-page:nth-child(2) {
-  padding-left: 40px;
-  padding-right: 20px; /* Add right padding for scrollbar */
+  opacity: 0.6;
 }
 
 .cv-content h3 {
