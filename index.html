@@ -74,14 +74,32 @@
     <div class="about-page">
       <div class="cv-content">
         <h3>Education</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <p><strong>MSc Applied Psychology in Fashion</strong>, London College of Fashion, University of the Arts London (2024)<br>
+        Thesis: "Behind the Seams: The Fashion Design Mental Health Crisis"<br>
+        Graduated with Distinction</p>
         
-        <h3>Other Courses & Qualifications</h3>
-        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <p><strong>BSc Psychology</strong>, University of Roehampton (2023)<br>
+        Final Year Project: "The Impact of Social Media on Body Image and Self-Esteem in Young Adults"</p>
         
-        <h3>Press & Articles</h3>
-        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-        <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <h3>Research Experience</h3>
+        <p><strong>Research Assistant</strong>, London College of Fashion (2023-2024)<br>
+        Conducted primary research for UNIQLO and independent designers investigating consumer behavior and psychological factors influencing fashion choices</p>
+        
+        <p><strong>Research Intern</strong>, Various academic projects (2022-2023)<br>
+        Contributed to peer-reviewed publications focusing on cultural psychology and consumer behavior</p>
+        
+        <h3>Publications & Press</h3>
+        <p>"Behind the Seams: The Fashion Design Mental Health Crisis" - Master's Thesis, 2024<br>
+        Recipient of both the Best Presenter and London College of Fashion's Innovative Research Awards</p>
+        
+        <p>Featured in University of the Arts London press release: "MSc Applied Psychology in Fashion students explore cultural differences in the way we wear our pants"</p>
+        
+        <p>Regular contributor to fashion psychology blog, analyzing modern culture through psychological lens</p>
+        
+        <h3>Certifications</h3>
+        <p>Advanced Statistics for Psychology Research<br>
+        Qualitative Research Methods in Consumer Behavior<br>
+        Ethical Guidelines in Fashion Research</p>
       </div>
     </div>
     
@@ -769,7 +787,7 @@ if (aboutArrowLeft) {
 // Initialize arrow visibility
 updateAboutArrows();
 
-// Reset to first page when About section is opened or collapsed
+// Reset to first page when About section is opened
 aboutBtn.addEventListener('click', (e) => {
   e.preventDefault();
   showSection('about');
@@ -777,6 +795,27 @@ aboutBtn.addEventListener('click', (e) => {
   aboutPagesWrapper.classList.remove('show-cv');
   aboutCurrentPage = 0;
   setTimeout(() => updateAboutArrows(), 10);
+});
+
+// Also reset when about section is closed via collapse button
+collapseBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+  landingName.classList.remove('fixed');
+  landingNav.classList.remove('fixed');
+  aboutSection.classList.remove('active');
+  contactSection.classList.remove('active');
+  portfolioSection.classList.remove('active');
+  portfolioSection.classList.remove('expanded');
+  aboutBtn.classList.remove('active');
+  contactBtn.classList.remove('active');
+  portfolioBtn.classList.remove('active');
+  socialIcons.classList.remove('active');
+  collapseBtn.classList.remove('active');
+  
+  // Reset about section to first page
+  aboutPagesWrapper.classList.remove('show-cv');
+  aboutCurrentPage = 0;
+  updateAboutArrows();
 });
 </script>
 </body>
