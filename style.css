@@ -188,8 +188,8 @@ About Section - Horizontal Carousel
   transform: translate(-50%, -50%);
   width: 100%;
   max-width: min(90vw, 750px);
-  height: 70vh; 
-  max-height: 70vh; 
+  height: 60vh; 
+  max-height: 60vh; 
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.8s ease;
@@ -208,8 +208,8 @@ About Section - Horizontal Carousel
 .about-pages-wrapper {
   display: flex;
   width: 200%;
-  height: 100%; /* Take full height of parent */
-  max-height: 70vh; /* Match parent */
+  height: 100%; 
+  max-height: 60vh; 
   transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -221,8 +221,8 @@ About Section - Horizontal Carousel
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  height: 100%; /* Take full height */
-  max-height: 70vh; /* Don't exceed container */
+  height: 100%; 
+  max-height: 60vh; 
 }
 
 /* First page (Intro) - Force centering */
