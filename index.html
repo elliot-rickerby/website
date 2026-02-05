@@ -389,6 +389,13 @@ buttons[sectionName].classList.add('active');
 
 // Handle social icons visibility
 socialIcons.classList.toggle('active', sectionName === 'contact');
+
+// If showing about section, ensure it starts on the first page
+if (sectionName === 'about') {
+  aboutPagesWrapper.classList.remove('show-cv');
+  aboutCurrentPage = 0;
+  updateAboutArrows();
+}
 }
 
 aboutBtn.addEventListener('click', (e) => {
