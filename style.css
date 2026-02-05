@@ -598,7 +598,25 @@ border: 1px solid var(--muted-stroke);
 max-height: calc(100vh - 200px); /* Match parent */
 overflow-y: auto;
 }
+.details-content {
+  scrollbar-width: thin;
+  scrollbar-color: var(--text-color) transparent;
+}
 
+.details-content::-webkit-scrollbar {
+  width: 8px;
+}
+.details-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+.details-content::-webkit-scrollbar-thumb {
+  background-color: var(--text-color);
+  border-radius: 4px;
+  opacity: 0.4;
+}
+.details-content::-webkit-scrollbar-thumb:hover {
+  opacity: 0.6;
+}
 /* Detail Title */
 .detail-title {
 font-family: 'Roboto Mono', monospace;
