@@ -196,6 +196,19 @@ About Section - Horizontal Carousel
   overflow: visible; /* CHANGED: visible instead of hidden */
 }
 
+/* Hide text content when not in view */
+.about-page {
+  position: relative;
+}
+
+.about-page:not(.active) {
+  /* Hide content visually but maintain accessibility */
+  clip-path: inset(100%);
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
 .about-section.active {
   opacity: 1;
   pointer-events: auto;
@@ -285,7 +298,7 @@ About Section - Horizontal Carousel
 About Navigation Arrows - SIMPLIFIED
 --------------------------------*/
 .about-nav-arrow {
-  position: fixed; /* Fixed to viewport */
+  position: absolute; /* Changed from fixed to absolute */
   top: 50%;
   transform: translateY(-50%);
   background: none;
