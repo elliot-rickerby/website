@@ -721,33 +721,31 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.setItem('theme', 'light');
     }
   });
-}); // <-- THIS CLOSING BRACE WAS MISSING
+});
 
-// About Section Navigation
+// About Section Navigation - Fixed version
 const aboutArrowRight = document.getElementById('aboutArrowRight');
 const aboutArrowLeft = document.getElementById('aboutArrowLeft');
 const aboutPagesWrapper = document.querySelector('.about-pages-wrapper');
 let aboutCurrentPage = 0; // 0 = intro, 1 = CV
 
 function updateAboutArrows() {
-  // Hide left arrow on first page
+  // Show/hide arrows based on current page
   if (aboutCurrentPage === 0) {
+    // On first page - hide left arrow, show right
     aboutArrowLeft.classList.add('hidden');
-  } else {
-    aboutArrowLeft.classList.remove('hidden');
-  }
-  
-  // Hide right arrow on last page
-  if (aboutCurrentPage === 1) {
-    aboutArrowRight.classList.add('hidden');
-  } else {
     aboutArrowRight.classList.remove('hidden');
+  } else {
+    // On second page - show left arrow, hide right
+    aboutArrowLeft.classList.remove('hidden');
+    aboutArrowRight.classList.add('hidden');
   }
 }
 
 // Navigate to CV page (right arrow)
 if (aboutArrowRight) {
-  aboutArrowRight.addEventListener('click', () => {
+  aboutArrowRight.addEventListener('click', (e) => {
+    e.stopPropagation();
     if (aboutCurrentPage === 0) {
       aboutPagesWrapper.classList.add('show-cv');
       aboutCurrentPage = 1;
@@ -758,7 +756,8 @@ if (aboutArrowRight) {
 
 // Navigate back to intro page (left arrow)
 if (aboutArrowLeft) {
-  aboutArrowLeft.addEventListener('click', () => {
+  aboutArrowLeft.addEventListener('click', (e) => {
+    e.stopPropagation();
     if (aboutCurrentPage === 1) {
       aboutPagesWrapper.classList.remove('show-cv');
       aboutCurrentPage = 0;
@@ -770,10 +769,19 @@ if (aboutArrowLeft) {
 // Initialize arrow visibility
 updateAboutArrows();
 
-// Reset to first page when About section is opened
+// Reset to first page when About section is opened or collapsed
 aboutBtn.addEventListener('click', (e) => {
   e.preventDefault();
   showSection('about');
+  // Reset to first page with animation
+  aboutPagesWrapper.classList.remove('show-cv');
+  aboutCurrentPage = 0;
+  setTimeout(() => updateAboutArrows(), 10); // Small delay for smooth transition
+});
+
+collapseBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+  // Reset About section when collapsing
   aboutPagesWrapper.classList.remove('show-cv');
   aboutCurrentPage = 0;
   updateAboutArrows();
