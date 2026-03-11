@@ -179,7 +179,7 @@ visibility: visible;
 }
 
 /* -------------------------------
-About Section - Horizontal Carousel
+About Section
 --------------------------------*/
 .about-section {
   position: absolute;
@@ -188,14 +188,15 @@ About Section - Horizontal Carousel
   transform: translate(-50%, -50%);
   width: 100%;
   max-width: min(90vw, 750px);
+  height: auto; 
+  max-height: none; 
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.8s ease;
   z-index: 1;
   visibility: hidden;
   overflow-x: hidden; 
-  overflow-y: visible;
-
+  overflow-y: visible; 
 }
 
 .about-section.active {
@@ -208,8 +209,8 @@ About Section - Horizontal Carousel
 .about-pages-wrapper {
   display: flex;
   width: 200%;
-  height: 100%; 
-  max-height: 60vh; 
+  height: auto%; 
+  max-height: none; 
   transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
