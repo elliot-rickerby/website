@@ -209,7 +209,7 @@ About Section
 .about-pages-wrapper {
   display: flex;
   width: 200%;
-  height: auto%; 
+  height: auto; 
   max-height: none; 
   transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -222,8 +222,8 @@ About Section
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  height: 100%; 
-  max-height: 60vh; 
+  height: auto;
+  max-height: none; 
 }
 
 /* First page (Intro) - Force centering */
