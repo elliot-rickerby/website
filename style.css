@@ -188,8 +188,6 @@ About Section - Horizontal Carousel
   transform: translate(-50%, -50%);
   width: 100%;
   max-width: min(90vw, 750px);
-  height: 60vh; 
-  max-height: 60vh; 
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.8s ease;
