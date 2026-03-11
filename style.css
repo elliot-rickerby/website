@@ -247,6 +247,8 @@ About Section
   padding-right: 25px; /* Extra space for scrollbar */
   justify-content: flex-start; /* Start from top */
   overflow: hidden; /* Hide overflow from page container */
+  height: 60vh;
+  max-height: 60vh;
 }
 
 /* Slide to second page */
